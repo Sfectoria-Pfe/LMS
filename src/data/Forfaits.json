@@ -1,0 +1,35 @@
+[
+    {"id":"1",
+"name": " Pack Basics",
+"description": "HTML, CSS, Bootstrap, JavaScript, JQuery.",   
+"Durée": "Onsite: 4 weeks ,  Online / weekend 8 weeks " ,
+"src":"https://img-b.udemycdn.com/course/750x422/1890026_f604_4.jpg",
+"price":"600dt"
+},
+
+{"id":"2",
+"name": " Pack FronTower",
+"description": "HTML, CSS, Bootstrap, JavaScript, ReactJs: level1, 2, 3 .",   
+"Durée": "Onsite : 4 weeks ,  Online / weekend 8 weeks " ,
+"src":"https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/321620237/original/42860651249ead9cb9abac6425ef84f478017b53/be-your-front-end-react-developer-using-html-css-bootstrap-and-javascript.png",
+"price":"600dt"
+},
+
+{"id":"3",
+"name": " Pack BackBridge",
+"description": "NodeJs, ExpressJs, Mongoose, MySQL, SQL, NestJs, Prisma, Turbo."
+,   
+"Durée": "Onsite : 4 weeks ,  Online/ weekend 8 weeks " ,
+"src":"https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/314696035/original/cacb3e33b05d57ef6dd17bdbbf3d5ea2cb3a6221/develop-backend-rest-api-using-node-js-nest-js-express-js-mongodb-and-mysql.png",
+"price":"600dt"
+},
+
+{"id":"4",
+"name": " Pack Full Stack",
+"description": "Front-end: Basic + ReactJs, Back-end: Back Bridge."
+,   
+"Durée": "Onsite : 4 weeks ,  Online/ weekend 8 weeks " ,
+"src":"https://www.boardinfinity.com/blog/content/images/2023/01/Frontend-vs-Backend.png",
+"price":"1500dt"
+}
+]

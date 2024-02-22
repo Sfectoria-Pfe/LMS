@@ -32,7 +32,7 @@ export default class AllReviews extends Component {
         <h1 style={{ fontFamily: "Brittany Signature" }}>Reviews</h1>
         <div
           style={{
-            height: "5px",
+            height: "3px",
             width: "80px",
             backgroundColor: "rgb(66, 177, 188)",
             marginRight: "42px",
@@ -40,7 +40,7 @@ export default class AllReviews extends Component {
         ></div> 
          </div>
 
-        <div className="d-flex justify-content-center gap-5">
+        <div className="d-flex flex-wrap  p-1 justify-content-center">
           {this.state.data.map((review) => (
             <OneReview
               id={review.id}

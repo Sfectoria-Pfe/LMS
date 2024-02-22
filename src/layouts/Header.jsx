@@ -4,7 +4,9 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from 'react-bootstrap/Button';
-import Athentifier from '../components/Athentifier';
+
+
+
 
 
 export default class Header extends Component {
@@ -37,7 +39,7 @@ export default class Header extends Component {
 
               </Nav>
 
-              <Button variant="outline-primary" onClick={() => this.handleShow()}>Connection</Button>
+              <Button variant="outline-primary" >Connection</Button>
 
             </Navbar.Collapse>
           </Container>

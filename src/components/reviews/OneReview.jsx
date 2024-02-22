@@ -15,7 +15,7 @@ export default class OneReview extends Component {
       <section>
 
 
-  {/* <div class="row text-center d-flex align-items-stretch">
+  <div class="row text-center d-flex align-items-stretch">
     <div class="col-md-4 mb-5 mb-md-0 d-flex align-items-stretch">
       <div class="card testimonial-card">
         <div class="card-up" style={{backgroundColor:" #9d789b"}}></div>
@@ -33,7 +33,7 @@ export default class OneReview extends Component {
         </div>
       </div>
     </div>
-    </div> */}
+    </div> 
 </section>
     )
   }
