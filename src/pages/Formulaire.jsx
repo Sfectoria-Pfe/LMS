@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import iset from "../assets/DSC_5148 (2).JPG";
 import Col from "react-bootstrap/Col";
@@ -6,92 +5,84 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Formation from "../components/Formation";
 
-export default class Formulaire extends Component {
-  constructor(props) {
-    super();
-  }
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
-  render() {
-    return (
+import React from "react";
+
+function Formulaire(props) {
+  return (
+    <div>
+      <Carousel data-bs-theme="dark">
+        {" "}
+        <Carousel.Item>
+          //{" "}
+          <img
+            className="d-block w-100"
+            src={props.src}
+            alt="First slide"
+            style={{ height: "35rem" }}
+          />{" "}
+          <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src=""
+            alt="Second slide"
+            style={{ height: "35rem" }}
+          />
+          <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="holder.js/800x400?text=Third slide&bg=e5e5e5"
+            alt="Third slide"
+            style={{ height: "35rem" }}
+          />
+          <Carousel.Caption></Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
       <div>
+        <h1 className="p-5 text-center">{props.name}</h1>
+      </div>
 
-        <Carousel data-bs-theme="dark">
-          <Carousel.Item>
-            <img
-             className="d-block w-100"
-              src={this.props.selectedItem.image}
-              alt="First slide"
-              style={{ height: "35rem" }}
-            />            <Carousel.Caption>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={iset}
-              alt="Second slide"
-              style={{ height: "35rem" }}
-            />
-            <Carousel.Caption>              
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              className="d-block w-100"
-              src="holder.js/800x400?text=Third slide&bg=e5e5e5"
-              alt="Third slide"
-              style={{ height: "35rem" }}
-            />
-            <Carousel.Caption>
-              
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+      <div className="d-flex justify-content-center p-5 flex-wrap align-items-center flex-wrap">
+        <h1 style={{ fontFamily: "Brittany Signature" }}>Pre-registration</h1>
+        <div
+          style={{
+            height: "5px",
+            width: "80px",
+            backgroundColor: "rgb(66, 177, 188)",
+            marginRight: "42px",
+          }}
+        ></div>
+      </div>
+    </div>
+  );
+}
 
-        <div>
-        <h1 className="p-5 text-center">{this.props.selectedItem.title}</h1>
-        </div>
+export default Formulaire;
 
-        <div className="d-flex justify-content-center p-5 flex-wrap align-items-center flex-wrap">
-          <h1 style={{ fontFamily: "Brittany Signature" }}>Pre-registration</h1>
-          <div
-            style={{
-              height: "5px",
-              width: "80px",
-              backgroundColor: "rgb(66, 177, 188)",
-              marginRight: "42px",
-            }}
-          ></div>
-        </div>
+// export default class Formulaire extends Component {
+//   constructor(props) {
+//     super();
+//   }
+//   componentDidMount() {
+//     window.scrollTo(0, 0)
+//   }
+//   render() {
+//     return (
+//       <div>
 
+//
 
+// </div>)}}
 
-
-
-
-
-        
-</div>)}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-
-        {/* <div className="d-flex justify-content-around gap-5 p-5 align-items-center"> */}
-          {/* <div  style={{width:"30rem", backgroundColor:"#FFFFF"}}  className="d-flex flex-wrap gap-4  ">
+{
+  /* <div className="d-flex justify-content-around gap-5 p-5 align-items-center"> */
+}
+{
+  /* <div  style={{width:"30rem", backgroundColor:"#FFFFF"}}  className="d-flex flex-wrap gap-4  ">
               
                 <img src={this.props.selectedItem.html} alt="" width="35px" style={{height:"35px"}}/>
                 <img src={this.props.selectedItem.css} alt="" width="35px" style={{height:"35px"}}/>
@@ -104,11 +95,11 @@ export default class Formulaire extends Component {
                 <img src={this.props.selectedItem.github} alt="" width="35px" style={{height:"35px"}}/>
                 
               
-            </div> */}
+            </div> */
+}
 
-         
-
-{/*           
+{
+  /*           
         </div>
 
         <div class="container-xxl py-5">
@@ -165,4 +156,5 @@ export default class Formulaire extends Component {
       </div>
     );
   }
-} */}
+} */
+}

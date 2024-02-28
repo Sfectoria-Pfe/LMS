@@ -5,30 +5,23 @@
       "name": "HTML, CSS & Bootstrap",
       "description": "We lay the foundations for your web development journey. By mastering HTML and CSS, you will address the key elements of web building." ,
       "src":"https://img-c.udemycdn.com/course/480x270/3489650_48ac_3.jpg",
-      "price":"150dt",
-      "html":"https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/html-icon.png",
-      "css":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs-53NX0aNzFeyVw81k3PwNHdjhtdFxHhC1z-_0AsSBw&s",
-      "bootstrap":"https://cdn-icons-png.flaticon.com/512/5968/5968672.png",
-      
-      "react":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png",
-      "node":"https://e7.pngegg.com/pngimages/493/735/png-clipart-node-js-javascript-express-js-mongodb-github-github-angle-text.png",
-      "git":"https://git-scm.com/images/logos/downloads/Git-Icon-1788C.png",
-      "github":"https://cdn-icons-png.flaticon.com/512/25/25231.png"
+      "price":"150dt"
+     
       
     },
     {"id":"2",
       "name": "JavaScript",
       "description": "JavaScript is a versatile programming language that allows you to add dynamic features to web pages.",
     "src":"https://obtk.pl/wp-content/uploads/2023/02/javascript-a-seo.png",
-      "price":"300dt",
-      "js":"https://static.vecteezy.com/system/resources/previews/027/127/463/non_2x/javascript-logo-javascript-icon-transparent-free-png.png"
+      "price":"300dt"
+      
     },
     {"id":"3",
       "name": "JQuery",
       "description": "Use jQuery selectors and methods to effectively and dynamically manipulate the Document Object Model (DOM) of a web page.      " ,
       "src":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZnRFCWUueyTUHL3QgNQhlv4QmaxgsFEvfAbAwTAP8SJZl8HzIWnE3rm0Qu4zxvKBbFtY&usqp=CAU",
-      "price":"150dt",
-      "jquery":"https://cdn.iconscout.com/icon/free/png-256/free-jquery-8-1175153.png"
+      "price":"150dt"
+      
     },
     {"id":"4",
       "name": "Summary of: HTML, CSS, Bootstrap, & JavaScript",

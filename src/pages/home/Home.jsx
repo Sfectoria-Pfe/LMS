@@ -7,23 +7,30 @@ import AllCards from '../../components/AllCards'
 import OurTeachers from '../../components/OurTeachers'
 import AllReviews from '../../components/reviews/AllReviews'
 
+
 export default class Home extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+      super()
+          
+
     }
-    render(props) {
-        return (
 
-            <div>
-                <CarousselSfectoria />
-                <Categories />
-                <AboutHome />
-                <Allpacks  showForm={this.props.showForm}/>
-                <AllCards showForm={this.props.showForm} />
-                <OurTeachers />
-                <AllReviews />
-            </div>
-
-        )
+    
+    render() {
+      return (
+        <div>
+          
+          <CarousselSfectoria />
+          <Categories />
+          <AboutHome />
+          <Allpacks />
+          <AllCards
+            // showForm={this.props.showForm}
+            searchValue={this.props.searchValue}
+          />
+          <OurTeachers />
+          <AllReviews />
+        </div>
+      );
     }
 }
