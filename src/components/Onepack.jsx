@@ -27,13 +27,11 @@ export default class OneCard extends Component {
           <Card style={{ width: '20rem'}} className='border border-info'>
           <Card.Img variant="top" src={this.props.image}  style={{height:'12rem'}}/>
           <Card.Body >
-            <Card.Title style={{width:'18rem', height:'48px', textAlign: "center"}}>{this.props.nom}</Card.Title>
-            <Card.Text style={{width:'18rem', height:'44px', textAlign: "center"}}>
+            <Card.Title style={{width:'18rem', height:'70px', textAlign: "center"}}>{this.props.nom}</Card.Title>
+            <Card.Text className='py-3' style={{width:'18rem', height:'12rem', textAlign: "center"}}>
               {this.props.descrp}
             </Card.Text>
-            <Card.Text style={{width:'18rem', height:'44px' , textAlign: "center"}}>
-              {this.props.price}
-            </Card.Text>
+           
             <div className='d-flex justify-content-around'>
             <Button style={{width:'7rem'}} variant="info"
               onClick={() => {

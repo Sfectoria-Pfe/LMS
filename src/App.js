@@ -13,7 +13,10 @@ import OneReview from "./components/reviews/OneReview";
 import AllReviews from "./components/reviews/AllReviews";
 import AboutHome from "./components/AboutHome";
 import Home from "./pages/home/Home";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AboutUs from "./pages/AboutUs";
+import Courses from "./pages/Courses";
+import Course from "./components/OneCard"
 
 
 
@@ -22,40 +25,59 @@ class App extends Component {
     super()
     this.state = {
       showform: false,
-      selectedItem: {}
+      selectedItem: {},
+      searchValue :"",
     };
-    this.showHome = this.showHome.bind(this);
-    this.showForm = this.showForm.bind(this);
+    // this.showHome = this.showHome.bind(this);
+    // this.showForm = this.showForm.bind(this);
+    this.changeSearchValue = this.changeSearchValue.bind(this);
   }
 
-  showHome() {
-    this.setState({ showform: false });
-  }
-  showForm(item) {
-    this.setState({ showform: true, selectedItem: item });
+
+
+  // showHome() {
+  //   this.setState({ showform: false });
+  // }
+  // showForm(item) {
+  //   this.setState({ showform: true, selectedItem: item });
+  // }
+
+  changeSearchValue(e) {
+    this.setState({ searchValue: e.target.value });
   }
 
   render() {
     return (
       <div>
-         
-        <Header />
-        
-        
-        {this.state.showform === false ? (
-          <Home showForm={this.showForm} />
-        ) : (
-          <Formulaire showHome={this.showHome} selectedItem={this.state.selectedItem} />
-        )}
-  
+        <BrowserRouter>
+          <Header changeValueSearch={this.changeSearchValue} />
+
+          <Routes>
+            <Route
+              index
+              element={
+                // this.state.showform === false ? (
+                <Home
+                  // showForm={this.showForm}
+                  searchValue={this.state.searchValue}
+                />
+                // ) : (
+                //   <Formulaire
+                //     showHome={this.showHome}
+                //     selectedItem={this.state.selectedItem}
+                //   />
+                // )
+              }
+            />
+
+            <Route path="aboutus" element={<AboutUs />} />
+            <Route path="courses" element={<Courses />} />
+            <Route path="/:id" element={<Formulaire/>} />
+          </Routes>
+        </BrowserRouter>
+
         <FooterSfectoria />
-        
-
-
-
       </div>
-
-
     );
   }
 }
