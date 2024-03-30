@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchlessons = createAsyncThunk("fetchlessons", async () => {
+export const fetchLessons = createAsyncThunk("fetchlessons", async () => {
   try {
     const response = await axios.get("http://localhost:5000/lessons");
     return response.data;
@@ -59,7 +59,7 @@ export const  lessonSlice = createSlice({
 
   reducers: {},
   extraReducers(builder) {
-    builder.addCase(fetchlessons.fulfilled, (state, action) => {
+    builder.addCase(fetchLessons.fulfilled, (state, action) => {
       state. lessons.items = action.payload;
     });
     // builder.addCase(fetchprogram.fulfilled, (state, action) => {
