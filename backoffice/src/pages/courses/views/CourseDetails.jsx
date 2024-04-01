@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import video1 from "../../../assets/videos/html css botstrap.mp4";
 import Card from "react-bootstrap/Card";
+import { MDBContainer } from "mdb-react-ui-kit";
 
 export default function CourseDetails() {
   const { id } = useParams();
@@ -38,7 +39,7 @@ export default function CourseDetails() {
       </div>
 
       <div className="d-flex justify-content-center ">
-        <video
+        {/* <video
           id="bannerVideo"
           autoPlay
           loop
@@ -47,7 +48,12 @@ export default function CourseDetails() {
           className="px-5"
         >
           <source src={video1} type="video/mp4" />
-        </video>
+        </video> */}
+        <MDBContainer>
+          <div className="ratio ratio-16x9">
+            <iframe src={video1} title="Vimeo video" allowfullscreen></iframe>
+          </div>
+        </MDBContainer>
 
         {/* <div>
           <video src={video1} autoplay="true" />
@@ -69,7 +75,12 @@ export default function CourseDetails() {
         <div className="px-3">
           <Accordion className=" d-flex justify-content-center">
             <Accordion.Item eventKey="0" className="w-100">
-              <Accordion.Header>{lesson.title}</Accordion.Header>
+              <Accordion.Header>
+                <div className="d-flex gap-3" >
+                  <img src={lesson.imageURL} alt="" style={{ width: "4rem" }} />
+                  <p >{lesson.title}</p>
+                </div>
+              </Accordion.Header>
               <Accordion.Body>
                 <div className="d-flex justify-content-center">
                   <img
@@ -92,7 +103,6 @@ export default function CourseDetails() {
                     <Card.Text style={{ width: "18rem", height: "7rem" }}>
                       hh
                     </Card.Text>
-                   
                   </Card.Body>
                 </Card>
               </Accordion.Body>
