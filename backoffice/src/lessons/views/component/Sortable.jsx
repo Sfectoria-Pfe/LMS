@@ -7,7 +7,7 @@ export default function Sortable({id,title,tasks,list,setList}) {
         key={id}
         className="col-5 bg-light"
         data-group={id}
-        style={{ minHeight: 150 }}
+        style={{ height: "100%" }}
       >
         <div className="p-2 ">
           <h4 className="text-center">{title}</h4>

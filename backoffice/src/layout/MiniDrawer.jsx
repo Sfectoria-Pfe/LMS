@@ -32,6 +32,7 @@ import { FaUsersGear } from "react-icons/fa6";
 import { PiPathBold } from "react-icons/pi";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import logo from "../assets/logoblanc.png";
 
 const drawerWidth = 240;
 
@@ -215,61 +216,75 @@ export default function MiniDrawer({ open, setOpen }) {
           </div>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" setOpen={setOpen} open={open} style={{backgroundColor:"black"}} >
-        <DrawerHeader>
-          <IconButton onClick={() => setOpen(false)}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          <ListItem disablePadding onClick={() => navigate("/")}>
-            <ListItemButton>
-              <ListItemIcon>
-                <MdSpaceDashboard />
-              </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding onClick={() => navigate("/courses")}>
-            <ListItemButton>
-              <ListItemIcon>
-                <MdPlayLesson />
-              </ListItemIcon>
-              <ListItemText primary="Courses" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding onClick={() => navigate("/programs")}>
-            <ListItemButton>
-              <ListItemIcon>
-                <PiPathBold />
-              </ListItemIcon>
-              <ListItemText primary="Programs" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding onClick={() => navigate("/sessions")}>
-            <ListItemButton>
-              <ListItemIcon>
-                <SiSessionize />
-              </ListItemIcon>
-              <ListItemText primary="Sessions" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding onClick={() => navigate("/users")}>
-            <ListItemButton>
-              <ListItemIcon>
-                <FaUsersGear />
-              </ListItemIcon>
-              <ListItemText primary="All users" />
-            </ListItemButton>
-          </ListItem>
-        </List>
+      <Drawer
+        variant="permanent"
+        setOpen={setOpen}
+        open={open}
+        sx={{ backgroundColor: "black" }}
+      >
+        <div style={{ backgroundColor: "#0f1924", height: "100%" }}>
+          <DrawerHeader>
+            <div>
+              <img src={logo} alt="" style={{ width: "180px" }} />
+            </div>
+            <IconButton className="text-white" onClick={() => setOpen(false)}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            <ListItem disablePadding onClick={() => navigate("/")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <MdSpaceDashboard style={{ color: "#ffc107" }} />
+                </ListItemIcon>
+                <ListItemText className="text-white" primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding onClick={() => navigate("/courses")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <MdPlayLesson style={{ color: "#ffc107" }} />
+                </ListItemIcon>
+                <ListItemText className="text-white" primary="Courses" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding onClick={() => navigate("/programs")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PiPathBold style={{ color: "#ffc107" }} />
+                </ListItemIcon>
+                <ListItemText className="text-white" primary="Programs" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem
+              disablePadding
+              style={{}}
+              onClick={() => navigate("/sessions")}
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  <SiSessionize style={{ color: "#ffc107" }} />
+                </ListItemIcon>
+                <ListItemText className="text-white" primary="Sessions" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding onClick={() => navigate("/users")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <FaUsersGear style={{ color: "#ffc107" }} />
+                </ListItemIcon>
+                <ListItemText className="text-white" primary="All users" />
+              </ListItemButton>
+            </ListItem>
+          </List>
 
-        <Divider />
+          <Divider />
+        </div>
       </Drawer>
       {renderMenu}
     </Box>

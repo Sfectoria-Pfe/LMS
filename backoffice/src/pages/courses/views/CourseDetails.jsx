@@ -15,6 +15,7 @@ export default function CourseDetails() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchcourse(id));
+    window.scrollTo(0, 0);
   }, [dispatch]);
 
   return (
