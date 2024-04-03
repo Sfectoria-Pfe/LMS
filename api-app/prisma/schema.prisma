@@ -14,15 +14,17 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  image     String  @db.LongText
-  firstName String
-  lastName  String
-  email     String  @unique
-  password  String
-  phone     Int?
-  address   String?
-  role      String
+  id          Int           @id @default(autoincrement())
+  image       String        @db.LongText
+  firstName   String
+  lastName    String
+  email       String        @unique
+  password    String
+  phone       Int?
+  address     String?
+  role        String
+  Msgs        Msgs[]
+  SessionUser SessionUser[]
 }
 
 model Teacher {
@@ -74,11 +76,19 @@ model Session {
   imageURL    String  @db.LongText
   programId   Int
   program     Program @relation(fields: [programId], references: [id], onDelete: Cascade)
-  weeks  Weeks[]
+  Weeks       Weeks[]
+  Msgs        Msgs[]
 
-  // weeksId      Int
-  // weeks        Weeks?         @relation(fields: [weeksId], references: [id], onDelete: Cascade)
- 
+  SessionUser SessionUser[]
+}
+
+model SessionUser {
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+  sessionId Int
+  session   Session @relation(fields: [sessionId], references: [id])
+
+  @@unique([userId, sessionId])
 }
 
 model Weeks {
@@ -112,6 +122,15 @@ model LessonContent {
   lessonId      Int
   lesson        Lesson?      @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   WeekContent WeekContent[]
+}
+
+model Msgs {
+  id        Int     @id @default(autoincrement())
+  sessionId Int
+  session   Session @relation(fields: [sessionId], references: [id])
+  senderId  Int
+  sender    User    @relation(fields: [senderId], references: [id])
+  content   String
 }
 
 model typeContent {

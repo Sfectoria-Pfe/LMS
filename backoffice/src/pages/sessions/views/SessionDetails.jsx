@@ -1,11 +1,12 @@
-import React ,{ useEffect } from 'react'
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {  fetchsession } from '../../../store/sessions';
+import { fetchsession } from "../../../store/sessions";
 
 import Accordion from "react-bootstrap/Accordion";
 import video1 from "../../../assets/videos/html css botstrap.mp4";
 import Card from "react-bootstrap/Card";
+import ChatSession from "../components/ChatSession";
 
 function SessionDetails() {
   const { id } = useParams();
@@ -19,7 +20,7 @@ function SessionDetails() {
 
   return (
     <div>
-  <div className="d-flex">
+      <div className="d-flex">
         <p className="px-5 py-4" style={{ fontSize: "2rem" }}>
           {session?.title}
         </p>
@@ -39,55 +40,40 @@ function SessionDetails() {
       </div>
       <p className="px-5 py-4">Description: {session?.description}</p>
 
-     
-        <div className="px-3">
-          <Accordion className=" d-flex justify-content-center">
-            <Accordion.Item eventKey="0" className="w-100">
-              <Accordion.Header>{session?.program.title}</Accordion.Header>
-              <Accordion.Body>
-                <div className="d-flex justify-content-center">
-                  <img
-                    src={session?.program.imageURL}
-                    alt=""
-                    style={{ width: "50rem", height: "25rem" }}
-                  />
-                </div>
-                <Card style={{ width: "19rem", height: "15rem" }}>
-                  <Card.Img
-                    variant="top"
-                    src=""
-                    style={{ height: "11rem" }}
-                    className="thumb-img"
-                  />
-                  <Card.Body>
-                   
-                    <Card.Text style={{ width: "18rem", height: "7rem" }}>
-                      hh
-                    </Card.Text>
-                   
-                  </Card.Body>
-                </Card>
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-          <p className="text-center"></p>
-        </div>
+      <div className="px-3">
+        <Accordion className=" d-flex justify-content-center">
+          <Accordion.Item eventKey="0" className="w-100">
+            <Accordion.Header>{session?.program.title}</Accordion.Header>
+            <Accordion.Body>
+              <div className="d-flex justify-content-center">
+                <img
+                  src={session?.program.imageURL}
+                  alt=""
+                  style={{ width: "50rem", height: "25rem" }}
+                />
+              </div>
+              <Card style={{ width: "19rem", height: "15rem" }}>
+                <Card.Img
+                  variant="top"
+                  src=""
+                  style={{ height: "11rem" }}
+                  className="thumb-img"
+                />
+                <Card.Body>
+                  <Card.Text style={{ width: "18rem", height: "7rem" }}>
+                    hh
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+        <p className="text-center"></p>
+      </div>
 
-
+      <ChatSession />
     </div>
-  )
+  );
 }
 
-export default SessionDetails
-
-
-
-
-
-
-
- 
-
-
- 
-
+export default SessionDetails;

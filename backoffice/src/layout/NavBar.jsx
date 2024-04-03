@@ -1,7 +1,4 @@
-
-  
-
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import Form from "react-bootstrap/Form";
 import { FaSearch } from "react-icons/fa";
@@ -20,7 +17,15 @@ import {
 import { useSelector } from "react-redux";
 import Button from "react-bootstrap/esm/Button";
 
-function NavBar({ isOpen, setIsOpen }) {
+function NavBar({ isOpen, setIsOpen,socket }) {
+  const [notif,setNotif]=useState('')
+  const myId=useSelector(state=>state.auth.me?.id)
+  useEffect(()=>{
+    socket.on('msg-received/'+myId,()=>{
+      console.log('wsel');
+      setNotif('mgs')
+    })
+  },[socket])
   const user = useSelector((store) => store.auth.me);
   const navigate = useNavigate();
   return (
@@ -71,7 +76,7 @@ function NavBar({ isOpen, setIsOpen }) {
             <FaMessage />
           </div>
           <div>
-            <IoNotifications />
+            <IoNotifications />{notif}
           </div>
         </div>
         {/* <p className="m-0">Welcome {user.firstName} ✨</p> */}
