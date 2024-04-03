@@ -21,6 +21,7 @@ export default function AddProgram() {
 
   return (
     <div>
+      <h1 className='text-center py-4' style={{ color: "#00184b" }}>Add New program</h1>
       <div className="d-flex justify-content-center">
         <div className="px-5 " style={{ width: "70rem" }}>
           <div className="card " style={{ height: "33rem" }}>
@@ -52,8 +53,6 @@ export default function AddProgram() {
               </div>
 
               <div className="w-50 py-3">
-                <h1 style={{ color: "#00184b" }}>Add New Course</h1>
-
                 <div className="py-2">
                   <Form>
                     <FormGroup className="mb-3" controlId="formBasicEmail">
