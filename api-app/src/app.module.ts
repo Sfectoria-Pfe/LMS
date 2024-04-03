@@ -9,9 +9,10 @@ import { TeachersModule } from './teachers/teachers.module';
 import { AuthModule } from './auth/auth.module';
 import { SessionsModule } from './sessions/sessions.module';
 import { LessonsModule } from './lessons/lessons.module';
+import { ChatsModule } from './chats/chats.module';
 
 @Module({
-  imports: [UsersModule, PrismaModule, CoursesModule, ProgramsModule, TeachersModule, AuthModule, SessionsModule, LessonsModule],
+  imports: [UsersModule, PrismaModule, CoursesModule, ProgramsModule, TeachersModule, AuthModule, SessionsModule, LessonsModule, ChatsModule],
   controllers: [AppController],
   providers: [AppService],
 })
