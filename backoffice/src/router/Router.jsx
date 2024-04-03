@@ -38,6 +38,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
+import AddSession from "../pages/sessions/views/AddSession";
 
 export const UserContext = createContext();
 
@@ -97,8 +98,8 @@ console.log(user,"this is user")
 
                   <Route path="sessions" element={<Session />}>
                     <Route index element={<SessionList />} />
-                   
-                    <Route path=":id" element={<SessionDetails />} />
+                    <Route path="addsession" element={<AddSession />} />
+                    <Route path="sessiondetails/:id" element={<SessionDetails />} />
                   </Route>
 
                   <Route path="users" element={<Users />}>

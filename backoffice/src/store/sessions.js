@@ -14,15 +14,15 @@ export const fetchSessions = createAsyncThunk("fetchSessions", async () => {
 });
 
 //one session
-// export const fetchsession = createAsyncThunk("fetchsession", async (id) => {
-//   try {
-//     const response = await axios.get("http://localhost:5000/sessions/" + id);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching session:", error);
-//     throw error;
-//   }
-// });
+export const fetchsession = createAsyncThunk("fetchsession", async (id) => {
+  try {
+    const response = await axios.get("http://localhost:5000/sessions/" + id);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching session:", error);
+    throw error;
+  }
+});
 
 //delete session
 
@@ -64,16 +64,16 @@ export const sessionAdded = (session) => ({
 
 
 
-// export const sessionAddFailed = (error) => ({
-//   type: SESSION_ADD_FAILED,
-//   payload: error,
-// });
-// export const sendsession = createAsyncThunk("addsession", async (body) => {
-//   const response = await axios.post("http://localhost:5000/sessions", body);
-//   console.log(response.data," this is session data");
-//   return response.data;
+export const sessionAddFailed = (error) => ({
+  type: SESSION_ADD_FAILED,
+  payload: error,
+});
+export const sendsession = createAsyncThunk("addsession", async (body) => {
+  const response = await axios.post("http://localhost:5000/sessions", body);
+  console.log(response.data," this is session data");
+  return response.data;
   
-// });
+});
 
 export const sessionsSlice = createSlice({
   name: "sessions",
@@ -91,12 +91,12 @@ export const sessionsSlice = createSlice({
       state.sessions.items = action.payload;
     });
 
-//     builder.addCase(fetchsession.fulfilled, (state, action) => {
-//       state.session = action.payload;
-//     });
-//     builder.addCase(sendsession.fulfilled, (state, action) => {
-//       state.session = action.payload;
-//     });
+    builder.addCase(fetchsession.fulfilled, (state, action) => {
+      state.session = action.payload;
+    });
+    builder.addCase(sendsession.fulfilled, (state, action) => {
+      state.session = action.payload;
+    });
 //     builder.addCase(deletesession.fulfilled, (state, action) => {
 //    state.session = action.payload;
 //     });
