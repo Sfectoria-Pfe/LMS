@@ -73,7 +73,7 @@ export default function Router() {
                 <Route index element={<Dashboard />} />
                 <Route path="courses" element={<Course />}>
                   <Route index element={<CourseList />} />
-                  <Route path="add" element={<AddCourse />} />
+                  {/* <Route path="add" element={<AddCourse />} /> */}
                   <Route path="details/:id" element={<CourseDetails />} />
                   <Route path=":courseId/lesson" element={<LessonsList />} />
                   <Route path="update/:id" element={<UpdateCourse />} />

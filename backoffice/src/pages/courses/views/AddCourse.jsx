@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Form from "react-bootstrap/Form";
@@ -34,82 +36,82 @@ export default function AddCourse() {
   console.log(course);
   const [preview, setpreview] = useState(null);
   return (
-    <div className="d-flex justify-content-center">
-      <div className="px-5 " style={{ width: "70rem" }}>
-        <div className="card " style={{ height: "33rem" }}>
-          <div className=" d-flex">
-            <div
-              className="w-50 d-flex flex-column gap-5 mt-5 flex-wrap justify-content-center align-items-center"
-              style={{ height: "27rem" }}
-            >
-              <img src={addcourse} alt="" style={{ width: "17rem" }} />
-              <div className="d-flex px-5 gap-4">
-                <div>
-                  <button className="btn btn-primary">back</button>
-                </div>
-                <div>
-                  <button
-                    className="btn btn-primary"
-                    type="submit"
-                    
-                    
-                    onClick={() => {
-                      dispatch(sendcourse(course)).then((res) => {
-                        console.log(res, "response")
-                        if (!res.error) navigate(`/courses/${res.payload.id}/lesson`); 
-                      });
-                    }}
-                  >
-                    next
-                  </button>
+    <div>
+      <h1 className="text-center py-5" style={{ color: "#00184b" }}>Add New Course</h1>
+      <div className="d-flex justify-content-center">
+        <div className="px-5 " style={{ width: "70rem" }}>
+          <div className="card " style={{ height: "33rem" }}>
+            <div className=" d-flex">
+              <div
+                className="w-50 d-flex flex-column gap-5 mt-5 flex-wrap justify-content-center align-items-center"
+                style={{ height: "27rem" }}
+              >
+                <img src={addcourse} alt="" style={{ width: "17rem" }} />
+                <div className="d-flex px-5 gap-4">
+                  <div>
+                    <button className="btn btn-primary">back</button>
+                  </div>
+                  <div>
+                    <button
+                      className="btn btn-primary"
+                      type="submit"
+                      onClick={() => {
+                        dispatch(sendcourse(course)).then((res) => {
+                          console.log(res, "response");
+                          if (!res.error)
+                            navigate(`/courses/${res.payload.id}/lesson`);
+                        });
+                      }}
+                    >
+                      next
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="w-50 py-3">
-              <h1 style={{ color: "#00184b" }}>Add New Course</h1>
-
-              <div className="py-2">
-                <Form>
-                  <FormGroup className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>image link</Form.Label>
-                    <input
-                      className="w-75 form-control"
-                      type="text"
-                      placeholder="please enter the image link"
-                      name="imageURL"
-                      onChange={handleChange}
-                    />
-                    <Form.Label>Course title</Form.Label>
-                    <input
-                      className="w-75 form-control"
-                      type="text"
-                      placeholder="please enter the course title"
-                      name="title"
-                      onChange={handleChange}
-                    />
-                    <Form.Label className="py-3 ">
-                      Course description
-                    </Form.Label>
-                    <input
-                      className="w-75 form-control"
-                      style={{ height: "5rem" }}
-                      type="text"
-                      placeholder="please enter the Course description"
-                      name="description"
-                      onChange={handleChange}
-                    />
-                    <Form.Label className="py-1 ">Price</Form.Label>
-                    <input
-                      className="w-75 form-control"
-                      type="number"
-                      min={0}
-                      onChange={handleChange}
-                      name="price"
-                      placeholder="please enter the course name"
-                    />
-                  </FormGroup>
-                </Form>
+              <div className="w-50 py-3">
+                <div className="py-2">
+                  <Form>
+                    <FormGroup className="mb-3" controlId="formBasicEmail">
+                      <Form.Label>image link</Form.Label>
+                      <input
+                        className="w-75 form-control"
+                        type="text"
+                        placeholder="please enter the image link"
+                        name="imageURL"
+                        onChange={handleChange}
+                      />
+                      <Form.Label>Course title</Form.Label>
+                      <input
+                        className="w-75 form-control"
+                        type="text"
+                        placeholder="please enter the course title"
+                        name="title"
+                        onChange={handleChange}
+                      />
+                      <Form.Label className="py-3 ">
+                        Course description
+                      </Form.Label>
+                      <input
+                        className="w-75 form-control"
+                        style={{ height: "5rem" }}
+                        type="text"
+                        placeholder="please enter the Course description"
+                        name="description"
+                        onChange={handleChange}
+                      />
+                      <Form.Label className="py-1 ">Price</Form.Label>
+                      <input
+                        className="w-75 form-control"
+                        type="number"
+                        min={0}
+                        onChange={handleChange}
+                        name="price"
+                        placeholder="please enter the course name"
+                      />
+                    </FormGroup>
+                  </Form>
+                </div>
               </div>
             </div>
           </div>
