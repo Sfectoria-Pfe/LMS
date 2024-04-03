@@ -10,7 +10,10 @@ export class CreateProgramDto {
     description : string;
     @ApiProperty()
     @IsNotEmpty()
-    duration :string;
+    durationOnsite: string;
+    @ApiProperty()
+    @IsNotEmpty()
+    durationOnline: string;
     @ApiProperty()
     @IsNotEmpty()
     imageURL: string;

@@ -36,6 +36,7 @@ import AddLessons from "../lessons/views/AddLessons";
 
 import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
+import AddSession from "../pages/sessions/views/AddSession";
 
 export const UserContext = createContext();
 
@@ -73,7 +74,7 @@ export default function Router() {
                 <Route index element={<Dashboard />} />
                 <Route path="courses" element={<Course />}>
                   <Route index element={<CourseList />} />
-                  <Route path="add" element={<AddCourse />} />
+                  {/* <Route path="add" element={<AddCourse />} /> */}
                   <Route path="details/:id" element={<CourseDetails />} />
                   <Route path=":courseId/lesson" element={<LessonsList />} />
                   <Route path="update/:id" element={<UpdateCourse />} />

@@ -101,11 +101,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteprogram, fetchprograms } from "../../../store/Program";
-import Card from "react-bootstrap/Card";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 import { Link, NavLink, useNavigate } from "react-router-dom";
 // import PopUp from "./PopUp";
-import Button from "react-bootstrap/Button";
+
 import Modal from "react-bootstrap/Modal";
 
 export default function ProgramsList() {
@@ -129,50 +134,77 @@ export default function ProgramsList() {
   };
   return (
     <div>
-      <div className="px-5">
-        <button className="btn btn-primary" onClick={() => navigate("add")}>
-          Add program
-        </button>
+      <div className="d-flex justify-content-between">
+        <h3
+          className="p-5"
+          style={{
+            fontFamily: "Segoe UI",
+            color: "#11354D",
+            textDecoration: "underline",
+          }}
+        >
+          Welcome to programs page
+        </h3>
+        <div className=" p-5">
+          <button
+            className="btn"
+            style={{ backgroundColor: "#ffc107" }}
+            onClick={() => navigate("add")}
+          >
+            + Add new program
+          </button>
+        </div>
       </div>
       <div className="d-flex flex-wrap justify-content-center py-5 gap-5 ">
         {programs.map((card) => (
-          <Card style={{ width: "21rem", height: "34rem" }}>
-            <Card.Img
-              variant="top"
-              src={card.imageURL}
-              style={{ height: "12rem" }}
-              className="thumb-img"
+          <Card sx={{ maxWidth: 345 }}>
+            <CardMedia
+              style={{ objectFit: "cover" }}
+              component="img"
+              alt="green iguana"
+              height="140"
+              image={card.imageURL}
             />
-            <Card.Body>
-              <Card.Title style={{ width: "18rem", height: "5rem" }}>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
                 {card.title}
-              </Card.Title>
-              <Card.Text style={{ width: "18rem", height: "11rem" }}>
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
                 {card.description}
-              </Card.Text>
-              <div className="d-flex flex-wrap gap-3">
-                <Link to={`${card.id}`}>
-                  <button className="btn btn-primary">See more</button>
-                </Link>
-                <button
-                  className="btn btn-warning"
-                  onClick={() => {
-                    navigate(`update/${card.id}`);
-                  }}
-                >
-                  Update
-                </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={() => {
-                    setModalShow(true);
-                    deletedIdfunc(card.id);
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
-            </Card.Body>
+              </Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                onClick={() => {
+                  navigate(`details/${card.id}`);
+                }}
+                variant="outlined"
+              >
+                Learn More
+              </Button>
+              <Button
+                size="small"
+                onClick={() => {
+                  navigate(`update/${card.id}`);
+                }}
+                variant="outlined"
+                color="secondary"
+              >
+                Update
+              </Button>
+              <Button
+                size="small"
+                onClick={() => {
+                  setModalShow(true);
+                  deletedIdfunc(card.id);
+                }}
+                variant="outlined"
+                color="error"
+              >
+                Delete
+              </Button>
+            </CardActions>
           </Card>
         ))}
       </div>

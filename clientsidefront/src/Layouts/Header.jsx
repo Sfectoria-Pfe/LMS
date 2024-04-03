@@ -10,7 +10,7 @@ import logo from '../assets/logo.png'
 
 
 function Header(props) {
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -28,9 +28,9 @@ function Header(props) {
               <Nav.Link to="/aboutus" as={NavLink}>
                 About us
               </Nav.Link>
-              <Nav.Link to="/courses" as={NavLink}>
+              {/* <Nav.Link to="/courses" as={NavLink}>
                 Courses
-              </Nav.Link>
+              </Nav.Link> */}
 
               {/* <Col xs="auto" className="px-4">
                 <Form.Control
@@ -43,7 +43,15 @@ function Header(props) {
                 />
               </Col> */}
             </Nav>
-            <Button variant="outline-primary">Connection</Button>
+            <a href="http://localhost:3000/">
+
+            <Button
+              variant="outline-primary"
+              
+            >
+              Connection
+            </Button>
+            </a>
           </Navbar.Collapse>
         </Container>
       </Navbar>

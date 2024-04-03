@@ -19,7 +19,7 @@ export default function Router() {
               <Route index element={<Home />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path=":id" element={<CourseDetails />} />
-              <Route path=":id" element={<ProgramDetails />} />
+              <Route path="program/:id" element={<ProgramDetails />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>

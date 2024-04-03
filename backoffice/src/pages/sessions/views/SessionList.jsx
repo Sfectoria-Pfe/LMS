@@ -31,7 +31,7 @@ export default function CourseList() {
   return (
     <div>
       <div className="px-5">
-        <button className="btn btn-primary" onClick={() => navigate("add")}>
+        <button className="btn btn-primary" onClick={() => navigate("addsession")}>
           Add session
         </button>
       </div>
@@ -51,7 +51,7 @@ export default function CourseList() {
                 {card.description}
               </Card.Text>
               <div className="d-flex gap-3">
-                <Link to={`details/${card.id}`}>
+                <Link to={`sessiondetails/${card.id}`}>
                   <button className="btn btn-primary">See more</button>
                 </Link>
                 <button

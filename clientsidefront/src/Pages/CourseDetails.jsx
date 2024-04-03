@@ -46,14 +46,16 @@ export default function CourseDetails() {
     window.scrollTo(0, 0);
   }, []);
   return (
+
+
+    
     <div>
-      <div className="px-5 py-4"></div>
-      <div>
-        <div className="d-flex justify-content-center py-5 align-items-center flex-wrap">
-          <h3 style={{ fontFamily: "Brittany Signature" }}>
-            {state.data?.title}
-          </h3>
-          <div
+
+
+<Card className="py-4 px-3   justify-content-center">
+      <Card.Header className="d-flex justify-content-center" ><h3 style={{ fontFamily: "Brittany Signature" }}>
+           <div>{state.data?.title}</div> 
+           <div
             style={{
               height: "5px",
               width: "80px",
@@ -61,41 +63,43 @@ export default function CourseDetails() {
               marginRight: "42px",
             }}
           ></div>
-        </div>
-
-        <div className="px-3">
-          <h1> {state.data?.description} </h1>
-          <div class="button" style={{ marginBottom: "30px" }}>
-            {state.data?.price} dt
-          </div>
-        </div>
-      </div>
+          </h3></Card.Header>
+      <Card.Body>
+        <Card.Title  className="d-flex justify-content-center">{state.data?.description}</Card.Title>
+       
+      <Card.Text>
       <div className="  d-flex justify-content-center">
         <img
           src={state.data?.imageURL}
-          alt=""
           style={{
-            borderRadius: "10%",
-            marginBottom: "8%",
-            width: "80rem",
+            marginBottom: "2%",
+            marginTop: "1%",
+            width: "60rem",
             height: "20rem",
           }}
         />
       </div>
-
-      <div style={{ height: "150px" }}>
-        <p class="lead">
-          Our admissions department will contact you within 48 business hours
+      Our admissions department will contact you within 48 business hours
           following your registration request submitted via the online contact
           form. For faster processing, you can reach us by phone at (+216 55 180
           992).
-        </p>
-        <p class="lead">
+          </Card.Text>
           If you wish to join our school, please fill out the form below, and
           you will be invited to an admission interview to assess the quality of
           your application
-        </p>
-      </div>
+        </Card.Body>
+    </Card>
+
+
+      <div className="px-5 py-1"></div>
+        <div className="px-3">
+          <h3>  </h3>
+          <div class="button" style={{ marginBottom: "30px" }}>
+            {state.data?.price} dt
+          </div>
+        </div>
+     
+    
 
       <div
         className="px-5 py-4 d-flex justify-content-center"

@@ -1,138 +1,77 @@
-import React, { useContext, useEffect, useState } from "react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { IconButton } from "@mui/material";
-import send from "../../../assets/images/send.png";
-import { useSelector } from "react-redux";
-import { SocketContext } from "../../../apps/App";
-import { useParams } from "react-router-dom";
-function SessionDetails() {
-  const { socket } = useContext(SocketContext);
-  const [content, setContent] = useState("");
-  const { sessionId } = useParams();
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { fetchsession } from "../../../store/sessions";
 
-  const [messages, setMessages] = useState([]);
+import Accordion from "react-bootstrap/Accordion";
+import video1 from "../../../assets/videos/html css botstrap.mp4";
+import Card from "react-bootstrap/Card";
+import ChatSession from "../components/ChatSession";
+
+function SessionDetails() {
+  const { id } = useParams();
+  const session = useSelector((state) => state.sessionsSlice.session);
+  console.log(session, "this is session");
+
+  const dispatch = useDispatch();
   useEffect(() => {
-    socket.emit("find-all-msgs", +sessionId);
-  }, []); // request give me old msgs
-  useEffect(() => {
-    socket.on("get-all-msgs/" + sessionId, (data) => {
-      setMessages(data);
-    });
-  }, []);// get old msgs
-  useEffect(() => {
-    socket.on("msg-session/" + sessionId, (data) => {
-      setMessages(prev=>[...prev, data]);
-    });
-  }, []);// new msg when someone send a msg
- 
-  
-  const userId = useSelector((state) => state.auth.me.id);
-  const sendMessage = (e) => {
-    e.preventDefault();
-    socket.emit("send-message", {
-      senderId: userId,
-      sessionId: +sessionId,
-      content,
-    });
-    setContent("");
-  };
+    dispatch(fetchsession(id));
+  }, [dispatch]);
+
   return (
     <div>
-      SessionDetails
-      <div className="  mt-5 d-flex  ">
-        <section
+      <div className="d-flex">
+        <p className="px-5 py-4" style={{ fontSize: "2rem" }}>
+          {session?.title}
+        </p>
+        <p className=" py-4" style={{ fontSize: "2rem", color: "#42b1bc" }}>
+          |
+        </p>
+        <p
+          className=" py-4"
           style={{
-            backgroundColor: "#daeaf0",
-            borderRadius: "10px",
-            width: "180%",
-            height: "550px", // Set your desired height here
-            overflowY: "auto",
-            display: "flex", // Add display: flex to the parent container
-            flexDirection: "column-reverse",
+            fontSize: "2rem",
+            color: "#42b1bc",
+            fontFamily: "Brittany Signature",
           }}
         >
-          <div class=" d-flex justify-content-center align-items-center ">
-            <div class="col-8">
-              <ul class="list-unstyled ">
-                {messages?.map((elem, i) => (
-                  <div
-                    class={`d-flex  mb-4 w-100 ${
-                      elem.senderId === userId ? "justify-content-end" : ""
-                    }`}
-                    key={i}
-                  >
-                    <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
-                      alt="avatar"
-                      class="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
-                      width="60"
-                    />
-                    <div class="card d-flex justify-content-between">
-                      <div class="card-header d-flex justify-content-between p-3">
-                        <p class="fw-bold mb-0">
-                          {elem?.sender.firstName + " " + elem?.sender.lastName}
-                        </p>
-                        <p class=" d-flex gap-2 text-muted small mb-0">
-                          <i class="far fa-clock py-1"></i>{" "}
-                          {/* <ConversionDate
-                            dateString={elem.createdAt}
-                            includeHour={true}
-                          /> */}
-                        </p>
-                      </div>
-                      <div class="card-body">
-                        <p class="mb-0">{elem?.content}</p>
-                      </div>
-                      {userId === elem.senderId && (
-                        <div className="d-flex justify-content-end">
-                          <IconButton color="error" aria-label="delete">
-                            <DeleteIcon
-                              onClick={() => {
-                                // handelDelete(elem.id)
-                              }}
-                            />
-                          </IconButton>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-                <form
-                  onSubmit={sendMessage}
-                  className="d-flex justify-content-center align-items-center gap-3"
-                >
-                  {" "}
-                  <input
-                    required
-                    value={content}
-                    class="form-control "
-                    id="textAreaExample3"
-                    rows="1"
-                    onChange={(e) => {
-                      console.log(e.target.value);
-                      setContent(e.target.value);
-                    }}
-                    style={{
-                      borderRadius: "200px",
-                      // textAlign: "center",
-                      padding: "10px",
-                    }}
-                  ></input>
-                  <button
-                    style={{ all: "unset", cursor: "pointer" }}
-                    type="submit"
-                    onSubmit={sendMessage}
-                  >
-                    <img alt="" src={send} style={{ width: 50, heigh: 50 }} />
-                  </button>
-                </form>
-              </ul>
-
-              <div></div>
-            </div>
-          </div>
-        </section>
+          BY SFECTORIA
+        </p>
       </div>
+      <p className="px-5 py-4">Description: {session?.description}</p>
+
+      <div className="px-3">
+        <Accordion className=" d-flex justify-content-center">
+          <Accordion.Item eventKey="0" className="w-100">
+            <Accordion.Header>{session?.program.title}</Accordion.Header>
+            <Accordion.Body>
+              <div className="d-flex justify-content-center">
+                <img
+                  src={session?.program.imageURL}
+                  alt=""
+                  style={{ width: "50rem", height: "25rem" }}
+                />
+              </div>
+              <Card style={{ width: "19rem", height: "15rem" }}>
+                <Card.Img
+                  variant="top"
+                  src=""
+                  style={{ height: "11rem" }}
+                  className="thumb-img"
+                />
+                <Card.Body>
+                  <Card.Text style={{ width: "18rem", height: "7rem" }}>
+                    hh
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
+        <p className="text-center"></p>
+      </div>
+
+      <ChatSession />
     </div>
   );
 }

@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { fetchLessons } from "../../store/lesson";
 import Sortable from "./component/Sortable";
 
