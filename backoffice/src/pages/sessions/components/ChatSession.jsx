@@ -19,6 +19,7 @@ export default function ChatSession() {
       setMessages(data);
     });
   }, []);// get old msgs
+  
   useEffect(() => {
     socket.on("msg-session/" + sessionId, (data) => {
       setMessages(prev=>[...prev, data]);

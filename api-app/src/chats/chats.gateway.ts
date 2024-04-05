@@ -20,8 +20,9 @@ export class ChatsGateway {
       this.server.emit('disconnection', body);
     }, 1000 * 60*5);
   }
+  
   @SubscribeMessage('send-message')
-  async disconnect(client: Socket, body: any) {
+  async createMsg(client: Socket, body: any) {
     const msg = await this.chatsService.createMgs(body);
     this.server.emit('msg-session/' + msg.sessionId, msg);
     const list = await this.chatsService.findAllUserBySessionId(body.sessionId);
