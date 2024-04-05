@@ -18,6 +18,7 @@ export class SessionsController {
     return this.sessionsService.findAll();
   }
 
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sessionsService.findOne(+id);

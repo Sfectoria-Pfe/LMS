@@ -9,13 +9,13 @@ import Card from "react-bootstrap/Card";
 import ChatSession from "../components/ChatSession";
 
 function SessionDetails() {
-  const { id } = useParams();
+  const { sessionId} = useParams();
   const session = useSelector((state) => state.sessionsSlice.session);
   console.log(session, "this is session");
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchsession(id));
+    dispatch(fetchsession(sessionId));
   }, [dispatch]);
 
   return (
