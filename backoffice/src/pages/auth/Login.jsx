@@ -19,7 +19,7 @@ export default function Login() {
   console.log(password)
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
 
       <div className="d-flex justify-content-center gap-4 py-5 flex-wrap">
         <div className="px-5 py-4">

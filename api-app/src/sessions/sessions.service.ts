@@ -20,6 +20,8 @@ export class SessionsService {
   }
 
   findOne(id: number) {
+  
+    
     return this.prisma.session.findUniqueOrThrow({ where: { id }  ,  include: {program :true }  });
   }
 
