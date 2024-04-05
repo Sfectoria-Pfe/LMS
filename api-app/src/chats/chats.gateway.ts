@@ -18,7 +18,7 @@ export class ChatsGateway {
   connection(client: Socket, body: any) {
     setTimeout(() => {
       this.server.emit('disconnection', body);
-    }, 1000 * 20);
+    }, 1000 * 60*5);
   }
   @SubscribeMessage('send-message')
   async disconnect(client: Socket, body: any) {
