@@ -3,7 +3,7 @@ import React, { Component, useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { Link, NavLink, useParams } from "react-router-dom";
-// import { Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import logo from "../assets/logo.png";
 import "../Pages/css/buttonform.css";
@@ -11,15 +11,8 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
-import AspectRatio from '@mui/joy/AspectRatio';
-import Button from '@mui/joy/Button';
 
-import CardContent from '@mui/joy/CardContent';
-import IconButton from '@mui/joy/IconButton';
-import Typography from '@mui/joy/Typography';
-import BookmarkAdd from '@mui/icons-material/BookmarkAddOutlined';
-
-export default function ProgramDetails() {
+export default function SessionDetails() {
   
   const [state, setState] = useState({});
   const [form, setForm] = useState({});
@@ -42,7 +35,7 @@ export default function ProgramDetails() {
 
   const getData = async () => {
     try {
-      let response = await axios.get("http://localhost:5000/programs/" + id);
+      let response = await axios.get("http://localhost:5000/sessions/" + id);
       setState({ data: response.data });
       console.log("this is data from backend", response.data);
     } catch (err) {
@@ -55,7 +48,7 @@ export default function ProgramDetails() {
   }, []);
   return  <div>
     
-  
+ 
     
     <Card className="py-4 px-3   justify-content-center">
       <Card.Header className="d-flex justify-content-center" ><h3 style={{ fontFamily: "Brittany Signature" }}>
@@ -63,7 +56,7 @@ export default function ProgramDetails() {
            <div
             style={{
               height: "5px",
-              width: "80px",
+              width: "520px",
               backgroundColor: "rgb(66, 177, 188)",
               marginRight: "42px",
             }}
@@ -71,7 +64,7 @@ export default function ProgramDetails() {
           </h3></Card.Header>
       <Card.Body>
         <Card.Title  className="d-flex justify-content-center">{state.data?.description}</Card.Title>
-       
+        <Card.Title  className="d-flex justify-content-center">{state.data?.duration}</Card.Title>
       <Card.Text>
       <div className="  d-flex justify-content-center">
         <img
@@ -93,16 +86,16 @@ export default function ProgramDetails() {
           you will be invited to an admission interview to assess the quality of
           your application
         </Card.Body>
-    </Card> 
+    </Card>
 
 
       <div className="px-5 py-1"></div>
-        <div className="px-3">
-          <h3>  </h3>
+        {/* <div className="px-3">
+        
           <div class="button" style={{ marginBottom: "30px" }}>
             {state.data?.price} dt
           </div>
-        </div>
+        </div> */}
      
     
 
@@ -121,9 +114,9 @@ export default function ProgramDetails() {
           {/* <button class="btn btn-light" onClick={() => this.props.showHome()}>
           Home
         </button> */}
-          <button class="btn btn-light" onClick={() => handleSubmit()}>
-            Accueil
-          </button>
+          <Link to={`/`} className="btn btn-primary">
+                    Home
+                  </Link>
           <Form className="py-5 px-3 " onSubmit={handleSubmit}>
             <Form.Group
               className="mb-3 d-flex p-2 gap-5"
@@ -231,15 +224,3 @@ export default function ProgramDetails() {
     
     </div>;
 }
-
-
-
-
-
-
-    
- 
-
-
-
-      

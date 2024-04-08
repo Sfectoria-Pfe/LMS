@@ -63,11 +63,9 @@ export default function Sessions() {
                 className="d-flex justify-content-around px-5"
                 
               >
-                <Link to={`${card.id}`}>
-                  <button className=" btn btn-primary text-white">
+                <Link to={`session/${card.id}`} className="btn btn-primary">
                     See more
-                  </button>
-                </Link>
+                  </Link>
 
                 {/* <Link
                       to={`/${card.id}`}

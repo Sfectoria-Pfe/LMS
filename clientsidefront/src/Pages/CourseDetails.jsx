@@ -1,5 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
-import Card from "react-bootstrap/Card";
+import AspectRatio from "@mui/joy/AspectRatio";
+import CardContent from "@mui/joy/CardContent";
+// import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -10,6 +12,17 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
+import Box from "@mui/material/Box";
+import CardActions from "@mui/joy/CardActions";
+import Chip from "@mui/joy/Chip";
+import Divider from "@mui/joy/Divider";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Typography from "@mui/joy/Typography";
+import Check from "@mui/icons-material/Check";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import Pricing from "@mui/joy/Card";
 
 export default function CourseDetails() {
   const [state, setState] = useState({});
@@ -46,61 +59,112 @@ export default function CourseDetails() {
     window.scrollTo(0, 0);
   }, []);
   return (
-
-
-    
     <div>
-
-
-<Card className="py-4 px-3   justify-content-center">
-      <Card.Header className="d-flex justify-content-center" ><h3 style={{ fontFamily: "Brittany Signature" }}>
-           <div>{state.data?.title}</div> 
-           <div
-            style={{
-              height: "5px",
-              width: "80px",
-              backgroundColor: "rgb(66, 177, 188)",
-              marginRight: "42px",
+      <div className="d-flex flex-wrap gap-4 p-5 justify-content-center">
+        <div>
+          <Pricing
+            size="lg"
+            variant="outlined"
+            orientation="horizontal"
+            sx={{
+              textAlign: "center",
+              maxWidth: "100%",
+              width: 700,
+              // to make the demo resizable
+              resize: "horizontal",
+              overflow: "auto",
             }}
-          ></div>
-          </h3></Card.Header>
-      <Card.Body>
-        <Card.Title  className="d-flex justify-content-center">{state.data?.description}</Card.Title>
-       
-      <Card.Text>
-      <div className="  d-flex justify-content-center">
-        <img
-          src={state.data?.imageURL}
-          style={{
-            marginBottom: "2%",
-            marginTop: "1%",
-            width: "60rem",
-            height: "20rem",
-          }}
-        />
-      </div>
-      Our admissions department will contact you within 48 business hours
-          following your registration request submitted via the online contact
-          form. For faster processing, you can reach us by phone at (+216 55 180
-          992).
-          </Card.Text>
-          If you wish to join our school, please fill out the form below, and
-          you will be invited to an admission interview to assess the quality of
-          your application
-        </Card.Body>
-    </Card>
+          >
+            <AspectRatio ratio="1" sx={{ width: 300 }}>
+              <img src={state.data?.imageURL} loading="lazy" alt="" />
+            </AspectRatio>
+            <CardContent
+              sx={{
+                textAlign: "center",
+                flex: "0  600px",
 
-
-      <div className="px-5 py-1"></div>
-        <div className="px-3">
-          <h3>  </h3>
-          <div class="button" style={{ marginBottom: "30px" }}>
-            {state.data?.price} dt
-          </div>
+                justifyContent: "center",
+                px: 'var(--Card-padding: "70px")',
+              }}
+              size="lg"
+            >
+              <Typography level="title-lg" id="card-description">
+                {" "}
+                {state.data?.title}{" "}
+              </Typography>
+              <Typography level="body-md">
+                {" "}
+                {state.data?.description}
+              </Typography>
+            </CardContent>
+          </Pricing>
         </div>
-     
-    
+        <div style={{ height: "4px", width: "350px" }}>
+          <Pricing
+            size="sm"
+            variant="solid"
+            color="neutral"
+            invertedColors
+            sx={{ bgcolor: "neutral.900" }}
+          >
+            <Chip size="sm" variant="outlined">
+              MOST POPULAR
+            </Chip>
+            <Typography level="h2">Unlimited</Typography>
+            <Divider inset="none" />
+            <List
+              size="sm"
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                mx: "calc(-1 * var(--ListItem-paddingX))",
+              }}
+            >
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Virtual Credit Cards
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Financial Analytics
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Checking Account
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Access to all advanced training modules
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                3 team members
+              </ListItem>
+            </List>
+            <Divider inset="none" />
+            <CardActions>
+              <Typography level="title-lg" sx={{ mr: "auto" }}>
+                {state.data?.price}{" "}
+                <Typography fontSize="sm" textColor="text.tertiary">
+                  Dt
+                </Typography>
+              </Typography>
+            </CardActions>
+          </Pricing>
+        </div>
+      </div>
 
+      <div></div>
       <div
         className="px-5 py-4 d-flex justify-content-center"
         style={{
