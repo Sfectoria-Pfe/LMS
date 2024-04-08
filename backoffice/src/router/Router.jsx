@@ -94,7 +94,7 @@ export default function Router() {
                 <Route path="sessions" element={<Session />}>
                   <Route index element={<SessionList />} />
 
-                  <Route path=":id" element={<SessionDetails />} />
+                  <Route path=":sessionId" element={<SessionDetails />} />
                 </Route>
 
                 <Route path="users" element={<Users />}>

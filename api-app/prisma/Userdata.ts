@@ -11,7 +11,6 @@ export const dataUser = [
     address: 'Tunis',
     role: 'student',
   },
-
   {
     image:
       'https://scontent.ftun8-1.fna.fbcdn.net/v/t39.30808-6/219497874_2920618321527888_4242538066758795595_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=LjKQKJjpqAAAX_3gM82&_nc_ht=scontent.ftun8-1.fna&oh=00_AfCP4NtOV2V3BgaxG3eNNzvimfi0BTaDB3r04UPGyKj0Kw&oe=660776C3',
