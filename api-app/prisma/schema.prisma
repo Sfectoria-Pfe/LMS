@@ -135,6 +135,14 @@ model Msgs {
 
 model typeContent {
   id Int @id @default(autoincrement())
-
+  pdf String?
+  pdfName String?
+  video String?
+  exercises String?
+  exericesName String?
+  project String?
+  projectName String?
+  checkpoint String?
+  checkpointName String?
   LessonContent LessonContent[]
 }
