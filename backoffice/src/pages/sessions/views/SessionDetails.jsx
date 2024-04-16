@@ -43,11 +43,11 @@ function SessionDetails() {
       <div className="px-3">
         <Accordion className=" d-flex justify-content-center">
           <Accordion.Item eventKey="0" className="w-100">
-            <Accordion.Header>{session?.program.title}</Accordion.Header>
+            <Accordion.Header>{session?.title}</Accordion.Header>
             <Accordion.Body>
               <div className="d-flex justify-content-center">
                 <img
-                  src={session?.program.imageURL}
+                  src={session?.imageURL}
                   alt=""
                   style={{ width: "50rem", height: "25rem" }}
                 />
