@@ -16,7 +16,7 @@ export class CoursesService {
     return this.prisma.course.findMany({ include: { Lesson: true } });
   }
   findOne(id: number) {
-    return this.prisma.course.findUniqueOrThrow({ where: { id } , include: { Lesson: true }  });;
+    return this.prisma.course.findUniqueOrThrow({ where: { id } , include: { Lesson: true }  });
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {

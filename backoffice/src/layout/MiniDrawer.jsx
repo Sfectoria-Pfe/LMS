@@ -33,6 +33,7 @@ import { PiPathBold } from "react-icons/pi";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logo from "../assets/logoblanc.png";
+import { FaUserGraduate } from "react-icons/fa";
 
 const drawerWidth = 240;
 
@@ -243,6 +244,14 @@ export default function MiniDrawer({ open, setOpen }) {
                   <MdSpaceDashboard style={{ color: "#ffc107" }} />
                 </ListItemIcon>
                 <ListItemText className="text-white" primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding onClick={() => navigate("/")}>
+              <ListItemButton>
+                <ListItemIcon>
+                  <FaUserGraduate style={{ color: "#ffc107" }} />
+                </ListItemIcon>
+                <ListItemText className="text-white" primary="Lessons" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding onClick={() => navigate("/courses")}>
