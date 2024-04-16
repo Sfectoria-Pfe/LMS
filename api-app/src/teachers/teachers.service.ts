@@ -12,7 +12,7 @@ export class TeachersService {
   }
 
   findAll() {
-    return this.prisma.teacher.findMany();;
+    return this.prisma.teacher.findMany();
   }
 
   findOne(id: number) {
@@ -27,6 +27,6 @@ export class TeachersService {
   }
 
   remove(id: number) {
-    return this.prisma.teacher.delete({ where: { id } });;
+    return this.prisma.teacher.delete({ where: { id } });
   }
 }

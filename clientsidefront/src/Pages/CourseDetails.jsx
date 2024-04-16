@@ -49,7 +49,7 @@ export default function CourseDetails() {
       let response = await axios.get("http://localhost:5000/courses/" + id);
       setState({ data: response.data });
       console.log("this is data from backend", response.data);
-      // console.log("this is data"+ response.data); manajmch najma3 chaine m3a array
+     
     } catch (err) {
       console.log("Error getting cards");
     }
@@ -60,7 +60,7 @@ export default function CourseDetails() {
   }, []);
   return (
     <div>
-      <div className="d-flex flex-wrap gap-4 p-5 justify-content-center">
+      <div className="d-flex flex-wrap gap-4 p-4 justify-content-center">
         <div>
           <Pricing
             size="lg"
@@ -69,7 +69,7 @@ export default function CourseDetails() {
             sx={{
               textAlign: "center",
               maxWidth: "100%",
-              width: 700,
+              width: 900,
               // to make the demo resizable
               resize: "horizontal",
               overflow: "auto",
@@ -92,25 +92,24 @@ export default function CourseDetails() {
                 {" "}
                 {state.data?.title}{" "}
               </Typography>
-              <Typography level="body-md">
+              <Typography level="body-lg">
                 {" "}
                 {state.data?.description}
               </Typography>
             </CardContent>
           </Pricing>
         </div>
-        <div style={{ height: "4px", width: "350px" }}>
+        <div style={{ height: "6px", width: "350px" }}>
           <Pricing
             size="sm"
             variant="solid"
             color="neutral"
             invertedColors
-            sx={{ bgcolor: "neutral.900" }}
-          >
+            sx={{ bgcolor: "neutral.900" , height: 322}}>
             <Chip size="sm" variant="outlined">
               MOST POPULAR
             </Chip>
-            <Typography level="h2">Unlimited</Typography>
+            <Typography level="h2">Price</Typography>
             <Divider inset="none" />
             <List
               size="sm"

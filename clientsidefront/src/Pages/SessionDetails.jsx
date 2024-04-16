@@ -111,7 +111,7 @@ export default function SessionDetails() {
           style={{ width: "70rem", height: "39rem" }}
         >
           <p className="fs-1  ">Registration form</p>
-          {/* <button class="btn btn-light" onClick={() => this.props.showHome()}>
+          {/* <button class="btn btn-light" onClick={() => this.props.showHome()}><
           Home
         </button> */}
           <Link to={`/`} className="btn btn-primary">
