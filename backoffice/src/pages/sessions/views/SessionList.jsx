@@ -31,8 +31,8 @@ export default function CourseList() {
   return (
     <div>
       <div className="px-5">
-        <button className="btn btn-primary" onClick={() => navigate("add")}>
-          Add session
+        <button className="btn btn-success" onClick={() => navigate("add")}>
+          Add session +
         </button>
       </div>
       <div className="d-flex flex-wrap justify-content-center py-5 gap-5 ">
