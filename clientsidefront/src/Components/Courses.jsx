@@ -65,26 +65,6 @@ export default function Courses() {
                   <Link to={`${card.id}`} className="btn btn-primary">
                     See more
                   </Link>
-
-                  {/* <Link
-                      to={`/${card.id}`}
-                      className="btn btn-primary"
-                      onClick={() => ({
-                        src: card.src,
-                        name: card.name,
-                        body: card.body,
-                        description: card.description,
-                      })}
-                    > */}
-
-                  {/* </Link> */}
-                  {/* <Button
-                style={{ width: "7rem" }}
-                variant="info"
-                
-              >
-                More
-              </Button> */}
                 </div>
               </Card.Body>
             </Card>

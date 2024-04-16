@@ -48,7 +48,7 @@ function Header(props) {
               </Col>
             </Nav>
 
-            <Button variant="outline-primary">Connection</Button>
+            <Button variant="outline-primary" onClick={()=>window.location.href='http://localhost:3000'}>Connection</Button>
           </Navbar.Collapse>
         </Container>
       </Navbar>

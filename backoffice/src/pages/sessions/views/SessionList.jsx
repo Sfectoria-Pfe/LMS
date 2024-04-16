@@ -51,7 +51,7 @@ export default function CourseList() {
                 {card.description}
               </Card.Text>
               <div className="d-flex gap-3">
-                <Link to={`details/${card.id}`}>
+                <Link to={`${card.id}`}>
                   <button className="btn btn-primary">See more</button>
                 </Link>
                 <button

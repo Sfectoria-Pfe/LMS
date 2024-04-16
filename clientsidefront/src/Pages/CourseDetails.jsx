@@ -1,5 +1,7 @@
 import React, { Component, useEffect, useState } from "react";
-import Card from "react-bootstrap/Card";
+import AspectRatio from "@mui/joy/AspectRatio";
+import CardContent from "@mui/joy/CardContent";
+// import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { Link, NavLink, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -10,6 +12,17 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import Row from "react-bootstrap/Row";
+import Box from "@mui/material/Box";
+import CardActions from "@mui/joy/CardActions";
+import Chip from "@mui/joy/Chip";
+import Divider from "@mui/joy/Divider";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Typography from "@mui/joy/Typography";
+import Check from "@mui/icons-material/Check";
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import Pricing from "@mui/joy/Card";
 
 export default function CourseDetails() {
   const [state, setState] = useState({});
@@ -36,7 +49,7 @@ export default function CourseDetails() {
       let response = await axios.get("http://localhost:5000/courses/" + id);
       setState({ data: response.data });
       console.log("this is data from backend", response.data);
-      // console.log("this is data"+ response.data); manajmch najma3 chaine m3a array
+     
     } catch (err) {
       console.log("Error getting cards");
     }
@@ -47,56 +60,110 @@ export default function CourseDetails() {
   }, []);
   return (
     <div>
-      <div className="px-5 py-4"></div>
-      <div>
-        <div className="d-flex justify-content-center py-5 align-items-center flex-wrap">
-          <h3 style={{ fontFamily: "Brittany Signature" }}>
-            {state.data?.title}
-          </h3>
-          <div
-            style={{
-              height: "5px",
-              width: "80px",
-              backgroundColor: "rgb(66, 177, 188)",
-              marginRight: "42px",
+      <div className="d-flex flex-wrap gap-4 p-4 justify-content-center">
+        <div>
+          <Pricing
+            size="lg"
+            variant="outlined"
+            orientation="horizontal"
+            sx={{
+              textAlign: "center",
+              maxWidth: "100%",
+              width: 900,
+              // to make the demo resizable
+              resize: "horizontal",
+              overflow: "auto",
             }}
-          ></div>
+          >
+            <AspectRatio ratio="1" sx={{ width: 300 }}>
+              <img src={state.data?.imageURL} loading="lazy" alt="" />
+            </AspectRatio>
+            <CardContent
+              sx={{
+                textAlign: "center",
+                flex: "0  600px",
+
+                justifyContent: "center",
+                px: 'var(--Card-padding: "70px")',
+              }}
+              size="lg"
+            >
+              <Typography level="title-lg" id="card-description">
+                {" "}
+                {state.data?.title}{" "}
+              </Typography>
+              <Typography level="body-lg">
+                {" "}
+                {state.data?.description}
+              </Typography>
+            </CardContent>
+          </Pricing>
         </div>
-
-        <div className="px-3">
-          <h1> {state.data?.description} </h1>
-          <div class="button" style={{ marginBottom: "30px" }}>
-            {state.data?.price} dt
-          </div>
+        <div style={{ height: "6px", width: "350px" }}>
+          <Pricing
+            size="sm"
+            variant="solid"
+            color="neutral"
+            invertedColors
+            sx={{ bgcolor: "neutral.900" , height: 322}}>
+            <Chip size="sm" variant="outlined">
+              MOST POPULAR
+            </Chip>
+            <Typography level="h2">Price</Typography>
+            <Divider inset="none" />
+            <List
+              size="sm"
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                mx: "calc(-1 * var(--ListItem-paddingX))",
+              }}
+            >
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Virtual Credit Cards
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Financial Analytics
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Checking Account
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Access to all advanced training modules
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                3 team members
+              </ListItem>
+            </List>
+            <Divider inset="none" />
+            <CardActions>
+              <Typography level="title-lg" sx={{ mr: "auto" }}>
+                {state.data?.price}{" "}
+                <Typography fontSize="sm" textColor="text.tertiary">
+                  Dt
+                </Typography>
+              </Typography>
+            </CardActions>
+          </Pricing>
         </div>
       </div>
-      <div className="  d-flex justify-content-center">
-        <img
-          src={state.data?.imageURL}
-          alt=""
-          style={{
-            borderRadius: "10%",
-            marginBottom: "8%",
-            width: "80rem",
-            height: "20rem",
-          }}
-        />
-      </div>
 
-      <div style={{ height: "150px" }}>
-        <p class="lead">
-          Our admissions department will contact you within 48 business hours
-          following your registration request submitted via the online contact
-          form. For faster processing, you can reach us by phone at (+216 55 180
-          992).
-        </p>
-        <p class="lead">
-          If you wish to join our school, please fill out the form below, and
-          you will be invited to an admission interview to assess the quality of
-          your application
-        </p>
-      </div>
-
+      <div></div>
       <div
         className="px-5 py-4 d-flex justify-content-center"
         style={{

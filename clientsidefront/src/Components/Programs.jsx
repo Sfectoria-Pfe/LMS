@@ -60,27 +60,10 @@ export default function Programs() {
                 {card.description}
               </Card.Text>
               <div className="d-flex py-5 justify-content-around">
-                <Button>
-                  {/* <Link
-                      to={`/${card.id}`}
-                      className="btn btn-primary"
-                      onClick={() => ({
-                        src: card.src,
-                        name: card.name,
-                        body: card.body,
-                        description: card.description,
-                      })}
-                    > */}
-                  See more
-                  {/* </Link> */}
-                  {/* <Button
-                style={{ width: "7rem" }}
-                variant="info"
                 
-              >
-                More
-              </Button> */}
-                </Button>
+                <Link to={`program/${card.id}`} className="btn btn-primary">
+                    See more
+                  </Link>
               </div>
             </Card.Body>
           </Card>
