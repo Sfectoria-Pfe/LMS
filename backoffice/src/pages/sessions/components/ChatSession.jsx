@@ -38,9 +38,8 @@ export default function ChatSession() {
     setContent("");
   };
   return (
-    <div>
-      SessionDetails
-      <div className="  mt-5 d-flex  ">
+  
+      <div className="  mt-0 d-flex  ">
         <section
           style={{
             backgroundColor: "#daeaf0",
@@ -129,11 +128,11 @@ export default function ChatSession() {
                 </form>
               </ul>
 
-              <div></div>
+              
             </div>
           </div>
         </section>
       </div>
-    </div>
+   
   );
 }

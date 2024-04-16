@@ -99,6 +99,7 @@ export default function CourseDetails() {
             </CardContent>
           </Pricing>
         </div>
+        
         <div style={{ height: "6px", width: "350px" }}>
           <Pricing
             size="sm"
@@ -106,8 +107,8 @@ export default function CourseDetails() {
             color="neutral"
             invertedColors
             sx={{ bgcolor: "neutral.900" , height: 322}}>
-            <Chip size="sm" variant="outlined">
-              MOST POPULAR
+            <Chip size="lg" variant="outlined">
+            Professional Certificate
             </Chip>
             <Typography level="h2">Price</Typography>
             <Divider inset="none" />
@@ -123,19 +124,19 @@ export default function CourseDetails() {
                 <ListItemDecorator>
                   <Check />
                 </ListItemDecorator>
-                Virtual Credit Cards
+               Invite your team (chat room)
               </ListItem>
               <ListItem>
                 <ListItemDecorator>
                   <Check />
                 </ListItemDecorator>
-                Financial Analytics
+                + 3 Projects
               </ListItem>
               <ListItem>
                 <ListItemDecorator>
                   <Check />
                 </ListItemDecorator>
-                Checking Account
+                Planning flexible
               </ListItem>
               <ListItem>
                 <ListItemDecorator>
@@ -154,7 +155,7 @@ export default function CourseDetails() {
             <CardActions>
               <Typography level="title-lg" sx={{ mr: "auto" }}>
                 {state.data?.price}{" "}
-                <Typography fontSize="sm" textColor="text.tertiary">
+                <Typography fontSize="lg" textColor="text.tertiary">
                   Dt
                 </Typography>
               </Typography>
@@ -163,7 +164,7 @@ export default function CourseDetails() {
         </div>
       </div>
 
-      <div></div>
+      
       <div
         className="px-5 py-4 d-flex justify-content-center"
         style={{
@@ -305,7 +306,7 @@ export default function CourseDetails() {
                 class="btn btn-info"
                 onSubmit={() => handleSubmit()}
               >
-                Valider ma demande d'inscription
+               validate my registration request
               </button>
             </div>
           </Form>
