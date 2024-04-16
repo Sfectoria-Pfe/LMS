@@ -15,6 +15,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import AddCourse from "./AddCourse";
 import PopUp from "./PopUp";
+import axios from "axios";
 
 export default function CourseList() {
   const courses = useSelector((state) => state.coursesSlice.courses.items);
@@ -24,6 +25,7 @@ export default function CourseList() {
   const [isOpen, setIsOpen] = useState(false);
   const [deletedId, setDeletedId] = useState("");
   const [course, setcourse] = useState({});
+  const [imageUrl, setImageUrl] = useState(null);
   console.log(course);
 
   const dispatch = useDispatch();
@@ -31,13 +33,35 @@ export default function CourseList() {
     const { name, value } = e.target;
     setcourse({ ...course, [name]: name === "price" ? +value : value });
   };
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImageUrl(e.target.files[0]);
+    }
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(sendcourse(course)).then((res) => {
-      if (!res.error)
-        window.location.href = "http://localhost:3000/courses/lesson";
-      else alert("you should fill the form");
-    });
+    try {
+      let auxCourse = { ...course };
+      if (imageUrl) {
+        const formData = new FormData();
+        formData.append("file", imageUrl);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxCourse = { ...auxCourse, imageURL: response.data.path };
+      }
+
+      dispatch(sendcourse(auxCourse)).then((res) => {
+        if (!res.error)
+          window.location.href =
+            `http://localhost:3000/courses/details/${res.payload.id}`;
+        else
+          alert("you should fill the form");
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -91,7 +115,12 @@ export default function CourseList() {
               image={card.imageURL}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                className="py-3"
+              >
                 {card.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -227,14 +256,17 @@ export default function CourseList() {
             >
               <Form className="py-5 px-3 " onSubmit={handleSubmit}>
                 <Form.Group
+                  accept="image/*"
                   className="mb-3 d-flex p-2 gap-5 "
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Control
+                    accept="image/*"
+                    type="file"
                     name="imageURL"
                     className="px-3 border border-info"
                     placeholder="image URL"
-                    onChange={handleChange}
+                    onChange={handleFileChange}
                   />
                 </Form.Group>
                 <Form.Group
@@ -271,6 +303,7 @@ export default function CourseList() {
 
                 <div className="d-flex justify-content-center gap-2 py-3">
                   <Button
+                    type="button"
                     className="btn btn-primary"
                     style={{ color: "black" }}
                     onClick={() => setIsOpen(false)}
@@ -280,16 +313,20 @@ export default function CourseList() {
 
                   <Button
                     className="btn"
+                    type="submit"
                     style={{ backgroundColor: "#ffc107", color: "black" }}
-                    onClick={() => {
-                      dispatch(sendcourse(course)).then((res) => {
-                        console.log(res, "response");
-                        if (!res.error) {
-                          navigate(`/courses/${res.payload.id}/lesson`);
-                          setIsOpen(false);
-                        }
-                      });
-                    }}
+                    onSubmit={
+                    //   () => {
+                    //   dispatch(sendcourse(course)).then((res) => {
+                    //     console.log(res, "response");
+                    //     if (!res.error) {
+                    //       navigate(`/courses/${res.payload.id}/lesson`);
+                    //       setIsOpen(false);
+                    //     }
+                    //   });
+                      // }
+                      handleSubmit
+                    }
                   >
                     Add
                   </Button>

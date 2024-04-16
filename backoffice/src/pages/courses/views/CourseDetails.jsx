@@ -1,42 +1,58 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchcourse } from "../../../store/courses";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import video1 from "../../../assets/videos/html css botstrap.mp4";
 import Card from "react-bootstrap/Card";
 import { MDBContainer } from "mdb-react-ui-kit";
 
 export default function CourseDetails() {
-  const { id } = useParams();
+  const { courseId } = useParams();
   const course = useSelector((state) => state.coursesSlice.course);
   console.log(course, "this is course");
+  const navigate= useNavigate()
   // console.log(course?.Lesson, "those are lessons");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchcourse(id));
+    dispatch(fetchcourse(courseId));
     window.scrollTo(0, 0);
   }, [dispatch]);
 
   return (
     <div>
-      <div className="d-flex">
-        <p className="px-5 py-4" style={{ fontSize: "2rem" }}>
-          {course?.title}
-        </p>
-        <p className=" py-4" style={{ fontSize: "2rem", color: "#42b1bc" }}>
-          |
-        </p>
-        <p
-          className=" py-4"
-          style={{
-            fontSize: "2rem",
-            color: "#42b1bc",
-            fontFamily: "Brittany Signature",
-          }}
-        >
-          BY SFECTORIA
-        </p>
+      <div className="d-flex justify-content-between">
+        <div className="d-flex">
+          <p className="px-5 py-4" style={{ fontSize: "2rem" }}>
+            {course?.title}
+          </p>
+          <p className=" py-4" style={{ fontSize: "2rem", color: "#42b1bc" }}>
+            |
+          </p>
+          <p
+            className=" py-4"
+            style={{
+              fontSize: "2rem",
+              color: "#42b1bc",
+              fontFamily: "Brittany Signature",
+            }}
+          >
+            BY SFECTORIA
+          </p>
+        </div>
+        <div className=" p-5">
+          <button
+            className="btn"
+            style={{ backgroundColor: "#ffc107" }}
+            onClick={() => {
+              navigate(`/courses/${courseId}/lesson/add`)
+            }}
+            
+          >
+            + Add new lesson
+          </button>
+          {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
+        </div>
       </div>
 
       <div className="d-flex justify-content-center ">
@@ -60,7 +76,7 @@ export default function CourseDetails() {
           <video src={video1} autoplay="true" />
         </div> */}
       </div>
-      <p className="px-5 py-4">Description: {course?.description}</p>
+      <p className="px-5 py-4">Description:{course?.description}</p>
       {/* <h1
         className="text-center py-5"
         style={{
@@ -77,19 +93,13 @@ export default function CourseDetails() {
           <Accordion className=" d-flex justify-content-center">
             <Accordion.Item eventKey="0" className="w-100">
               <Accordion.Header>
-                <div className="d-flex gap-3" >
+                <div className="d-flex gap-3">
                   <img src={lesson.imageURL} alt="" style={{ width: "4rem" }} />
-                  <p >{lesson.title}</p>
+                  <p>{lesson.title}</p>
                 </div>
               </Accordion.Header>
               <Accordion.Body>
-                <div className="d-flex justify-content-center">
-                  <img
-                    src={lesson.imageURL}
-                    alt=""
-                    style={{ width: "50rem", height: "25rem" }}
-                  />
-                </div>
+                
                 <Card style={{ width: "19rem", height: "15rem" }}>
                   <Card.Img
                     variant="top"
