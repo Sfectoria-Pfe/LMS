@@ -39,6 +39,7 @@ model Course {
   id            Int             @id @default(autoincrement())
   title         String
   imageURL      String          @db.LongText
+  videoURL      String?          @db.LongText 
   description   String?
   price         Float
   src           String?         @db.LongText
@@ -116,9 +117,8 @@ model Lesson {
 
 model LessonContent {
   id Int @id @default(autoincrement())
-
-  typeContentId Int
-  typeContent   typeContent? @relation(fields: [typeContentId], references: [id], onDelete: Cascade)
+  contentname String
+  content typeContent
   lessonId      Int
   lesson        Lesson?      @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   WeekContent WeekContent[]
@@ -133,8 +133,11 @@ model Msgs {
   content   String
 }
 
-model typeContent {
-  id Int @id @default(autoincrement())
-
-  LessonContent LessonContent[]
+enum typeContent {
+  video
+  pdf
+  projet
+  checkpoint
+  exercice
+ 
 }

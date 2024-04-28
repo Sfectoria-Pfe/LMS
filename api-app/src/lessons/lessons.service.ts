@@ -12,11 +12,11 @@ export class LessonsService {
   }
 
   findAll() {
-    return this.prisma.lesson.findMany();
+    return this.prisma.lesson.findMany({ include: { LessonContent:  true }   });
   }
 
   findOne(id: number) {
-    return this.prisma.lesson.findUniqueOrThrow({ where: { id } });
+    return this.prisma.lesson.findUniqueOrThrow({ where: { id }  , include: { LessonContent: true } });
   }
 
   update(id: number, updateLessonDto: UpdateLessonDto) {

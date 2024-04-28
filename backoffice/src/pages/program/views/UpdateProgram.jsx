@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { updateProgram } from '../../../store/Program';
+import { updateProgram , fetchprogram } from '../../../store/Program';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+
 export default function UpdateProgram() {
-    const [updatedprogram, setUpdatedprogram] = useState({});
+  const [updatedprogram, setUpdatedprogram] = useState({});
+  const program = useSelector((state) => state.ProgramSlice.program);
     console.log(updatedprogram)
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+   const [imageUrl, setImageUrl] = useState(null);
 
     let { id } = useParams();
-    console.log(id, "Update Course");
+  console.log(id, "Update program");
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImageUrl(e.target.files[0]);
+    }
+  };
 
     const handleChange = (e) => {
       const { name, value } = e.target;
@@ -30,9 +38,10 @@ export default function UpdateProgram() {
       else alert("you should fill the form");
     });
   };
- useEffect(() => {
+  useEffect(() => {
+   dispatch(fetchprogram(id));
    window.scrollTo(0, 0);
- }, []);
+ }, [dispatch]);
   return (
     <div>
       <section style={{ backgroundColor: "#eee" }}>
@@ -42,21 +51,23 @@ export default function UpdateProgram() {
               <div class="card mb-4">
                 <div class="card-body text-center" style={{ height: "34rem" }}>
                   <img
-                    src=""
-                    alt="avatar"
-                    class="rounded-circle img-fluid"
-                    style={{ width: "150px" }}
+                    src={program?.imageURL}
+                    alt="programimg"
+                    class="img-fluid"
+                    style={{ height: "15rem" }}
                   />
                   <h5 class="my-3"></h5>
                   <p class="text-muted mb-1">
-                    <Form.Control
-                      type="text"
-                      name="imageURL"
-                      placeholder="Course photo"
-                      onChange={handleChange}
-                    />
+                    <div className="py-5">
+                      <Form.Control
+                        type="file"
+                        name="imageURL"
+                        placeholder="program photo"
+                        onChange={handleFileChange}
+                      />
+                    </div>
                   </p>
-                  <p class="text-muted mb-4">SFECTORIAN ✌️</p>
+                  
                   <div class="d-flex justify-content-center">
                     <Button
                       style={{ width: "7rem" }}
@@ -74,7 +85,7 @@ export default function UpdateProgram() {
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
-                      <p class="mb-0">Course Title</p>
+                      <p class="mb-0">program Title</p>
                     </div>
                     <div class="col-sm-9">
                       <p class="text-muted mb-0">
@@ -91,7 +102,7 @@ export default function UpdateProgram() {
                   <hr />
                   <div class="row">
                     <div class="col-sm-3">
-                      <p class="mb-0">Course description</p>
+                      <p class="mb-0">program description</p>
                     </div>
                     <div class="col-sm-9">
                       <p class="text-muted mb-0">
@@ -100,7 +111,7 @@ export default function UpdateProgram() {
                           name="description"
                           as="textarea"
                           rows={3}
-                          placeholder="please enter the course description"
+                          placeholder="please enter the program description"
                         />
                       </p>
                     </div>
@@ -117,7 +128,7 @@ export default function UpdateProgram() {
                           type="number"
                           min={0}
                           name="price"
-                          placeholder="please enter the course price"
+                          placeholder="please enter the program price"
                           onChange={handleChange}
                         />
                       </p>
@@ -129,7 +140,7 @@ export default function UpdateProgram() {
                       className="text-center py-3"
                       style={{ color: "#ffca2c" }}
                     >
-                      Add gallery
+                      Update Courses
                     </h3>
                     <div class="col-sm-3">
                       <p class="mb-0">photo 1</p>

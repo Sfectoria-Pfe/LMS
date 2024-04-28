@@ -63,7 +63,7 @@ export default function SessionDetails() {
           ></div>
           </h3></Card.Header>
       <Card.Body>
-        <Card.Title  className="d-flex justify-content-center">{state.data?.description}</Card.Title>
+        <Card.Title style={{width:"7rem"}}  className="d-flex justify-content-center">{state.data?.description}</Card.Title>
         <Card.Title  className="d-flex justify-content-center">{state.data?.duration}</Card.Title>
       <Card.Text>
       <div className="  d-flex justify-content-center">

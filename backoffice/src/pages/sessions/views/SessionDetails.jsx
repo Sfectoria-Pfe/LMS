@@ -74,8 +74,8 @@ function SessionDetails() {
 <img  className=" py-1"src={chatchat}   data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2"  style={{ width: "4rem", height: "4rem", float:"right" }}  />
       <div class="col">
     <div class="collapse multi-collapse" id="multiCollapseExample2">
-      <div  style={{ width: "30rem", height: "1rem", float:"right" }} >
-      <ChatSession />
+      <div  style={{ width: "30rem", height: "1rem", float:"right", zIndex:10 }} >
+      <ChatSession  />
       </div>
     </div>
   </div>
@@ -166,9 +166,9 @@ function SessionDetails() {
       </div> */}
       {/* <p className="px-5 py-1">Description: {session?.description}</p> */}
 
-      <div className="px-3 py-2">
-        <Accordion className=" d-flex justify-content-center">
-          <Accordion.Item eventKey="0" className="w-100">
+      <div className="px-3 py-2" style={{zIndex:5}}>
+        <Accordion className=" d-flex ">
+          <Accordion.Item eventKey="0" className="w-50">
             <Accordion.Header>week 1</Accordion.Header>
             <Accordion.Body>
               <div className="d-flex justify-content-center">

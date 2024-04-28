@@ -246,14 +246,6 @@ export default function MiniDrawer({ open, setOpen }) {
                 <ListItemText className="text-white" primary="Dashboard" />
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding onClick={() => navigate("/")}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <FaUserGraduate style={{ color: "#ffc107" }} />
-                </ListItemIcon>
-                <ListItemText className="text-white" primary="Lessons" />
-              </ListItemButton>
-            </ListItem>
             <ListItem disablePadding onClick={() => navigate("/courses")}>
               <ListItemButton>
                 <ListItemIcon>
