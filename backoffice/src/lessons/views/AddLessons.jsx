@@ -4,13 +4,22 @@ import { useNavigate, useParams } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import FormGroup from "react-bootstrap/esm/FormGroup";
 import { Button } from "react-bootstrap";
-
+import { MdVideoLibrary } from "react-icons/md";
+import { FaFilePdf } from "react-icons/fa";
+import { FaCode } from "react-icons/fa6";
+import { MdQuiz } from "react-icons/md";
+import { AiOutlineFundProjectionScreen } from "react-icons/ai";
+import View1 from "./component/AddContent/Addvideo";
+import Addvideo from "./component/AddContent/Addvideo";
+import Addpdf from "./component/AddContent/Addpdf";
+import Addexercice from "./component/AddContent/Addexercice";
 export default function AddLessons() {
   const { courseId } = useParams();
   const [typecontent, setTypeContent] = useState({})
   const [imageUrl, setImageUrl] = useState(null);
   const [video, setVideo] = useState(null);
-   const [pdf, setPdf] = useState(null);
+  const [pdf, setPdf] = useState(null);
+  const [view,setView]=useState(null);
   const course = useSelector((state) => state.coursesSlice.course);
   const navigate = useNavigate();
 
@@ -110,108 +119,91 @@ export default function AddLessons() {
         </div>
       </div>
 
-      <div class="container py-5 d-flex justify-content-center">
+      <div class="container py-2 d-flex justify-content-center">
         <div style={{ width: "65rem" }} class="col-lg-8">
-          <div class="card mb-4">
-            <div class="card-body">
-              <Form>
-                <FormGroup className="mb-3" controlId="formBasicEmail">
-                  <FormGroup
-                    className="mb-3 d-flex justify-content-between"
-                    controlId="formBasicEmail"
-                  >
-                    <Form.Label>video</Form.Label>
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        accept="video/*"
-                        type="file"
-                        name="video"
-                        className="px-3 border border-info"
-                        placeholder="image URL"
-                        required
-                      />
-                    </p>
+          <h3 className="text-center">Lesson content</h3>
 
-                    <hr />
-                  </FormGroup>
-
-                  <hr />
-                  <FormGroup
-                    className="mb-3 d-flex justify-content-between"
-                    controlId="formBasicEmail"
-                  >
-                    <Form.Label>pdf</Form.Label>
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        accept="pdf/*"
-                        type="file"
-                        name="pdf"
-                        className="px-3 border border-info"
-                        placeholder="pdf"
-                        required
-                      />
-                    </p>
-
-                    <hr />
-                    <Form.Label>pdf name</Form.Label>
-                    <p class="text-muted mb-0">
-                      <input
-                        type="text"
-                        name="pdfName"
-                        placeholder="title of session"
-                        className="form-control"
-                        required
-                      />
-                    </p>
-
-                    <hr />
-                  </FormGroup>
-                  <FormGroup
-                    className="mb-3 d-flex justify-content-between"
-                    controlId="formBasicEmail"
-                  >
-                    <Form.Label>pdf</Form.Label>
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        accept="pdf/*"
-                        type="file"
-                        name="pdf"
-                        className="px-3 border border-info"
-                        placeholder="pdf"
-                        required
-                      />
-                    </p>
-
-                    <hr />
-                    <Form.Label>pdf name</Form.Label>
-                    <p class="text-muted mb-0">
-                      <input
-                        type="text"
-                        name="pdfName"
-                        placeholder="title of session"
-                        className="form-control"
-                        required
-                      />
-                    </p>
-
-                    <hr />
-                  </FormGroup>
-
-                  <hr />
-
-                  <div class="d-flex justify-content-center">
-                    <Button
-                      style={{ width: "7rem" }}
-                      variant="warning"
-                      type="submit"
-                    >
-                      Save
-                    </Button>
-                  </div>
-                </FormGroup>
-              </Form>
+          <div
+            className="justify-content-center d-flex gap-5 py-5"
+            style={{ fontSize: "3rem", color: "#ffc801" }}
+          >
+            <div
+              style={{
+                borderColor: "#00184b",
+                border: "2px solid",
+                width: "5rem",
+                textAlign: "center",
+              }}
+            >
+              <button
+                style={{ all: "unset" }}
+                onClick={() => {
+                  setView(1);
+                }}
+              >
+                <MdVideoLibrary />
+              </button>
+            </div>
+            <div
+              style={{
+                borderColor: "#00184b",
+                border: "2px solid",
+                width: "5rem",
+                textAlign: "center",
+              }}
+            >
+              <FaFilePdf
+                onClick={() => {
+                  setView(2);
+                }}
+              />
+            </div>
+            <div
+              style={{
+                borderColor: "#00184b",
+                border: "2px solid",
+                width: "5rem",
+                textAlign: "center",
+              }}
+            >
+              <FaCode
+                onClick={() => {
+                  setView(3);
+                }}
+              />
+            </div>
+            <div
+              style={{
+                borderColor: "#00184b",
+                border: "2px solid",
+                width: "5rem",
+                textAlign: "center",
+              }}
+            >
+              <MdQuiz
+                onClick={() => {
+                  setView(4);
+                }}
+              />
+            </div>
+            <div
+              style={{
+                border: "2px solid",
+                borderColor: "#00184b",
+                width: "5rem",
+                textAlign: "center",
+              }}
+            >
+              <AiOutlineFundProjectionScreen
+                onClick={() => {
+                  setView(5);
+                }}
+              />
             </div>
           </div>
+          {view === 1 ? <Addvideo></Addvideo> : ""}
+          {view === 2 ? <Addpdf></Addpdf> : ""}
+          {view === 3 ? <Addexercice></Addexercice> : ""}
         </div>
       </div>
     </div>

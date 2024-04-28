@@ -7,11 +7,11 @@ import auth from './auth';
 import userSlice from './UserInfo'
 import  lessonSlice  from './lesson';
 import sessionsSlice from './sessions';
-import typecontentSlice from './typecontent'
+import lessoncontentSlice from './Lessoncontent'
 
 
 export const store = configureStore({
     reducer: {
-        userSlice  , coursesSlice, sessionsSlice, ProgramSlice,auth, lessonSlice , typecontentSlice
+        userSlice  , coursesSlice, sessionsSlice, ProgramSlice,auth, lessonSlice , lessoncontentSlice
     }
 })

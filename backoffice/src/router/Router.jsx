@@ -87,7 +87,7 @@ export default function Router() {
                 <Route path="programs" element={<Programs />}>
                   <Route index element={<ProgramsList />} />
                   <Route path="add" element={<AddProgram />} />
-                  <Route path=":id" element={<ProgramDetails />} />
+                  <Route path="details/:id" element={<ProgramDetails />} />
                   <Route path="update/:id" element={<UpdateProgram />} />
                 </Route>
 
