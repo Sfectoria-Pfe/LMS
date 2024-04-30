@@ -35,17 +35,11 @@ export const fetchLessons = createAsyncThunk("fetchlessons", async () => {
 //   payload: error,
 // });
 
-// export const addProgram = (programData) => async (dispatch) => {
-//   try {
-//     const response = await axios.post(
-//       "http://localhost:5000/ lessons",
-//       programData
-//     );
-//     dispatch(programAdded(response.data));
-//   } catch (error) {
-//     dispatch(programAddFailed(error.message));
-//   }
-// };
+export const sendlesson = createAsyncThunk("addlesson", async (body) => {
+  const response = await axios.post("http://localhost:5000/lessons", body);
+  console.log(response.data, " this is course data");
+  return response.data;
+});
 
 export const  lessonSlice = createSlice({
   name: "lessons",
@@ -60,8 +54,11 @@ export const  lessonSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchLessons.fulfilled, (state, action) => {
-      state. lessons.items = action.payload;
+      state.lessons.items = action.payload;
     });
+     builder.addCase(sendlesson.fulfilled, (state, action) => {
+       state.lesson = action.payload;
+     });
     // builder.addCase(fetchprogram.fulfilled, (state, action) => {
     //   state.program = action.payload;
     // });

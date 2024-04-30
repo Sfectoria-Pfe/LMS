@@ -39,7 +39,7 @@ model Course {
   id            Int             @id @default(autoincrement())
   title         String
   imageURL      String          @db.LongText
-  videoURL      String?          @db.LongText 
+  videoURL      String?         @db.LongText
   description   String?
   price         Float
   src           String?         @db.LongText
@@ -50,23 +50,25 @@ model Course {
 }
 
 model ProgramCourse {
-  id        Int      @id @default(autoincrement())
-  programId Int
-  program   Program? @relation(fields: [programId], references: [id], onDelete: Cascade)
-  courseId  Int
-  course    Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  id         Int       @id @default(autoincrement())
+  programId  Int
+  program    Program?  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  courseId   Int
+  course     Course?   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  Question   Question? @relation(fields: [questionId], references: [id])
+  questionId Int?
 }
 
 model Program {
-  id            Int             @id @default(autoincrement())
-  title         String
-  description   String?         @db.LongText
-  durationOnsite     String?
-  durationOnline   String?
-  imageURL      String          @db.LongText
-  price         Float
-  Session       Session[]
-  ProgramCourse ProgramCourse[]
+  id             Int             @id @default(autoincrement())
+  title          String
+  description    String?         @db.LongText
+  durationOnsite String?
+  durationOnline String?
+  imageURL       String          @db.LongText
+  price          Float
+  Session        Session[]
+  ProgramCourse  ProgramCourse[]
 }
 
 model Session {
@@ -93,17 +95,18 @@ model SessionUser {
 }
 
 model Weeks {
-  id        Int      @id @default(autoincrement()) 
-  sessionId Int
- session    Session? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  id          Int           @id @default(autoincrement())
+  sessionId   Int
+  session     Session?      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   WeekContent WeekContent[]
 }
+
 model WeekContent {
-  id        Int      @id @default(autoincrement())
-  weeksId Int
-  weeks   Weeks? @relation(fields: [weeksId], references: [id], onDelete: Cascade)
-  LessonContentId  Int
-  LessonContent    LessonContent?  @relation(fields: [LessonContentId], references: [id], onDelete: Cascade)
+  id              Int            @id @default(autoincrement())
+  weeksId         Int
+  weeks           Weeks?         @relation(fields: [weeksId], references: [id], onDelete: Cascade)
+  LessonContentId Int
+  LessonContent   LessonContent? @relation(fields: [LessonContentId], references: [id], onDelete: Cascade)
 }
 
 model Lesson {
@@ -116,12 +119,30 @@ model Lesson {
 }
 
 model LessonContent {
-  id Int @id @default(autoincrement())
-  contentname String
-  content typeContent
-  lessonId      Int
-  lesson        Lesson?      @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  WeekContent WeekContent[]
+  id              Int           @id @default(autoincrement())
+  contentname     String
+  type            typeContent
+  contentExercice Json?
+  contentURL      String?
+  lessonId        Int
+  lesson          Lesson?       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  WeekContent     WeekContent[]
+  questions       Question[]
+}
+
+model Question {
+  id              Int             @id @default(autoincrement())
+  label           String
+  scale           Int
+  LessonContent   LessonContent   @relation(fields: [lessonContentId], references: [id])
+  lessonContentId Int
+  propositions    ProgramCourse[]
+}
+
+model PropositionAnswer {
+  id        Int     @id @default(autoincrement())
+  label     String
+  isCorrect Boolean
 }
 
 model Msgs {
@@ -139,5 +160,4 @@ enum typeContent {
   projet
   checkpoint
   exercice
- 
 }

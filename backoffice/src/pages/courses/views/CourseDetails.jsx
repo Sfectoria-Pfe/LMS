@@ -66,7 +66,7 @@ export default function CourseDetails() {
         </video>
       )}
       <div className="d-flex justify-content-center ">
-        <MDBContainer>
+        {/* <MDBContainer>
           <div className="ratio ratio-16x9">
             <iframe
               src={course?.videoURL}
@@ -74,7 +74,7 @@ export default function CourseDetails() {
               allowfullscreen
             ></iframe>
           </div>
-        </MDBContainer>
+        </MDBContainer> */}
 
         {/* <div>
           <video src={video1} autoplay="true" />

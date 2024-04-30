@@ -5,18 +5,24 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LessonsService {
-  constructor(private readonly prisma: PrismaService) { }
-  
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createLessonDto: CreateLessonDto) {
-    return this.prisma.lesson.create({ data: createLessonDto });
+    const { contents, ...rest } = createLessonDto;
+    let data = { ...rest };
+    if (contents) data['LessonContent'] = { create: contents };
+    return this.prisma.lesson.create({ data: { ...rest, LessonContent: { createMany: { data: contents } } } });
   }
 
   findAll() {
-    return this.prisma.lesson.findMany({ include: { LessonContent:  true }   });
+    return this.prisma.lesson.findMany({ include: { LessonContent: true } });
   }
 
   findOne(id: number) {
-    return this.prisma.lesson.findUniqueOrThrow({ where: { id }  , include: { LessonContent: true } });
+    return this.prisma.lesson.findUniqueOrThrow({
+      where: { id },
+      include: { LessonContent: true },
+    });
   }
 
   update(id: number, updateLessonDto: UpdateLessonDto) {
