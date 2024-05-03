@@ -2,7 +2,7 @@ import React, { useEffect , useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchsession } from "../../../store/sessions";
-import { CardActionArea } from "@mui/material";
+import { Button, CardActionArea } from "@mui/material";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -27,8 +27,18 @@ import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
+import { orange, cyan } from '@mui/material/colors';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 function SessionDetails() {
+  const theme = createTheme({
+    palette: {
+      primary: orange, 
+      secondary: cyan,
+     
+    },
+  });
+  const [isOpen, setIsOpen] = useState(false);
 
 const [ rows , setRows]=useState([])
   const columns = [
@@ -95,6 +105,11 @@ const [ rows , setRows]=useState([])
 
   return (
     <div>
+       <div className="d-flex flex-row-reverse p-2">
+       <ThemeProvider theme={theme}>
+      <Button variant="contained" >+ Week</Button>
+      </ThemeProvider>
+      </div>
       <div className=" d-flex justify-content-center">
         <p
           className=" py-2"
@@ -114,7 +129,7 @@ const [ rows , setRows]=useState([])
         data-bs-target="#multiCollapseExample2"
         aria-expanded="false"
         aria-controls="multiCollapseExample2"
-        style={{ width: "4rem", height: "4rem", float: "right" }}
+        style={{ width: "3rem", height: "3rem", float: "right" }}
       />
       <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample2">
@@ -156,9 +171,7 @@ const [ rows , setRows]=useState([])
             <Typography variant="body2" color="text.secondary">
               {session?.description}
             </Typography>
-            {/* <Typography variant="body2" color="text.secondary">
-        {session?.SessionUser?.user?.firstName}
-        </Typography> */}
+          
           </CardContent>
           <CardActions disableSpacing>
             <IconButton aria-label="add to favorites">
@@ -178,25 +191,11 @@ const [ rows , setRows]=useState([])
           </CardActions>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
             <CardContent>
-              <Typography paragraph>Program</Typography>
-              <Typography paragraph>{session?.program.title}</Typography>
-              <CardMedia
-                component="img"
-                height="194"
-                image={session?.program.imageURL}
-                alt="Paella dish"
-              />
-              <Typography paragraph>{session?.program.description}</Typography>
-              <Typography>{session?.program.price}</Typography>
-            </CardContent>
-          </Collapse>
-        </Cardmui>
-      </div>
-
-      <div className="d-flex flex-wrap justify-content-center py-5 gap-5 ">
-        <h1> Membres</h1>
-
-
+            <div className="d-flex flex-wrap justify-content-center py-5 gap-5 ">
+        <ThemeProvider theme={theme}>
+      <Button variant="contained">Membres</Button>
+      </ThemeProvider>
+      </div> 
         <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
         rows={rows}
@@ -227,7 +226,22 @@ const [ rows , setRows]=useState([])
             </CardActionArea>
           </Card>
         ))}
+              {/* <Typography paragraph>Program</Typography>
+              <Typography paragraph>{session?.program.title}</Typography>
+              <CardMedia
+                component="img"
+                height="194"
+                image={session?.program.imageURL}
+                alt="Paella dish"
+              />
+              <Typography paragraph>{session?.program.description}</Typography>
+              <Typography>{session?.program.price}</Typography> */}
+            </CardContent>
+          </Collapse>
+        </Cardmui>
       </div>
+
+      
       <div className="px-3 py-2" style={{ zIndex: 5 }}>
         <Accordion className=" d-flex ">
           <Accordion.Item eventKey="0" className="w-50">
