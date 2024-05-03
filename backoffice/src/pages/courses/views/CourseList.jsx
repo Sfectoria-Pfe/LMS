@@ -175,49 +175,17 @@ export default function CourseList() {
               </Button>
             </CardActions>
           </Card>
-          // <Card style={{ width: "21rem", height: "28rem" }}>
-          //   <Card.Img
-          //     variant="top"
-          //     src={card.imageURL}
-          //     style={{ height: "11rem" }}
-          //     className="thumb-img"
-          //   />
-          //   <Card.Body>
-          //     <Card.Title style={{ width: "18rem", height: "4rem" }}>
-          //       {card.title}
-          //     </Card.Title>
-          //     <Card.Text style={{ width: "18rem", height: "7rem" }}>
-          //       {card.description}
-          //     </Card.Text>
-          //     <div style={{height:"3rem"}}>
-
-          //     <div className="d-flex gap-3" >
-          //       <Link to={`details/${card.id}`}>
-          //         <button className="btn btn-primary">See more</button>
-          //       </Link>
-          //       <button
-          //         className="btn btn-warning"
-          //         onClick={() => {
-          //           navigate(`update/${card.id}`);
-          //         }}
-          //       >
-          //         Update
-          //       </button>
-          //       <button
-          //         className="btn btn-danger"
-          //         onClick={() => {
-          //           setModalShow(true);
-          //          deletedIdfunc(card.id);
-          //         }}
-          //       >
-          //         Delete
-          //       </button>
-          //     </div>
-          //     </div>
-          //   </Card.Body>
-          // </Card>
+          
         ))}
       </div>
+
+
+      
+      {/* delete pop up */}
+
+
+
+
       <Modal
         show={modalShow}
         onHide={() => setModalShow(false)}
@@ -247,6 +215,9 @@ export default function CourseList() {
           </Button>
         </div>
       </Modal>
+
+
+      {/* add course */}
 
       <div style={{ zIndex: "9" }}>
         <Modal

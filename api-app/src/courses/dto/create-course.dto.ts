@@ -6,6 +6,8 @@ export class CreateCourseDto {
   @ApiProperty()
   imageURL: string;
   @ApiProperty()
+  videoURL: string;
+  @ApiProperty()
   description: string;
   @ApiProperty()
   src: string;

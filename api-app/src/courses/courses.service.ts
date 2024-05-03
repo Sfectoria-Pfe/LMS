@@ -13,10 +13,10 @@ export class CoursesService {
   }
 
   findAll() {
-    return this.prisma.course.findMany({ include: { Lesson: true } });
+    return this.prisma.course.findMany({ include: { Lesson: {where:{archived:false}} } });
   }
   findOne(id: number) {
-    return this.prisma.course.findUniqueOrThrow({ where: { id } , include: { Lesson:{include:{LessonContent:true}} }  });
+    return this.prisma.course.findUniqueOrThrow({ where: { id }, include: { Lesson: { where: { archived : false},include:{LessonContent:true}} }  });
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {
