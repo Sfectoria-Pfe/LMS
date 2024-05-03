@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE `course` MODIFY `src` LONGTEXT NULL,
+    MODIFY `src1` LONGTEXT NULL,
+    MODIFY `src2` LONGTEXT NULL;

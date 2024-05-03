@@ -1,0 +1,13 @@
+[{
+    "id": 1,
+   "FirstName": "String",
+   " LastName": "String",
+    "email": "String",
+    "adress": "String",
+    "Phone": 986546,
+    "occupation": "String",
+    "dateOfBirth": "16/6/9628",
+    "studies": "String",
+    "college": "String",
+    "degree": "String"
+}]

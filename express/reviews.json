@@ -1,0 +1,35 @@
+[
+    {
+      "id": 1,
+      "username": "yasmin adouani",
+      "userId": 1,
+      "rating":  "rating 4.5",
+      "comment": "Très bonne formation, j'ai appris énormément sur le Développement Web Frontend. Les instructeurs étaient très compétents et les exercices pratiques étaient très utiles.",
+      "date": "2023-10-15"
+    },
+    {
+      "id": 2,
+      "username": "ghofrane ferchichi",
+      "userId": 2,
+      "rating": "rating 5",
+      "comment": "Merci toute l'equipe de sfectoria pour vos effors , formation excellente sur jQuery. Les explications étaient claires et les exemples étaient très pertinents. Je recommande vivement cette formation.",
+      "date": "2023-09-28"
+    },
+    {
+      "id": 3,
+      "username": "Mohammed ben arfa",
+      "userId": 3,
+      "rating": "rating4",
+      "comment": "La formation sur  react.js était très instructive. Je suis honoré d'avoir eu l'opportunité de bénéficier de vos connaissances et de votre expertise, les exercices pratiques très utiles pour comprendre les concepts .",
+      "date": "2023-11-05"
+    },
+    {
+      "id": 4,
+      "username": "oumaima wesleti",
+      "userId": 4,
+      "rating":"rating 4",
+      "comment": "Bonne formation en MongoDB. J'aurais aimé plus de détails sur certains sujets, mais dans l'ensemble c'était très instructif. un grand remercie a mes enseignants khalil ,rania et farouk",
+      "date": "2023-08-20"
+    }
+  ]
+  
