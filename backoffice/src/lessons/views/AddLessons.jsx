@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Form from "react-bootstrap/Form";
 import { sendlesson, fetchLessons } from "../../store/lesson";
 import FormGroup from "react-bootstrap/esm/FormGroup";
@@ -10,23 +15,48 @@ import { FaFilePdf } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
 import { MdQuiz } from "react-icons/md";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
-import View1 from "./component/AddContent/Addvideo";
-import Addvideo from "./component/AddContent/Addvideo";
-import Addpdf from "./component/AddContent/Addpdf";
-import Addexercice from "./component/AddContent/Addexercice";
 import axios from "axios";
 export default function AddLessons() {
   const { courseId } = useParams();
   const [typecontent, setTypeContent] = useState({});
   const [imageUrl, setImageUrl] = useState(null);
-
   const [videoUrl, setVideo] = useState(null);
 
   const [lesson, setlesson] = useState({});
-  const [pdf, setPdf] = useState(null);
+  const [PDF, setPDF] = useState(null);
   const [view, setView] = useState(null);
   const course = useSelector((state) => state.coursesSlice.course);
-  
+  const [questions, setQuestions] = useState([
+    // { label: "", scale, propositions: [{ label: "", isCorrect: true }] },
+    // {},
+  ]);
+  const [question, setQuestion] = useState({
+    label: "",
+    scale: 1,
+    propositions: [],
+  });
+  const handleChangePoposition = (e, index) => {
+    const { value } = e.target;
+    let aux = Object.assign({}, question);
+    aux.propositions[index].label = value;
+    setQuestion(aux);
+  };
+  const handleAddQuestion = () => {
+    let aux = [...questions];
+    aux.push(question);
+    setQuestions(aux);
+    setQuestion({
+      label: "",
+      scale: 0,
+      propositions: [
+        { label: "" },
+        { label: "" },
+        { label: "" },
+        { label: "" },
+      ],
+    });
+  };
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -44,12 +74,17 @@ export default function AddLessons() {
       setVideo(e.target.files[0]);
     }
   };
+  const handlePDFChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setPDF(e.target.files[0]);
+    }
+  };
 
   //submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let auxlesson = { ...lesson, courseId:+courseId };
+      let auxlesson = { ...lesson, courseId: +courseId };
       if (imageUrl) {
         const formData = new FormData();
         formData.append("file", imageUrl);
@@ -77,12 +112,30 @@ export default function AddLessons() {
           ],
         };
       }
+      if (PDF) {
+        const formData = new FormData();
+        formData.append("file", PDF);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxlesson = {
+          ...auxlesson,
+          contents: [
+            ...auxlesson.contents,
+            {
+              contentURL: response.data.path,
+              type: "pdf",
+              contentname: "khalil",
+            },
+          ],
+        };
+      }
       console.log(auxlesson);
 
       dispatch(sendlesson(auxlesson)).then((res) => {
         if (!res.error)
           window.location.href = `http://localhost:3000/courses/details/${courseId}`;
-       
       });
     } catch (err) {
       console.log(err);
@@ -246,7 +299,7 @@ export default function AddLessons() {
                               type="file"
                               name="video"
                               className="px-3 border border-info"
-                              placeholder="image URL"
+                              placeholder="Video"
                               required
                               onChange={handleVideoChange}
                             />
@@ -289,6 +342,7 @@ export default function AddLessons() {
                           className="px-3 border border-info"
                           placeholder="pdf"
                           required
+                          onChange={handlePDFChange}
                         />
                       </p>
 
@@ -345,9 +399,130 @@ export default function AddLessons() {
                   ) : (
                     ""
                   )}
+                  {view === 4 ? (
+                    <div className="px-4">
+                      <Accordion className="px-4">
+                        <AccordionSummary
+                          aria-controls="panel1-content"
+                          id="panel1-header"
+                        >
+                          <Typography className="d-flex gap-4">
+                            <div>Question</div>
+                            <div className="d-flex align-items-center gap-3">
+                              <Form.Label>Scale:</Form.Label>
+                              <p class="text-muted mb-0">
+                                <input
+                                  className="w-50 form-control"
+                                  type="text"
+                                  name="exerciceName"
+                                  placeholder="question scale"
+                                  required
+                                />
+                              </p>
+                            </div>
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            <FormGroup controlId="formBasicEmail">
+                              <div className="d-flex justify-content-center gap-4 ">
+                                <Form.Label>Question:</Form.Label>
+                                <p class="text-muted mb-0">
+                                  <textarea
+                                    style={{ width: "30rem" }}
+                                    class="form-control"
+                                    className="px-3 "
+                                    id="exampleFormControlTextarea1"
+                                    rows="3"
+                                    required
+                                    name="question"
+                                    placeholder="question"
+                                  ></textarea>
+                                </p>
+                              </div>
+                              <div className="d-flex flex-wrap gap-4 py-3 justify-content-center">
+                                <Form.Label className="px-4">
+                                  Answer 1 :
+                                </Form.Label>
+                                <p class="text-muted mb-0">
+                                  <input
+                                    type="text"
+                                    name="exerciceName"
+                                    placeholder="answer 1"
+                                    className="form-control"
+                                    required
+                                    onChange={(e) =>
+                                      handleChangePoposition(e, 1)
+                                    }
+                                    value={question.propositions[0].label}
+                                  />
+                                </p>
+
+                                <Form.Label className="px-4">
+                                  Answer 2 :
+                                </Form.Label>
+                                <p class="text-muted mb-0">
+                                  <input
+                                    type="text"
+                                    name="exerciceName"
+                                    placeholder="Answer 2"
+                                    className="form-control"
+                                    required
+                                    onChange={(e) =>
+                                      handleChangePoposition(e, 1)
+                                    }
+                                    value={question.propositions[1].label}
+                                  />
+                                </p>
+                              </div>
+
+                              <div className="d-flex flex-wrap gap-4 py-3 justify-content-center">
+                                <Form.Label className="px-4">
+                                  Answer 3 :
+                                </Form.Label>
+                                <p class="text-muted mb-0">
+                                  <input
+                                    type="text"
+                                    name="exerciceName"
+                                    placeholder="Answer 3"
+                                    className="form-control"
+                                    required
+                                  />
+                                </p>
+
+                                <Form.Label className="px-4">
+                                  Answer 4 :
+                                </Form.Label>
+                                <p class="text-muted mb-0">
+                                  <input
+                                    type="text"
+                                    name="exerciceName"
+                                    placeholder="Answer 4"
+                                    className="form-control"
+                                    required
+                                  />
+                                </p>
+                              </div>
+                              <div className="d-flex justify-content-center gap-3">
+                                <button className="btn btn-warning">Add</button>
+                              </div>
+                            </FormGroup>
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
-              <div class="d-flex justify-content-center py-3">
+              <div class="d-flex justify-content-center gap-4 py-3">
+                <button
+                  className="btn "
+                  style={{ backgroundColor: "#1e3048", color: "white" }}
+                >
+                  Save this question
+                </button>
                 <Button
                   style={{ width: "7rem" }}
                   variant="warning"

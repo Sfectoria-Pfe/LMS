@@ -5,6 +5,6 @@ export class CreateLessonContentDto {
   contentname: string;
   @ApiProperty()
   type: typeContent;
-  contentExercice: string;
+  contentExercice?  : string;
   contentURL: string;
 }

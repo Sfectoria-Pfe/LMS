@@ -1,6 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { typeContent } from '@prisma/client';
-
+import {  typeContent } from '@prisma/client';
+export class Answer {
+  label: string;
+  isCorrect: boolean;
+}
+export class Question {
+  label: string;
+  scale: number;
+  propositions?: Answer[];
+}
+export class Content {
+  contentname: string;
+  type: typeContent;
+  contentExercice?: string;
+  contentURL: string;
+  questions?: Question[];
+}
 export class CreateLessonDto {
   @ApiProperty()
   imageURL: string;
@@ -8,12 +23,10 @@ export class CreateLessonDto {
   title: string;
   @ApiProperty()
   courseId: number;
-  
-  contents: Content[];
+
+  contents?: Content[];
 }
-class Content {
-  contentname: string;
-  type: typeContent;
-  contentExercice: string;
-  contentURL: string;
-}
+
+
+
+
