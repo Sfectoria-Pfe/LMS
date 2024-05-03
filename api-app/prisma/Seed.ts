@@ -6,7 +6,8 @@ import {SessionData} from './SessionData';
 import { dataUser } from './Userdata';
 import {LessonData} from './lesson'
 import { WeeksData } from './Weeks';
-import  * as bcrypt from 'bcrypt'
+import * as bcrypt from 'bcrypt'
+import {content} from './content'
 
 
 // initialize Prisma Client
@@ -41,6 +42,9 @@ const usersdatahush=await  Promise.all(dataUser.map (async(dto )=> {
   });
   const lessons = await prisma.lesson.createMany({
     data: LessonData  ,
+  });
+  const lessonContent = await prisma.lessonContent.createMany({
+    data: content
   });
  
   

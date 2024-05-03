@@ -50,13 +50,11 @@ model Course {
 }
 
 model ProgramCourse {
-  id         Int       @id @default(autoincrement())
-  programId  Int
-  program    Program?  @relation(fields: [programId], references: [id], onDelete: Cascade)
-  courseId   Int
-  course     Course?   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  Question   Question? @relation(fields: [questionId], references: [id])
-  questionId Int?
+  id        Int      @id @default(autoincrement())
+  programId Int
+  program   Program? @relation(fields: [programId], references: [id], onDelete: Cascade)
+  courseId  Int
+  course    Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model Program {
@@ -114,6 +112,7 @@ model Lesson {
   title         String
   imageURL      String          @db.LongText
   courseId      Int
+  archived      Boolean         @default(false)
   course        Course?         @relation(fields: [courseId], references: [id], onDelete: Cascade)
   LessonContent LessonContent[]
 }
@@ -131,18 +130,20 @@ model LessonContent {
 }
 
 model Question {
-  id              Int             @id @default(autoincrement())
+  id              Int                 @id @default(autoincrement())
   label           String
   scale           Int
-  LessonContent   LessonContent   @relation(fields: [lessonContentId], references: [id])
+  LessonContent   LessonContent       @relation(fields: [lessonContentId], references: [id])
   lessonContentId Int
-  propositions    ProgramCourse[]
+  propositions    PropositionAnswer[]
 }
 
 model PropositionAnswer {
-  id        Int     @id @default(autoincrement())
-  label     String
-  isCorrect Boolean
+  id         Int      @id @default(autoincrement())
+  label      String
+  isCorrect  Boolean
+  Question   Question @relation(fields: [questionId], references: [id])
+  questionId Int
 }
 
 model Msgs {
