@@ -39,6 +39,8 @@ export class SessionsService {
     });
   }
 
+
+  
   update(id: number, updateSessionDto: UpdateSessionDto) {
     return this.prisma.session.update({
       where: { id },
