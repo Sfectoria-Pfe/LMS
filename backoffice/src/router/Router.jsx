@@ -37,6 +37,7 @@ import AddLessons from "../lessons/views/AddLessons";
 import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
 import AddSession from "../pages/sessions/views/AddSession";
+import UpdateSession from "../pages/sessions/views/UpdateSession";
 
 export const UserContext = createContext();
 
@@ -87,7 +88,7 @@ export default function Router() {
                 <Route path="programs" element={<Programs />}>
                   <Route index element={<ProgramsList />} />
                   <Route path="add" element={<AddProgram />} />
-                  <Route path=":id" element={<ProgramDetails />} />
+                  <Route path="details/:id" element={<ProgramDetails />} />
                   <Route path="update/:id" element={<UpdateProgram />} />
                 </Route>
 
@@ -95,6 +96,7 @@ export default function Router() {
                   <Route index element={<SessionList />} />
                   <Route path=":sessionId" element={<SessionDetails />} />
                   <Route path="add" element={<AddSession />} />
+                  <Route path="update/:id" element={<UpdateSession />} />
                 </Route>
 
                 <Route path="users" element={<Users />}>

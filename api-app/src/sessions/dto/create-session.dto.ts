@@ -11,4 +11,5 @@ export class CreateSessionDto {
   duration: string;
   @ApiProperty()
   imageURL: string;
+  userIds:number[]
 }

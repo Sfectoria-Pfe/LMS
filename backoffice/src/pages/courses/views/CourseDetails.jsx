@@ -11,7 +11,7 @@ export default function CourseDetails() {
   const { courseId } = useParams();
   const course = useSelector((state) => state.coursesSlice.course);
   console.log(course, "this is course");
-  const navigate= useNavigate()
+  const navigate = useNavigate();
   // console.log(course?.Lesson, "those are lessons");
   const dispatch = useDispatch();
   useEffect(() => {
@@ -45,18 +45,16 @@ export default function CourseDetails() {
             className="btn"
             style={{ backgroundColor: "#ffc107" }}
             onClick={() => {
-              navigate(`/courses/${courseId}/lesson/add`)
+              navigate(`/courses/${courseId}/lesson/add`);
             }}
-            
           >
             + Add new lesson
           </button>
           {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
         </div>
       </div>
-
-      <div className="d-flex justify-content-center ">
-        {/* <video
+      {course?.videoURL && (
+        <video
           id="bannerVideo"
           autoPlay
           loop
@@ -64,13 +62,19 @@ export default function CourseDetails() {
           style={{ width: "100%", height: "40rem" }}
           className="px-5"
         >
-          <source src={video1} type="video/mp4" />
-        </video> */}
-        <MDBContainer>
+          <source src={course?.videoURL} type="video/mp4" />
+        </video>
+      )}
+      <div className="d-flex justify-content-center ">
+        {/* <MDBContainer>
           <div className="ratio ratio-16x9">
-            <iframe src={video1} title="Vimeo video" allowfullscreen></iframe>
+            <iframe
+              src={course?.videoURL}
+              title="Vimeo video"
+              allowfullscreen
+            ></iframe>
           </div>
-        </MDBContainer>
+        </MDBContainer> */}
 
         {/* <div>
           <video src={video1} autoplay="true" />
@@ -99,7 +103,6 @@ export default function CourseDetails() {
                 </div>
               </Accordion.Header>
               <Accordion.Body>
-                
                 <Card style={{ width: "19rem", height: "15rem" }}>
                   <Card.Img
                     variant="top"

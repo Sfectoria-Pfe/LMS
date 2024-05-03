@@ -24,19 +24,19 @@ export const fetchsession = createAsyncThunk("fetchsession", async (id) => {
   }
 });
 
-//delete session
 
-// export const deletesession = createAsyncThunk("deletesession", async (id) => {
-//   try {
-//     const response = await axios.delete("http://localhost:5000/sessions/" + id);
+
+export const deletesession = createAsyncThunk("deletesession", async (id) => {
+  try {
+    const response = await axios.delete("http://localhost:5000/sessions/" + id);
   
 
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error deleting session:", error);
-//     throw error;
-//   }
-// });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting session:", error);
+    throw error;
+  }
+});
 
 // Action types
 export const SESSION_ADDED = "SESSION_ADDED";
@@ -48,18 +48,18 @@ export const sessionAdded = (session) => ({
   payload: session,
 });
 
-// export const editsession = createAsyncThunk("editsession", async (args,{dispatch}) => {
-//   const {id , body} = args
-//   try {
-//     const response = await axios.patch("http://localhost:5000/sessions/" + id, body);
+export const editsession = createAsyncThunk("editsession", async (args,{dispatch}) => {
+  const {id , body} = args
+  try {
+    const response = await axios.patch("http://localhost:5000/sessions/" + id, body);
   
-// dispatch(fetchsession(id))
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error editing session:", error);
-//     throw error;
-//   }
-// });
+dispatch(fetchsession(id))
+    return response.data;
+  } catch (error) {
+    console.error("Error editing session:", error);
+    throw error;
+  }
+});
 
 
 
@@ -97,12 +97,12 @@ export const sessionsSlice = createSlice({
     builder.addCase(sendsession.fulfilled, (state, action) => {
       state.session = action.payload;
     });
-//     builder.addCase(deletesession.fulfilled, (state, action) => {
-//    state.session = action.payload;
-//     });
-//     builder.addCase(editsession.fulfilled, (state, action) => {
-//       state.session = action.payload;
-//     });
+    builder.addCase(deletesession.fulfilled, (state, action) => {
+   state.session = action.payload;
+    });
+    builder.addCase(editsession.fulfilled, (state, action) => {
+      state.session = action.payload;
+    });
   },
 });
 // console.log(counterSlice.actions);

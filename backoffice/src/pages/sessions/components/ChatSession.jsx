@@ -39,7 +39,7 @@ export default function ChatSession() {
   };
   return (
   
-      <div className="  mt-0 d-flex  ">
+      <div className="  mt-0 d-flex  " style={{zIndex:200}}>
         <section
           style={{
             backgroundColor: "#daeaf0",

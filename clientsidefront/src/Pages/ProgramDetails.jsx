@@ -1,5 +1,13 @@
 
 import React, { Component, useEffect, useState } from "react";
+import Check from "@mui/icons-material/Check";
+import Divider from "@mui/joy/Divider";
+import CardActions from "@mui/joy/CardActions";
+import ListItem from "@mui/joy/ListItem";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Chip from "@mui/joy/Chip";
+import Pricing from "@mui/joy/Card";
+import List from "@mui/joy/List";
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { Link, NavLink, useParams } from "react-router-dom";
@@ -55,56 +63,135 @@ export default function ProgramDetails() {
   }, []);
   return  <div>
     
-  
-    
-    <Card className="py-4 px-3   justify-content-center">
-      <Card.Header className="d-flex justify-content-center" ><h3 style={{ fontFamily: "Brittany Signature" }}>
-           <div>{state.data?.title}</div> 
-           <div
-            style={{
-              height: "5px",
-              width: "80px",
-              backgroundColor: "rgb(66, 177, 188)",
-              marginRight: "42px",
+    <div className="d-flex flex-wrap gap-4 p-4 justify-content-center">
+        <div>
+          <Pricing
+            size="lg"
+            variant="outlined"
+            orientation="horizontal"
+            sx={{
+              textAlign: "center",
+              maxWidth: "100%",
+              width: 900,
+              // to make the demo resizable
+              resize: "horizontal",
+              overflow: "auto",
             }}
-          ></div>
-          </h3></Card.Header>
-      <Card.Body>
-        <Card.Title  className="d-flex justify-content-center">{state.data?.description}</Card.Title>
-       
-      <Card.Text>
-      <div className="  d-flex justify-content-center">
-        <img
-          src={state.data?.imageURL}
-          style={{
-            marginBottom: "2%",
-            marginTop: "1%",
-            width: "60rem",
-            height: "20rem",
-          }}
-        />
+          >
+            <AspectRatio ratio="1" sx={{ width: 300 }}>
+              <img src={state.data?.imageURL} loading="lazy" alt="" />
+            </AspectRatio>
+            <CardContent
+              sx={{
+                textAlign: "center",
+                flex: "0  600px",
+
+                justifyContent: "center",
+                px: 'var(--Card-padding: "70px")',
+              }}
+              size="lg"
+            >
+              <Typography level="title-lg" id="card-description"></Typography>{" "}
+              {state.data?.title}{" "}
+              <div className="d-flex justify-content-center">
+                <div
+                  style={{
+                    height: "5px",
+                    width: "80px",
+                    backgroundColor: "rgb(66, 177, 188)",
+                  }}
+                ></div>
+              </div>
+              <Typography level="body-lg">
+                {" "}
+                {state.data?.description}
+              </Typography>
+            </CardContent>
+          </Pricing>
+        </div>
+
+        <div style={{ height: "6px", width: "350px" }}>
+          <Pricing
+            size="sm"
+            variant="solid"
+            color="neutral"
+            invertedColors
+            sx={{ bgcolor: "neutral.900", height: 322 }}
+          >
+            <Chip size="lg" variant="outlined">
+              Professional Certificate
+            </Chip>
+            <Typography level="h2">Price</Typography>
+            <Divider inset="none" />
+            <List
+              size="sm"
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                mx: "calc(-1 * var(--ListItem-paddingX))",
+              }}
+            >
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Invite your team (chat room)
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                + 3 Projects
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Planning flexible
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                Access to all advanced training modules
+              </ListItem>
+              <ListItem>
+                <ListItemDecorator>
+                  <Check />
+                </ListItemDecorator>
+                3 team members
+              </ListItem>
+            </List>
+            <Divider inset="none" />
+            <CardActions>
+              <Typography level="title-lg" sx={{ mr: "auto" }}>
+                {state.data?.price}{" "}
+                <Typography fontSize="lg" textColor="text.tertiary">
+                  Dt
+                </Typography>
+              </Typography>
+            </CardActions>
+          </Pricing>
+        </div>
       </div>
+    
+ 
+       
+{/*      
       Our admissions department will contact you within 48 business hours
           following your registration request submitted via the online contact
           form. For faster processing, you can reach us by phone at (+216 55 180
           992).
-          </Card.Text>
+         
           If you wish to join our school, please fill out the form below, and
           you will be invited to an admission interview to assess the quality of
-          your application
-        </Card.Body>
-    </Card> 
+          your application */}
+   
 
 
-      <div className="px-5 py-1"></div>
-        <div className="px-3">
-          <h3>  </h3>
-          <div class="button" style={{ marginBottom: "30px" }}>
-            {state.data?.price} dt
-          </div>
-        </div>
+   
      
-    
+     
 
       <div
         className="px-5 py-4 d-flex justify-content-center"

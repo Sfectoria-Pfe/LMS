@@ -26,6 +26,7 @@ export default function CourseList() {
   const [deletedId, setDeletedId] = useState("");
   const [course, setcourse] = useState({});
   const [imageUrl, setImageUrl] = useState(null);
+  const [videoUrl, setVideoUrl] = useState(null);
   console.log(course);
 
   const dispatch = useDispatch();
@@ -36,6 +37,11 @@ export default function CourseList() {
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files.length > 0) {
       setImageUrl(e.target.files[0]);
+    }
+  };
+  const handleFileChangeVideo = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setVideoUrl(e.target.files[0]);
     }
   };
   const handleSubmit = async (e) => {
@@ -50,6 +56,15 @@ export default function CourseList() {
           formData
         );
         auxCourse = { ...auxCourse, imageURL: response.data.path };
+      }
+      if (videoUrl) {
+        const formData = new FormData();
+        formData.append("file", videoUrl);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxCourse = { ...auxCourse, videoURL: response.data.path };
       }
 
       dispatch(sendcourse(auxCourse)).then((res) => {
@@ -114,12 +129,12 @@ export default function CourseList() {
               height="140"
               image={card.imageURL}
             />
-            <CardContent>
+            <CardContent style={{height:"10rem"}}>
               <Typography
                 gutterBottom
-                variant="h5"
+                variant="h6"
                 component="div"
-                className="py-3"
+                className="py-2"
               >
                 {card.title}
               </Typography>
@@ -267,6 +282,20 @@ export default function CourseList() {
                     className="px-3 border border-info"
                     placeholder="image URL"
                     onChange={handleFileChange}
+                  />
+                </Form.Group>
+                <Form.Group
+                  accept="video/*"
+                  className="mb-3 d-flex p-2 gap-5 "
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Control
+                    accept="video/*"
+                    type="file"
+                    name="imageURL"
+                    className="px-3 border border-info"
+                    placeholder="image URL"
+                    onChange={handleFileChangeVideo}
                   />
                 </Form.Group>
                 <Form.Group

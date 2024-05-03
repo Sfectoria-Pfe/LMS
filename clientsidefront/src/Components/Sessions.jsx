@@ -1,7 +1,13 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+
+
 
 export default function Sessions() {
     const [state, setState] = useState({
@@ -39,56 +45,58 @@ export default function Sessions() {
 
       <div className="d-flex flex-wrap gap-5 p-5 justify-content-center">
         {state.data.map((card) => (
-          <Card style={{ width: "20rem", height: "32rem" }}>
-            <Card.Img
-              variant="top"
-              src={card.imageURL}
-              style={{ height: "12rem" }}
-              className="thumb-img"
-            />
-            <Card.Body>
-              <Card.Title style={{ width: "18rem", height: "2rem" }}>
-                {card.title}
-              </Card.Title>
-              <Card.Text
-                style={{
-                  width: "18rem",
-                  height: "12rem",
+                   <Card sx={{ maxWidth: 345 }}>
+                   <CardMedia
+                     component="img"
+                     alt="green iguana"
+                     height="140"
+                     image={card.imageURL}
+                   />
+                   <CardContent>
+                     <Typography gutterBottom variant="h5" component="div">
+                     {card.title}
+                     </Typography>
+                     <Typography variant="body2" color="text.secondary">
+                     {card.description}
+                     </Typography>
+                   </CardContent>
+                   <CardActions size="small">
+                   <Link href={`session/${card.id}`} underline="hover">
+        {'See more'}
+      </Link>    </CardActions>
+                 </Card>
+          // <Card style={{ width: "20rem", height: "32rem" }}>
+          //   <Card.Img
+          //     variant="top"
+          //     src={card.imageURL}
+          //     style={{ height: "12rem" }}
+          //     className="thumb-img"
+          //   />
+          //   <Card.Body>
+          //     <Card.Title style={{ width: "18rem", height: "2rem" }}>
+          //       {card.title}
+          //     </Card.Title>
+          //     <Card.Text
+          //       style={{
+          //         width: "18rem",
+          //         height: "12rem",
                  
-                }}
-              >
-                {card.description}
-              </Card.Text>
-              <div
-                className="d-flex justify-content-around px-5"
+          //       }}
+          //     >
+          //       {card.description}
+          //     </Card.Text>
+          //     <div
+          //       className="d-flex justify-content-around px-5"
                 
-              >
-                <Link to={`session/${card.id}`} className="btn btn-primary">
-                    See more
-                  </Link>
+          //     >
+          //       <Link to={`session/${card.id}`} className="btn btn-primary">
+          //           See more
+          //         </Link>
 
-                {/* <Link
-                      to={`/${card.id}`}
-                      className="btn btn-primary"
-                      onClick={() => ({
-                        src: card.src,
-                        name: card.name,
-                        body: card.body,
-                        description: card.description,
-                      })}
-                    > */}
-
-                {/* </Link> */}
-                {/* <Button
-                style={{ width: "7rem" }}
-                variant="info"
-                
-              >
-                More
-              </Button> */}
-              </div>
-            </Card.Body>
-          </Card>
+             
+          //     </div>
+          //   </Card.Body>
+          // </Card>
         ))}
       </div>
     </div>
