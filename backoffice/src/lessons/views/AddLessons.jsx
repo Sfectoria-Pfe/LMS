@@ -26,14 +26,16 @@ export default function AddLessons() {
   const [PDF, setPDF] = useState(null);
   const [view, setView] = useState(null);
   const course = useSelector((state) => state.coursesSlice.course);
-  const [questions, setQuestions] = useState([
-    // { label: "", scale, propositions: [{ label: "", isCorrect: true }] },
-    // {},
-  ]);
+  const [questions, setQuestions] = useState([]);
   const [question, setQuestion] = useState({
     label: "",
     scale: 1,
-    propositions: [],
+    propositions: [
+      { label: "", isCorrect: false },
+      { label: "", isCorrect: false },
+      { label: "", isCorrect: false },
+      { label: "", isCorrect: false },
+    ],
   });
   const handleChangePoposition = (e, index) => {
     const { value } = e.target;
@@ -41,18 +43,27 @@ export default function AddLessons() {
     aux.propositions[index].label = value;
     setQuestion(aux);
   };
+  const handleChangeCheckBox = (e, index) => {
+    const { checked } = e.target;
+    let aux = Object.assign({}, question);
+
+    aux.propositions[index].isCorrect = checked;
+    console.log(aux.propositions[index].isCorrect);
+    setQuestion(aux);
+  };
   const handleAddQuestion = () => {
     let aux = [...questions];
     aux.push(question);
+    console.log(aux);
     setQuestions(aux);
     setQuestion({
       label: "",
       scale: 0,
       propositions: [
-        { label: "" },
-        { label: "" },
-        { label: "" },
-        { label: "" },
+        { label: "", isCorrect: false },
+        { label: "", isCorrect: false },
+        { label: "", isCorrect: false },
+        { label: "", isCorrect: false },
       ],
     });
   };
@@ -405,7 +416,28 @@ export default function AddLessons() {
                         <AccordionSummary
                           aria-controls="panel1-content"
                           id="panel1-header"
-                        >
+                        ></AccordionSummary>
+                        <AccordionDetails>
+                          <div>
+                            {questions.map((question, i) => (
+                              <div>
+                                <div className="d-flex justity-conent-between">
+                                  <p>{question.label}</p>
+                                  <p>{question.scale}</p>
+                                </div>
+                                {question.propositions.map((proposal, i) => (
+                                  <div className="d-flex">
+                                    {proposal.isCorrect}
+                                    <p>{proposal.label}</p>
+                                    <input
+                                      type="checkbox"
+                                      checked={proposal.isCorrect}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
                           <Typography className="d-flex gap-4">
                             <div>Question</div>
                             <div className="d-flex align-items-center gap-3">
@@ -417,12 +449,17 @@ export default function AddLessons() {
                                   name="exerciceName"
                                   placeholder="question scale"
                                   required
+                                  value={question.scale}
+                                  onChange={(e) => {
+                                    setQuestion({
+                                      ...question,
+                                      scale: e.target.value,
+                                    });
+                                  }}
                                 />
                               </p>
                             </div>
                           </Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
                           <Typography>
                             <FormGroup controlId="formBasicEmail">
                               <div className="d-flex justify-content-center gap-4 ">
@@ -437,6 +474,13 @@ export default function AddLessons() {
                                     required
                                     name="question"
                                     placeholder="question"
+                                    value={question.label}
+                                    onChange={(e) => {
+                                      setQuestion({
+                                        ...question,
+                                        label: e.target.value,
+                                      });
+                                    }}
                                   ></textarea>
                                 </p>
                               </div>
@@ -444,7 +488,7 @@ export default function AddLessons() {
                                 <Form.Label className="px-4">
                                   Answer 1 :
                                 </Form.Label>
-                                <p class="text-muted mb-0">
+                                <p class="text-muted mb-0 d-flex">
                                   <input
                                     type="text"
                                     name="exerciceName"
@@ -452,9 +496,18 @@ export default function AddLessons() {
                                     className="form-control"
                                     required
                                     onChange={(e) =>
-                                      handleChangePoposition(e, 1)
+                                      handleChangePoposition(e, 0)
                                     }
                                     value={question.propositions[0].label}
+                                  />
+                                  <input
+                                    type="checkbox"
+                                    name="exerciceName"
+                                    placeholder="answer 1"
+                                    className=""
+                                    required
+                                    onChange={(e) => handleChangeCheckBox(e, 0)}
+                                    checked={question.propositions[0].isCorrect}
                                   />
                                 </p>
 
@@ -473,6 +526,15 @@ export default function AddLessons() {
                                     }
                                     value={question.propositions[1].label}
                                   />
+                                  <input
+                                    type="checkbox"
+                                    name="exerciceName"
+                                    placeholder="answer 1"
+                                    className=""
+                                    required
+                                    onChange={(e) => handleChangeCheckBox(e, 1)}
+                                    checked={question.propositions[1].isCorrect}
+                                  />
                                 </p>
                               </div>
 
@@ -487,6 +549,19 @@ export default function AddLessons() {
                                     placeholder="Answer 3"
                                     className="form-control"
                                     required
+                                    onChange={(e) =>
+                                      handleChangePoposition(e, 2)
+                                    }
+                                    value={question.propositions[2].label}
+                                  />
+                                  <input
+                                    type="checkbox"
+                                    name="exerciceName"
+                                    placeholder="answer 1"
+                                    className=""
+                                    required
+                                    onChange={(e) => handleChangeCheckBox(e, 2)}
+                                    checked={question.propositions[2].isCorrect}
                                   />
                                 </p>
 
@@ -500,11 +575,30 @@ export default function AddLessons() {
                                     placeholder="Answer 4"
                                     className="form-control"
                                     required
+                                    onChange={(e) =>
+                                      handleChangePoposition(e, 3)
+                                    }
+                                    value={question.propositions[3].label}
+                                  />
+                                  <input
+                                    type="checkbox"
+                                    name="exerciceName"
+                                    placeholder="answer 1"
+                                    className=""
+                                    required
+                                    onChange={(e) => handleChangeCheckBox(e, 3)}
+                                    checked={question.propositions[3].isCorrect}
                                   />
                                 </p>
                               </div>
                               <div className="d-flex justify-content-center gap-3">
-                                <button className="btn btn-warning">Add</button>
+                                <button
+                                  className="btn btn-warning"
+                                  type="button"
+                                  onClick={handleAddQuestion}
+                                >
+                                  Add
+                                </button>
                               </div>
                             </FormGroup>
                           </Typography>

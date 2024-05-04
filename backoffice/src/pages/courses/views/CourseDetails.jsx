@@ -27,43 +27,7 @@ import { Button, ClickAwayListener, Grow } from "@mui/material";
 export default function CourseDetails() {
 
 
-   const [open, setOpen] = React.useState(false);
-   const anchorRef = React.useRef(null);
-
-   const handleToggle = () => {
-     setOpen((prevOpen) => !prevOpen);
-   };
-
-   const handleClose = (event) => {
-     if (anchorRef.current && anchorRef.current.contains(event.target)) {
-       return;
-     }
-
-     setOpen(false);
-   };
-
-   function handleListKeyDown(event) {
-     if (event.key === "Tab") {
-       event.preventDefault();
-       setOpen(false);
-     } else if (event.key === "Escape") {
-       setOpen(false);
-     }
-   }
-
-   // return focus to the button when we transitioned from !open -> open
-   const prevOpen = React.useRef(open);
-   React.useEffect(() => {
-     if (prevOpen.current === true && open === false) {
-       anchorRef.current.focus();
-     }
-
-     prevOpen.current = open;
-   }, [open]);
-
-
-
-
+ 
 
 
 
@@ -177,74 +141,23 @@ export default function CourseDetails() {
                   </div>
                   <div className="px-4 d-flex gap-3">
                     <div>
-                      <Button
-                        ref={anchorRef}
-                        id="composition-button"
-                        aria-controls={open ? "composition-menu" : undefined}
-                        aria-expanded={open ? "true" : undefined}
-                        aria-haspopup="true"
-                        onClick={handleToggle}
-                      >
-                        <CgMoreO />
-                      </Button>
-                      <Popper
-                        open={open}
-                        anchorEl={anchorRef.current}
-                        role={undefined}
-                        placement="bottom-start"
-                        transition
-                        disablePortal
-                      >
-                        {({ TransitionProps, placement }) => (
-                          <Grow
-                            {...TransitionProps}
-                            style={{
-                              transformOrigin:
-                                placement === "bottom-start"
-                                  ? "left top"
-                                  : "left bottom",
-                            }}
-                          >
-                            <Paper>
-                              <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList
-                                  autoFocusItem={open}
-                                  id="composition-menu"
-                                  aria-labelledby="composition-button"
-                                  onKeyDown={handleListKeyDown}
-                                >
-                                  <MenuItem
-                                    onClick={handleClose}
-                                    className="d-flex align-items-center gap-2"
-                                  >
-                                    <p>Add</p>
-                                    <div>
-                                      <IoIosAddCircle />
-                                    </div>
-                                  </MenuItem>
-                                  <MenuItem
-                                    className="d-flex align-items-center gap-2"
-                                    onClick={async () => {
-                                      dispatch(
-                                        updatelesson({
-                                          id: lesson.id,
-                                          body: { archived: true },
-                                        })
-                                      ).then((res) => {
-                                        dispatch(fetchcourse(courseId));
-                                      });
-                                    }}
-                                  >
-                                    <p>DELETE</p>
-                                    <FaTrashAlt style={{ color: "red" }} />
-                                  </MenuItem>
-                                </MenuList>
-                              </ClickAwayListener>
-                            </Paper>
-                          </Grow>
-                        )}
-                      </Popper>
+                      <IoIosAddCircle />
                     </div>
+                    <div
+                      onClick={async () => {
+                        dispatch(
+                          updatelesson({
+                            id: lesson.id,
+                            body: { archived: true },
+                          })
+                        ).then((res) => {
+                          dispatch(fetchcourse(courseId));
+                        });
+                      }}
+                    >
+                      <FaTrashAlt style={{ color: "red" }} />
+                    </div>
+                  
                   </div>
                 </div>
               </Accordion.Header>
