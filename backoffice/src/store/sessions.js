@@ -26,11 +26,11 @@ export const fetchsession = createAsyncThunk("fetchsession", async (id) => {
 
 
 
-export const deletesession = createAsyncThunk("deletesession", async (id) => {
+export const deletesession = createAsyncThunk("deletesession", async (id ,  { dispatch }) => {
   try {
     const response = await axios.delete("http://localhost:5000/sessions/" + id);
   
-
+    dispatch(fetchSessions());
     return response.data;
   } catch (error) {
     console.error("Error deleting session:", error);
