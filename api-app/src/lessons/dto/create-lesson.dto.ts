@@ -12,7 +12,6 @@ export class Question {
 export class Content {
   contentname: string;
   type: typeContent;
-  contentExercice?: string;
   contentURL: string;
   questions?: Question[];
 }
