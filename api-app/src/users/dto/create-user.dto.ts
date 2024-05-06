@@ -20,4 +20,5 @@ export class CreateUserDto {
     address :string;
     @ApiProperty()
     role : string;
+    // type: typeContent;
 }

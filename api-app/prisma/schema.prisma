@@ -23,6 +23,8 @@ model User {
   phone       Int?
   address     String?
   role        String
+  // archived      Boolean         @default(false)
+  // type        roleContent
   Msgs        Msgs[]
   SessionUser SessionUser[]
 }
@@ -163,3 +165,8 @@ enum typeContent {
   checkpoint
   exercice
 }
+// enum roleContent {
+// Student
+// Teacher
+// Manager
+// }
