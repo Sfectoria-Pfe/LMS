@@ -13,6 +13,7 @@ import { Button } from "react-bootstrap";
 import { MdVideoLibrary } from "react-icons/md";
 import { FaFilePdf } from "react-icons/fa";
 import { FaCode } from "react-icons/fa6";
+import { PiProjectorScreenChartDuotone } from "react-icons/pi";
 import { MdQuiz } from "react-icons/md";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import axios from "axios";
@@ -21,6 +22,7 @@ export default function AddLessons() {
   const [typecontent, setTypeContent] = useState({});
   const [imageUrl, setImageUrl] = useState(null);
   const [videoUrl, setVideo] = useState(null);
+  const [exercice, setExerciceUrl] = useState(null);
 
   const [lesson, setlesson] = useState({});
   const [PDF, setPDF] = useState(null);
@@ -90,6 +92,11 @@ export default function AddLessons() {
       setPDF(e.target.files[0]);
     }
   };
+  const handleExercicesChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setExerciceUrl(e.target.files[0]);
+    }
+  }
 
   //submit
   const handleSubmit = async (e) => {
@@ -113,12 +120,12 @@ export default function AddLessons() {
           formData
         );
         auxlesson = {
-          ...auxlesson,
-          contents: [
+          ...auxlesson, contents: [
+          
             {
               contentURL: response.data.path,
               type: "video",
-              contentname: "khalil",
+              contentname: "yasmine",
             },
           ],
         };
@@ -133,11 +140,29 @@ export default function AddLessons() {
         auxlesson = {
           ...auxlesson,
           contents: [
-            ...auxlesson.contents,
             {
               contentURL: response.data.path,
               type: "pdf",
-              contentname: "khalil",
+              contentname: "yasmine",
+            },
+          ],
+        };
+      }
+      if (exercice) {
+        const formData = new FormData();
+        formData.append("file", exercice);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxlesson = {
+          ...auxlesson,
+          contents: [
+            
+            {
+              contentURL: response.data.path,
+              type: "exercice",
+              contentname: "yasmine",
             },
           ],
         };
@@ -282,13 +307,14 @@ export default function AddLessons() {
                     </div>
                     <div
                       style={{
+                        
                         border: "2px solid",
-                        borderColor: "#00184b",
+
                         width: "5rem",
                         textAlign: "center",
                       }}
                     >
-                      <AiOutlineFundProjectionScreen
+                      <PiProjectorScreenChartDuotone
                         type="button"
                         onClick={() => {
                           setView(5);
@@ -379,27 +405,26 @@ export default function AddLessons() {
                       className="mb-3 d-flex justify-content-between"
                       controlId="formBasicEmail"
                     >
-                      <Form.Label>Exercice</Form.Label>
+                      <Form.Label>Exercices</Form.Label>
                       <p class="text-muted mb-0">
-                        <textarea
-                          style={{ width: "30rem" }}
-                          class="form-control"
-                          className="px-3 "
-                          id="exampleFormControlTextarea1"
-                          rows="3"
-                          required
+                        <Form.Control
+                          accept="pdf/*"
+                          type="file"
                           name="exercice"
+                          className="px-3 border border-info"
                           placeholder="exercice"
-                        ></textarea>
+                          required
+                          onChange={handleExercicesChange}
+                        />
                       </p>
 
                       <hr />
-                      <Form.Label>Exercice Name</Form.Label>
+                      <Form.Label>exercice name</Form.Label>
                       <p class="text-muted mb-0">
                         <input
                           type="text"
                           name="exerciceName"
-                          placeholder="exercice name"
+                          placeholder="title of session"
                           className="form-control"
                           required
                         />
@@ -425,7 +450,7 @@ export default function AddLessons() {
                                   <p>{question.label}</p>
                                   <p>{question.scale}</p>
                                 </div>
-                                {question.propositions.map((proposal, i) => (
+                                {question.propositions.cdmap((proposal, i) => (
                                   <div className="d-flex">
                                     {proposal.isCorrect}
                                     <p>{proposal.label}</p>
@@ -611,12 +636,7 @@ export default function AddLessons() {
                 </div>
               </div>
               <div class="d-flex justify-content-center gap-4 py-3">
-                <button
-                  className="btn "
-                  style={{ backgroundColor: "#1e3048", color: "white" }}
-                >
-                  Save this question
-                </button>
+                
                 <Button
                   style={{ width: "7rem" }}
                   variant="warning"

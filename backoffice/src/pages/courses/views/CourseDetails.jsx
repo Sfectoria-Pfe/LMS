@@ -9,6 +9,10 @@ import MenuItem from "@mui/material/MenuItem";
 import { CgMoreO } from "react-icons/cg";
 import MenuList from "@mui/material/MenuList";
 import Stack from "@mui/material/Stack";
+import Modal from "react-bootstrap/Modal";
+import AddCourse from "./AddCourse";
+import PopUp from "./PopUp";
+import axios from "axios";
 import {
   fetchLessons,
   deletelesson,
@@ -25,15 +29,7 @@ import { FaTrashAlt } from "react-icons/fa";
 import { Button, ClickAwayListener, Grow } from "@mui/material";
 
 export default function CourseDetails() {
-
-
- 
-
-
-
-
-
-
+  const [modalShow, setModalShow] = useState(false);
   const { courseId } = useParams();
   const [lessonId, setlessonId] = useState(null);
   console.log(lessonId, "lesson id");
@@ -98,32 +94,8 @@ export default function CourseDetails() {
           <source src={course?.videoURL} type="video/mp4" />
         </video>
       )}
-      <div className="d-flex justify-content-center ">
-        {/* <MDBContainer>
-          <div className="ratio ratio-16x9">
-            <iframe
-              src={course?.videoURL}
-              title="Vimeo video"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </MDBContainer> */}
-
-        {/* <div>
-          <video src={video1} autoplay="true" />
-        </div> */}
-      </div>
+      <div className="d-flex justify-content-center "></div>
       <p className="px-5 py-4">Description:{course?.description}</p>
-      {/* <h1
-        className="text-center py-5"
-        style={{
-          fontFamily: "Brittany Signature",
-          fontSize: "4rem",
-          color: "#42b1bc",
-        }}
-      >
-        Lessons
-      </h1> */}
 
       {course?.Lesson.map((lesson) => (
         <div className="px-3">
@@ -143,21 +115,17 @@ export default function CourseDetails() {
                     <div>
                       <IoIosAddCircle />
                     </div>
-                    <div
-                      onClick={async () => {
-                        dispatch(
-                          updatelesson({
-                            id: lesson.id,
-                            body: { archived: true },
-                          })
-                        ).then((res) => {
-                          dispatch(fetchcourse(courseId));
-                        });
-                      }}
-                    >
-                      <FaTrashAlt style={{ color: "red" }} />
+                    <div>
+                      <FaTrashAlt
+                        style={{ color: "red" }}
+                        onClick={() => {
+                          setModalShow(true)
+                          setlessonId(lesson.id)
+                        }
+                          
+                        }
+                      />
                     </div>
-                  
                   </div>
                 </div>
               </Accordion.Header>
@@ -181,6 +149,44 @@ export default function CourseDetails() {
           <p className="text-center"></p>
         </div>
       ))}
+
+      <Modal
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Delete course
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want to delete this lesson ?</p>
+        </Modal.Body>
+        <div className="d-flex justify-content-center gap-2 py-3">
+          <Button onClick={() => setModalShow(false)}>Cancle</Button>
+
+          <Button
+            className="btn btn-danger"
+            onClick={() => {
+              dispatch(
+                updatelesson({
+                  id: lessonId,
+                  body: { archived: true },
+                })
+              ).then((res) => {
+                dispatch(fetchcourse(courseId));
+              });
+
+              setModalShow(false);
+            }}
+          >
+            Delete
+          </Button>
+        </div>
+      </Modal>
     </div>
   );
 }
