@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { useNavigate } from "react-router-dom";
 import team from "../../assets/team.jpg";
 import Form from "react-bootstrap/Form";
 import logo from "../../assets/logo (1).png";
@@ -9,9 +9,10 @@ import Footer from "../../layout/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import "../../css/auth.css";
 import { login } from '../../store/auth';
+import { showErrorToast, showSuccessToast } from '../../utils/toast';
 
 export default function Login() {
-
+  const navigate = useNavigate();
    const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   console.log(email)
@@ -30,8 +31,13 @@ export default function Login() {
             <Form
               onSubmit={(e) => {
                 e.preventDefault();
-                dispatch(login({ email , password }));
-              }}
+                dispatch(login({ email , password })).then((res) => {
+               if (!res.error) {
+                showSuccessToast('Welcome! You are now logged in.')
+               navigate("/");
+               
+              } else showErrorToast('Authentication failed ! Please check your credentials.');
+            })}}
             >
               <div>
                 <div className="d-flex justify-content-center py-2 align-items-center flex-wrap">

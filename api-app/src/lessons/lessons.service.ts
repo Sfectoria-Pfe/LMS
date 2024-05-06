@@ -16,7 +16,7 @@ export class LessonsService {
       data: {
         ...rest,
         LessonContent: {
-          create: contents.map((elem) => {
+          create : contents.map((elem) => {
             if (elem.type === 'checkpoint') {
               return {
                 contentname: elem.contentname,

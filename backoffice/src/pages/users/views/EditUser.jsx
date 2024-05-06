@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { edituser } from '../../../store/UserInfo';
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from 'react';
+import EDITUSER from '../../../assets/images/edituser.png'
+import Row from "react-bootstrap/Row";
 
 export default function EditUser() {
 
@@ -31,14 +33,56 @@ export default function EditUser() {
   return (
     <div>
 
+<h3
+        className="p-1"
+        style={{
+          fontFamily: "Segoe UI",
+          color: "#11354D",
+          textDecoration: "underline",
+        }}
+      >
+        Edit user
+      </h3>
 
+      <div className="d-flex justify-content-center gap-4 py-2 flex-wrap">
+        <div className="px-1 py-4 ">
+          <div
+          
+            className="card py-2 px-2 form "
+            style={{ width: "47rem", height: "28rem" }}
+          >
+             <div>
+                <div className="d-flex justify-content-center py-3 align-items-center flex-wrap">
+                  <h1
+                    style={{
+                      fontFamily: "Brittany Signature",
+                    }}
+                  >
+                  Sfectoria
+                  </h1>
+                  <h1
+                    style={{
+                      fontFamily: "Brittany Signature",
+                      color: "rgb(66, 177, 188)",
+                    }}
+                  >
+                    users  ✌️
+                  </h1>
+                  <div
+                    style={{
+                      height: "5px",
+                      width: "80px",
+                      backgroundColor: "rgb(66, 177, 188)",
+                      marginRight: "42px",
+                    }}
+                  ></div>
+                </div>
+              </div>
 
-
-<div class="card mb-4">
-              <div class="card-body">
-              <p class="text- text-center">SFECTORIAN ✌️</p>
               <Form>
+           
                   <FormGroup className="mb-3" controlId="formBasicEmail">
+                  
                     <Form.Label>First Name</Form.Label>
                     <p class="text-muted mb-0">
                       <input
@@ -47,10 +91,11 @@ export default function EditUser() {
                         placeholder=" first name"
                         onChange={handleChange}
                       />
+                      
                     </p>
                  
-               
-                <hr />
+                    <hr />
+                
                     <Form.Label>Last Name</Form.Label>
                     <p class="text-muted mb-0">
                       <input
@@ -61,8 +106,8 @@ export default function EditUser() {
                         
                       />
                     </p>
+                  
                  
-               
                 <hr />
                
                     <Form.Label>Email</Form.Label>
@@ -154,10 +199,16 @@ export default function EditUser() {
                   </div>
             
              
-            
-            </FormGroup>
+                  </FormGroup>
+           
                 </Form>
+                </div>
           </div>
+
+ <div className="px-2 py-5">
+          <img src={EDITUSER} alt="" style={{ width: "18rem" }} id="imglogin" />
+        </div>
+
         </div>
     </div>
   )

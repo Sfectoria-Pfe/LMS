@@ -1,7 +1,11 @@
 import React, { Component, useEffect, useState } from "react";
-import Card from "react-bootstrap/Card";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
 import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
+import Link from '@mui/material/Link';
 import { Button } from "react-bootstrap";
 
 export default function Programs() {
@@ -39,34 +43,26 @@ export default function Programs() {
 
       <div className="d-flex flex-wrap gap-5 p-5 justify-content-center">
         {state.data.map((card) => (
-          <Card style={{ width: "20rem", height: "35rem" }}>
-            <Card.Img
-              variant="top"
-              src={card.imageURL}
-              style={{ height: "12rem" }}
-              className="thumb-img"
-            />
-            <Card.Body>
-              <Card.Title style={{ width: "18rem", height: "65px" }}>
-                {card.title}
-              </Card.Title>
-              <Card.Text
-                style={{
-                  width: "18rem",
-                  height: "144px",
-                  paddingTop: "10px",
-                }}
-              >
-                {card.description}
-              </Card.Text>
-              <div className="d-flex py-5 justify-content-around">
-                
-                <Link to={`program/${card.id}`} className="btn btn-primary">
-                    See more
-                  </Link>
-              </div>
-            </Card.Body>
-          </Card>
+                   <Card sx={{ maxWidth: 345 }}>
+                   <CardMedia
+                     component="img"
+                     alt="green iguana"
+                     height="140"
+                     image={card.imageURL}
+                   />
+                   <CardContent>
+                     <Typography gutterBottom variant="h5" component="div">
+                     {card.title}
+                     </Typography>
+                     <Typography variant="body2" color="text.secondary">
+                     {card.description}
+                     </Typography>
+                   </CardContent>
+                   <CardActions size="small">
+                   <Link href={`program/${card.id}`} underline="hover">
+        {'See more'}
+      </Link>    </CardActions>
+                 </Card>
         ))}
       </div>
     </div>

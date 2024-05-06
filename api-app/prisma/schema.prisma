@@ -23,6 +23,8 @@ model User {
   phone       Int?
   address     String?
   role        String
+  // archived      Boolean         @default(false)
+  // type        roleContent
   Msgs        Msgs[]
   SessionUser SessionUser[]
 }
@@ -50,11 +52,12 @@ model Course {
 }
 
 model ProgramCourse {
-  id        Int      @id @default(autoincrement())
-  programId Int
-  program   Program? @relation(fields: [programId], references: [id], onDelete: Cascade)
-  courseId  Int
-  course    Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  id         Int       @id @default(autoincrement())
+  programId  Int
+  program    Program?  @relation(fields: [programId], references: [id], onDelete: Cascade)
+  courseId   Int
+  course     Course?   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  
 }
 
 model Program {
@@ -162,3 +165,8 @@ enum typeContent {
   checkpoint
   exercice
 }
+// enum roleContent {
+// Student
+// Teacher
+// Manager
+// }
