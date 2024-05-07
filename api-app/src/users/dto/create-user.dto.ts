@@ -1,4 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
+import { roleContent } from "@prisma/client";
 import { IsEmail , IsNumber} from "class-validator"
 
 export class CreateUserDto {
@@ -19,6 +20,6 @@ export class CreateUserDto {
     @ApiProperty()
     address :string;
     @ApiProperty()
-    role : string;
+    role   : roleContent;
     // type: typeContent;
 }

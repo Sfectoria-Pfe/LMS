@@ -10,6 +10,7 @@ import { Link, NavLink, useParams } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import logo from "../assets/logo.png";
+import video from "../assets/7534244-hd_1920_1080_25fps.mp4";
 import "../Pages/css/buttonform.css";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -195,6 +196,7 @@ export default function CourseDetails() {
             "url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0zNzgtMDkteC5qcGc.jpg')",
         }}
       >
+      
         <div
           className="card py-5 px-4"
           style={{ width: "60rem", height: "39rem" }}
@@ -328,6 +330,20 @@ export default function CourseDetails() {
         </div>
       </div>
       <div>
+      <div className="px-5 py-3 d-flex justify-content-center "   style={{ width: "100%" }}>
+
+      <video
+          id="bannerVideo"
+          autoPlay
+          loop
+          muted
+          style={{ width: "100%", height: "40rem" }}
+          className="px-5"
+        >
+          <source src={video} type="video/mp4" />
+        </video>
+      </div>
+     
         <div className="d-flex justify-content-center py-5 align-items-center flex-wrap">
           <h1 style={{ fontFamily: "Brittany Signature" }}>gallery</h1>
           <div

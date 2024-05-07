@@ -1,3 +1,5 @@
+import { roleContent } from "@prisma/client";
+
 export const dataUser = [
   //students
   {
@@ -9,7 +11,7 @@ export const dataUser = [
     password: '1111',
     phone: 258147369,
     address: 'Tunis',
-    role: 'student',
+    role: roleContent.Student ,
   },
   {
     image:
@@ -20,7 +22,7 @@ export const dataUser = [
     password: '1122',
     phone: 14725836,
     address: 'Sfax',
-    role: 'student',
+    role: roleContent.Student ,
   },
 
   {
@@ -32,7 +34,7 @@ export const dataUser = [
     password: '3333',
     phone: 3336836,
     address: 'Siliana',
-    role: 'student',
+    role: roleContent.Student,
   },
   {
     image:
@@ -43,7 +45,7 @@ export const dataUser = [
     password: '0010',
     phone: 58636836,
     address: 'Sousse',
-    role: 'student',
+    role: roleContent.Student,
   },
 
   {
@@ -55,7 +57,7 @@ export const dataUser = [
     password: '2222',
     phone: 1555836,
     address: 'Beja',
-    role: 'student',
+    role: roleContent.Student,
   },
 
   {
@@ -67,7 +69,7 @@ export const dataUser = [
     password: '22a2',
     phone: 9555836,
     address: 'Sfax',
-    role: 'student',
+    role: roleContent.Student,
   },
   {
     image:
@@ -78,7 +80,7 @@ export const dataUser = [
     password: '1510',
     phone: 20836836,
     address: 'Gabes',
-    role: 'student',
+    role: roleContent.Student,
   },
   //teachers
   {
@@ -90,7 +92,7 @@ export const dataUser = [
     password: '0009',
     phone: 29836836,
     address: 'Djerba',
-    role: 'teacher',
+    role: roleContent.Teacher,
   },
 
   {
@@ -102,7 +104,7 @@ export const dataUser = [
     password: '2209',
     phone: 98836836,
     address: 'Ben Arous',
-    role: 'teacher',
+    role: roleContent.Student,
   },
 
   {
@@ -114,7 +116,7 @@ export const dataUser = [
     password: '0007',
     phone: 56836836,
     address: 'Ariana',
-    role: 'teacher',
+    role: roleContent.Teacher ,
   },
   //mangers
   {
@@ -126,6 +128,6 @@ export const dataUser = [
     password: '0887',
     phone: 50836036,
     address: 'Nabeul',
-    role: 'manager',
+    role: roleContent.Manager,
   },
 ];

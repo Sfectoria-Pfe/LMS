@@ -9,7 +9,6 @@ import Row from "react-bootstrap/Row";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import ADDUSER from "../../../assets/images/user_add.png";
-
 import { UserContext } from "../../../router/Router";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -20,6 +19,7 @@ import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 export default function AddUser() {
+  // const [selectedRole, setSelectedRole] = useState('');
   const [user, setuser] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -60,6 +60,11 @@ export default function AddUser() {
       setimage(e.target.files[0]);
     }
   };
+
+
+  // const handleChange = (event) => {
+  //   setSelectedRole(event.target.value);
+  // };
 
   return (
     <div>

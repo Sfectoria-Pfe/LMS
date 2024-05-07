@@ -90,6 +90,16 @@ const [deletedId, setDeletedId] = useState("");
               <Button
                 size="small"
                 onClick={() => {
+                  navigate(`update/${card.id}`);
+                }}
+                variant="outlined"
+                color="secondary"
+              >
+                Update
+              </Button>
+              <Button
+                size="small"
+                onClick={() => {
                   setModalShow(true);
                   deletedIdfunc(card.id);
                 }}
