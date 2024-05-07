@@ -5,54 +5,78 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from '@mui/material/Typography';
-import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { Button, CardActionArea } from "@mui/material";
 
 import { Link, NavLink, useNavigate } from "react-router-dom";
 // import PopUp from "./PopUp";
 import Modal from "react-bootstrap/Modal";
-import { fetchSessions  , deletesession } from "../../../store/sessions";
+import { fetchSessions, deletesession } from "../../../store/sessions";
 
 export default function CourseList() {
   const sessions = useSelector((state) => state.sessionsSlice.sessions.items);
-  const  [modalShow, setModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
-const [deletedId, setDeletedId] = useState("");
+  const [deletedId, setDeletedId] = useState("");
+  console.log(deletedId,"session id")
 
   const dispatch = useDispatch();
 
-  const deleteSession = (id) => {
-    dispatch(deletesession(id));
-  };
 
-  const deletedIdfunc = (id) => {
-    setDeletedId(id);
-  };
+
+
+
+
+
+  
+
+
+ 
+
+
 
   useEffect(() => {
     dispatch(fetchSessions());
   }, [dispatch]);
 
-
-//   const deleteCourse=(id)=>{
-//     dispatch(deletecourse(id));
-//     window.location.reload();
-// }
-
+  //   const deleteCourse=(id)=>{
+  //     dispatch(deletecourse(id));
+  //     window.location.reload();
+  // }
 
   const navigate = useNavigate();
   return (
     <div>
-      <div className="px-5">
-        <button className="btn btn-success" onClick={() => navigate("add")}>
-          Add session +
-        </button>
-      </div>
-      <div className="d-flex flex-wrap justify-content-center py-5 gap-5 ">
-        {sessions.map((card) => (
+    
+
+      <div>
+        <div className="d-flex justify-content-between">
+          <h3
+            className="p-5"
+            style={{
+              fontFamily: "Segoe UI",
+              color: "#11354D",
+              textDecoration: "underline",
+            }}
+          >
+            Welcome to courses page
+          </h3>
           
-          <Card sx={{ maxWidth: 345 , maxHeight: 500 }}>
-           
+          <div className=" p-5">
+            <button
+              className="btn"
+              style={{ backgroundColor: "#ffc107" }}
+              onClick={() => navigate("add")}
+            >
+              + Add new session
+            </button>
+            {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
+          </div>
+        </div>
+      </div>
+      <div className="d-flex flex-wrap justify-content-center py-3 gap-5">
+        {sessions?.map((card) => (
+          <Card style={{ width: "23rem" }}>
             <CardMedia
               style={{ objectFit: "cover" }}
               component="img"
@@ -60,32 +84,37 @@ const [deletedId, setDeletedId] = useState("");
               height="140"
               image={card.imageURL}
             />
-            <CardContent style={{height:"10rem"}}>
+            <CardContent>
               <Typography
                 gutterBottom
                 variant="h6"
                 component="div"
                 className="py-2"
+                style={{ height: "4rem" }}
               >
                 {card.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                style={{ height: "6rem" }}
+              >
                 {card.description}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-              {card.duration}
+                {card.duration}
               </Typography>
-              </CardContent>
-          
+            </CardContent>
+
             <CardActions>
-            <Button
+              <Button
                 size="small"
                 onClick={() => {
                   navigate(`${card.id}`);
                 }}
                 variant="outlined"
               >
-              See more
+                Learn more
               </Button>
               <Button
                 size="small"
@@ -101,16 +130,15 @@ const [deletedId, setDeletedId] = useState("");
                 size="small"
                 onClick={() => {
                   setModalShow(true);
-                  deletedIdfunc(card.id);
+                  setDeletedId(card.id);
                 }}
                 variant="outlined"
                 color="error"
               >
                 Delete
               </Button>
-              </CardActions>
+            </CardActions>
           </Card>
-      
         ))}
       </div>
       <Modal
@@ -134,7 +162,7 @@ const [deletedId, setDeletedId] = useState("");
           <Button
             className="btn btn-danger"
             onClick={() => {
-              deleteSession(deletedId);
+              dispatch(deletesession(deletedId));
               setModalShow(false);
             }}
           >

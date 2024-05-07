@@ -51,12 +51,11 @@ model Course {
 }
 
 model ProgramCourse {
-  id         Int       @id @default(autoincrement())
-  programId  Int
-  program    Program?  @relation(fields: [programId], references: [id], onDelete: Cascade)
-  courseId   Int
-  course     Course?   @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  
+  id        Int      @id @default(autoincrement())
+  programId Int
+  program   Program? @relation(fields: [programId], references: [id], onDelete: Cascade)
+  courseId  Int
+  course    Course?  @relation(fields: [courseId], references: [id], onDelete: Cascade)
 }
 
 model Program {
@@ -75,6 +74,7 @@ model Session {
   id          Int     @id @default(autoincrement())
   title       String
   description String? @db.LongText
+  videoURL    String?
   duration    String
   imageURL    String  @db.LongText
   programId   Int
@@ -120,14 +120,14 @@ model Lesson {
 }
 
 model LessonContent {
-  id              Int           @id @default(autoincrement())
-  contentname     String
-  type            typeContent
-  contentURL      String?
-  lessonId        Int
-  lesson          Lesson?       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
-  WeekContent     WeekContent[]
-  questions       Question[]
+  id          Int           @id @default(autoincrement())
+  contentname String
+  type        typeContent
+  contentURL  String?
+  lessonId    Int
+  lesson      Lesson?       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  WeekContent WeekContent[]
+  questions   Question[]
 }
 
 model Question {
@@ -168,3 +168,9 @@ Student
 Teacher
 Manager
 }
+
+// enum roleContent {
+// Student
+// Teacher
+// Manager
+// }

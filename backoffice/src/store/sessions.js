@@ -29,7 +29,6 @@ export const fetchsession = createAsyncThunk("fetchsession", async (id) => {
 export const deletesession = createAsyncThunk("deletesession", async (id ,  { dispatch }) => {
   try {
     const response = await axios.delete("http://localhost:5000/sessions/" + id);
-  
     dispatch(fetchSessions());
     return response.data;
   } catch (error) {
@@ -96,10 +95,7 @@ export const sessionsSlice = createSlice({
     });
     builder.addCase(sendsession.fulfilled, (state, action) => {
       state.session = action.payload;
-    });
-    builder.addCase(deletesession.fulfilled, (state, action) => {
-   state.session = action.payload;
-    });
+    })
     builder.addCase(editsession.fulfilled, (state, action) => {
       state.session = action.payload;
     });
