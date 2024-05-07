@@ -12,6 +12,7 @@ import { sendsession } from "../../../store/sessions";
 import { fetchprograms } from "../../../store/Program";
 import { fetchusers } from "../../../store/UserInfo";
 import { Box, Chip, MenuItem, OutlinedInput, Select } from "@mui/material";
+import axios from "axios";
 
 export default function AddSession() {
   const [session, setsession] = useState({userIds: [],});
@@ -20,6 +21,8 @@ export default function AddSession() {
   console.log(session);
   const programs = useSelector((state) => state.ProgramSlice.programs.items);
   const users = useSelector((state) => state.userSlice.users.items);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [videoUrl, setvideoUrl] = useState(null);
   const [preview, setpreview] = useState(null);
   useEffect(() => {
     dispatch(fetchprograms());
@@ -29,43 +32,95 @@ export default function AddSession() {
     const { name, value } = e.target;
     setsession({ ...session, [name]: name === "programId" ? +value : value });
   };
+ const handleFileChange = (e) => {
+   if (e.target.files && e.target.files.length > 0) {
+     setImageUrl(e.target.files[0]);
+   }
+ };
+ const handleVideoChange = (e) => {
+   if (e.target.files && e.target.files.length > 0) {
+     setvideoUrl(e.target.files[0]);
+   }
+ };
+  const handleSubmit = async (e) => {
 
-  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("session",session)
-    dispatch(sendsession(session)).then((res) => {
-      if (!res.error) navigate("/sessions");
-      else alert("you should fill the form");
-    });
+    try {
+      let auxSession = { ...session };
+      if (imageUrl) {
+        const formData = new FormData();
+        formData.append("file", imageUrl);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxSession = { ...auxSession, imageURL: response.data.path };
+      }
+      if (videoUrl) {
+        const formData = new FormData();
+        formData.append("file", imageUrl);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxSession = { ...auxSession, videoURL: response.data.path };
+      }
+      console.log("session", auxSession)
+      dispatch(sendsession(auxSession)).then((res) => {
+        if (!res.error) navigate("/sessions");
+        else alert("you should fill the form");
+      });
+    }
+      catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div>
       <h3
-        className="p-1"
+        className="p-1 text-center py-5"
         style={{
           fontFamily: "Segoe UI",
           color: "#11354D",
           textDecoration: "underline",
         }}
       >
-        Add session
+        Add new session
       </h3>
 
-      <div class="container py-5">
+      <div class="container d-flex justify-content-center">
         <div style={{ width: "48rem" }} class="col-lg-8">
           <div class="card mb-4">
             <div class="card-body">
-              <p class="text- text-center">SFECTORIAN ✌️</p>
+              <p
+                class="text- text-center"
+                style={{ fontFamily: "Brittany Signature" }}
+              >
+                SFECTORIAN'S Sessions ✌️
+              </p>
               <Form onSubmit={handleSubmit}>
                 <FormGroup className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Image</Form.Label>
                   <p class="text-muted mb-0">
                     <input
-                      type="text"
+                      accept="image/*"
+                      type="file"
                       name="imageURL"
-                      placeholder="image session"
-                      className="form-control"
-                      onChange={handleChange}
+                      placeholder="session image"
+                      className="px-3 border border-info form-control"
+                      onChange={handleFileChange}
+                      required
+                    />
+                  </p>
+                  <Form.Label>Video</Form.Label>
+                  <p class="text-muted mb-0">
+                    <input
+                      accept="video/*"
+                      type="file"
+                      name="videoURL"
+                      placeholder="session video"
+                      className="px-3 border border-info form-control"
+                      onChange={handleVideoChange}
                       required
                     />
                   </p>
@@ -77,7 +132,7 @@ export default function AddSession() {
                       type="text"
                       name="title"
                       placeholder="title of session"
-                      className="form-control"
+                      className="px-3 border border-info form-control"
                       onChange={handleChange}
                       required
                     />
@@ -90,7 +145,7 @@ export default function AddSession() {
                       type="text"
                       name="description"
                       placeholder="description of session"
-                      className="form-control"
+                      className="px-3 border border-info form-control"
                       onChange={handleChange}
                       required
                     />
@@ -104,7 +159,7 @@ export default function AddSession() {
                       type="number"
                       name="duration"
                       placeholder="duration"
-                      className="form-control"
+                      className="px-3 border border-info form-control"
                       onChange={handleChange}
                       required
                     />
@@ -118,6 +173,7 @@ export default function AddSession() {
                     onChange={handleChange}
                     aria-label="Default select example"
                     required
+                    className="px-3 border border-info form-control"
                   >
                     <option>Open this select menu</option>
                     {programs.map((item, i) => (
@@ -128,23 +184,12 @@ export default function AddSession() {
                   <hr />
 
                   <Form.Label>Membres</Form.Label>
-                  <Form.Select
-                    name="userId"
-                    onChange={handleChange}
-                    aria-label="Default select example"
-                    required
-                  >
-                    <option>Open this select menu</option>
-                    {users.map((item, i) => (
-                      <option value={item.id}>{item.email}</option>
-                    ))}
-                  </Form.Select>
-                
+
                   <Select
                     labelId="demo-multiple-chip-label"
+                    className="px-3 border border-info form-control "
                     id="demo-multiple-chip"
                     multiple
-                    
                     value={session.userIds}
                     onChange={(e) => {
                       setsession({
@@ -158,11 +203,16 @@ export default function AddSession() {
                     renderValue={(selected) => (
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                         {selected.map((value) => (
-                          <Chip key={value.id} label={users.find(elem=>value=elem.id).email} />
+                          <Chip
+                            key={value.id}
+                            label={
+                              users.find((elem) => (value = elem.id)).email
+                            }
+                          />
                         ))}
                       </Box>
                     )}
-                  // MenuProps={MenuProps}
+                    // MenuProps={MenuProps}
                   >
                     {users.map((user) => (
                       <MenuItem key={user.id} value={user.id}>
@@ -170,7 +220,7 @@ export default function AddSession() {
                       </MenuItem>
                     ))}
                   </Select>
-                  <div class="d-flex justify-content-center">
+                  <div class="d-flex justify-content-center py-3">
                     <Button
                       style={{ width: "7rem" }}
                       variant="warning"
