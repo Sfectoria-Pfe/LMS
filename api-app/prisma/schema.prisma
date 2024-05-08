@@ -23,7 +23,7 @@ model User {
   phone       Int?
   address     String?
   role         roleContent?
-  // archived      Boolean         @default(false)
+  archived      Boolean         @default(false)
   Msgs        Msgs[]
   SessionUser SessionUser[]
 }

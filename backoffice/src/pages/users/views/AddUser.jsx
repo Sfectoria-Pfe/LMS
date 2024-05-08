@@ -19,7 +19,6 @@ import axios from "axios";
 import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 export default function AddUser() {
-  // const [selectedRole, setSelectedRole] = useState('');
   const [user, setuser] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,10 +60,6 @@ export default function AddUser() {
     }
   };
 
-
-  // const handleChange = (event) => {
-  //   setSelectedRole(event.target.value);
-  // };
 
   return (
     <div>

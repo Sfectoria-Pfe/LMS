@@ -58,7 +58,7 @@ export const deleteuser = createAsyncThunk("deleteuser", async (id) => {
 });
 
 export const edituser = createAsyncThunk("edituser", async (args,{dispatch}) => {
-  const {id , body} = args
+  const {id , body} = args 
   try {
     const response = await axios.patch("http://localhost:5000/users/" + id, body);
   
