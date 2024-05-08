@@ -40,7 +40,7 @@ export default function AddUser() {
     }
     dispatch(senduser(auxUser)).then((res) => {
       if (!res.error) {
-        showSuccessToast('created')
+        showSuccessToast(' user created')
        navigate("/users");
        
       } else showErrorToast('error');

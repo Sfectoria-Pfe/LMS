@@ -11,6 +11,7 @@ import FormGroup from "react-bootstrap/esm/FormGroup";
 import { Button } from "bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { sendcourse } from "../../../store/courses";
+import { showSuccessToast } from "../../../utils/toast";
 
 export default function AddCourse() {
   const [course, setcourse] = useState({});
@@ -59,7 +60,9 @@ export default function AddCourse() {
                         dispatch(sendcourse(course)).then((res) => {
                           console.log(res, "response");
                           if (!res.error)
+                            showSuccessToast('course created')
                             navigate(`/courses/${res.payload.id}/lesson`);
+
                         });
                       }}
                     >

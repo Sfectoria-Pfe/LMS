@@ -13,6 +13,7 @@ import { fetchprograms } from "../../../store/Program";
 import { fetchusers } from "../../../store/UserInfo";
 import { Box, Chip, MenuItem, OutlinedInput, Select } from "@mui/material";
 import axios from "axios";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 export default function AddSession() {
   const [session, setsession] = useState({userIds: [],});
@@ -67,8 +68,10 @@ export default function AddSession() {
       }
       console.log("session", auxSession)
       dispatch(sendsession(auxSession)).then((res) => {
-        if (!res.error) navigate("/sessions");
-        else alert("you should fill the form");
+        if (!res.error) {
+          showSuccessToast(' session created')
+         navigate("/sessions");
+        } else showErrorToast('error ! you should fill the form');
       });
     }
       catch (err) {
