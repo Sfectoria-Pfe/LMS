@@ -63,33 +63,12 @@ function SessionDetails() {
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 700 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      
     >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+        <ChatSession />
+  
+
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </Box>
   );
 
@@ -231,23 +210,25 @@ function SessionDetails() {
       >
         Members:
       </h1>
-        <div style={{display:"flex"}} className=" justify-content-center gap-5 py-3 align-items-center">
-      {session?.SessionUser.map((elem) => (
-      <div>
-        <Avatar
-          alt="Avatar"
-          src={elem.user.image}
-          sx={{ width: 70, height: 70 }}
-          />
-          <div className="d-flex gap-2 py-2 text-center">
-
-          <p>{elem.user.firstName}</p>
-          <p>{elem.user.lastName}</p>
+      <div
+        style={{ display: "flex" }}
+        className=" justify-content-center gap-5 py-3 align-items-center"
+      >
+        {session?.SessionUser.map((elem) => (
+          <div>
+            <Avatar
+              alt="Avatar"
+              src={elem.user.image}
+              sx={{ width: 70, height: 70 }}
+            />
+            <div className="d-flex gap-2 py-2 text-center">
+              <p>{elem.user.firstName}</p>
+              <p>{elem.user.lastName}</p>
+            </div>
           </div>
-      </div>
         ))}
-        </div>
-      <img
+      </div>
+      {/* <img
         className=" py-1"
         src={chatchat}
         data-bs-toggle="collapse"
@@ -255,7 +236,7 @@ function SessionDetails() {
         aria-expanded="false"
         aria-controls="multiCollapseExample2"
         style={{ width: "3rem", height: "3rem", float: "right" }}
-      />
+      /> */}
       <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample2">
           <div
@@ -274,7 +255,7 @@ function SessionDetails() {
         {/* <Cardmui sx={{ maxWidth: 900 }}>
           <CardHeader /> */}
 
-          {/* <CardActions disableSpacing>
+        {/* <CardActions disableSpacing>
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
@@ -307,7 +288,7 @@ function SessionDetails() {
                   disableRowSelectionOnClick
                 />
               </Box> */}
-              {/* {session?.SessionUser.map((elem) => (
+        {/* {session?.SessionUser.map((elem) => (
                 <Card sx={{ maxWidth: 345 }}>
                   <CardActionArea>
                     <CardContent>
@@ -321,7 +302,7 @@ function SessionDetails() {
                   </CardActionArea>
                 </Card>
               ))} */}
-              {/* <Typography paragraph>Program</Typography>
+        {/* <Typography paragraph>Program</Typography>
               <Typography paragraph>{session?.program.title}</Typography>
               <CardMedia
                 component="img"
@@ -331,7 +312,7 @@ function SessionDetails() {
               />
               <Typography paragraph>{session?.program.description}</Typography>
               <Typography>{session?.program.price}</Typography> */}
-            {/* </CardContent>
+        {/* </CardContent>
           </Collapse>
         </Cardmui> */}
       </div>
