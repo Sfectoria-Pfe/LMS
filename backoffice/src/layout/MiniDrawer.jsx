@@ -30,7 +30,7 @@ import { MdPlayLesson } from "react-icons/md";
 import { SiSessionize } from "react-icons/si";
 import { FaUsersGear } from "react-icons/fa6";
 import { PiPathBold } from "react-icons/pi";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import logo from "../assets/logoblanc.png";
 import { FaUserGraduate } from "react-icons/fa";
@@ -70,7 +70,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
+  zIndex: theme.zIndex.drawer+1 ,
   transition: theme.transitions.create(["width", "margin"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -102,8 +102,9 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer({ open, setOpen }) {
+export default function MiniDrawer() {
   const theme = useTheme();
+  const [open, setOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -161,7 +162,7 @@ export default function MiniDrawer({ open, setOpen }) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" setOpen={setOpen} open={open}>
+      <AppBar  setOpen={setOpen} open={open}>
         <Toolbar
           className="d-flex justify-content-between"
           style={{ backgroundColor: "#0f1924" }}
@@ -287,6 +288,10 @@ export default function MiniDrawer({ open, setOpen }) {
           <Divider />
         </div>
       </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3,zIndex:99 }}>
+        <DrawerHeader />
+        <Outlet />
+     </Box>
       {renderMenu}
     </Box>
   );
