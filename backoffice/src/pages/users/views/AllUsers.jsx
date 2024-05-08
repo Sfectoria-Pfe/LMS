@@ -5,9 +5,9 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {DataGrid} from '@mui/x-data-grid';
-import {Box, Avatar, Typography} from '@mui/material';
+import {Box, Avatar, Typography, Button} from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Button from 'react-bootstrap/Button';
+
 import Modal from "react-bootstrap/Modal";
 
 
@@ -41,13 +41,36 @@ export default function AllUsers() {
     renderCell: (params) => {
         return (
           <Stack direction="row" spacing={2}>
-            <button className="btn btn-sm btn-secondary" onClick={() => navigate( `edituser/${params.row.id}`)}>Edit</button>
-            <button className="btn btn-sm btn-primary" onClick={() => navigate(`userdetails/${params.row.id}`)}>See more</button>
-            <button className="btn btn-sm btn-danger ms-2"   onClick={() => {
-                    setModalShow(true);
-                    setDeletedId(params.row.id); 
-                    
-                  }} >Delete</button>
+             <Button
+                size="small"
+                onClick={() => navigate( `edituser/${params.row.id}`)}
+                variant="outlined"
+                color="secondary"
+              >
+                Edit
+              </Button>
+           
+           
+            <Button
+                size="small"
+                onClick={() => navigate(`userdetails/${params.row.id}`)}
+                variant="outlined"
+              >
+                See more
+              </Button>
+
+<Button
+                size="small"
+                onClick={() => {
+                  setModalShow(true);
+                  setDeletedId(params.row.id); 
+                }}
+                variant="outlined"
+                color="error"
+              >
+                Delete
+              </Button>
+
           </Stack>
         );
     },},

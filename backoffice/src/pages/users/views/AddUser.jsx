@@ -135,9 +135,9 @@ export default function AddUser() {
                   >
                     <option>Open this select menu</option>
 
-                    <option value={1}>Student</option>
-                    <option value={2}>Teacher</option>
-                    <option value={3}>Manager</option>
+                    <option value={"Student"}>Student</option>
+                    <option value={"Teacher"}>Teacher</option>
+                    <option value={"Manager"}>Manager</option>
                   </Form.Select>
                 </Form.Group>
               </Row>
