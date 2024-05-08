@@ -37,27 +37,26 @@ import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import { orange, cyan } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { chat } from "../../../assets/images/chat.png"
+import { BiSolidMessageDetail } from "react-icons/bi";
+import chat from "../../../assets/images/AnimationChat.json";
 
 function SessionDetails() {
   //chat
   const [state, setState] = React.useState({
     bottom: false,
   });
-
+  console.log(state, "state");
   const toggleDrawer = (anchor, open) => (event) => {
     setState({ ...state, [anchor]: open });
   };
 
   const list = (anchor) => (
     <Box
-      sx={{ width: 700 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, true)}
+      sx={{ width: 700, }}
+      // role="presentation"
     >
-      <ChatSession />
-
-      <Divider />
+     
+      <ChatSession setState={ setState}state={state}/>
     </Box>
   );
 
@@ -130,6 +129,19 @@ function SessionDetails() {
 
   return (
     <div>
+      <div className="position-fixed" style={{ top: "50%", right: 0 }}>
+        <Button onClick={toggleDrawer("right", true)} className="flex-column">
+          <dotlottie-player
+            src="https://lottie.host/56e0ab0c-f410-4968-b238-6df338baa93f/DSBPk1wbsI.json"
+            background="transparent"
+            speed="1"
+            style={{ width: 50, height: 50 }}
+            loop
+            autoplay
+          ></dotlottie-player>
+          {/* <span>Chat</span> */}
+        </Button>
+      </div>
       <div className="d-flex justify-content-between flex-wrap">
         <div className="d-flex flex-wrap">
           <p className="px-5 py-4" style={{ fontSize: "2rem" }}>
@@ -204,20 +216,15 @@ function SessionDetails() {
         ))}
       </div>
 
-      <div className="d-flex justify-content-end">
-        {["right"].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}>chat</Button>
-            <Drawer
-              sx={{ zIndex: 1202 }}
-              anchor={"right"}
-              open={state["right"]}
-              onClose={toggleDrawer("right", false)}
-            >
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
-        ))}
+      <div className="d-flex justify-content-end ">
+        <Drawer
+          sx={{ zIndex: 1202 }}
+          anchor={"right"}
+          open={state["right"]}
+          onClose={toggleDrawer("right", false)}
+        >
+          {list("right")}
+        </Drawer>
       </div>
       {/* <img
         className=" py-1"
@@ -228,7 +235,7 @@ function SessionDetails() {
         aria-controls="multiCollapseExample2"
         style={{ width: "3rem", height: "3rem", float: "right" }}
       /> */}
-      <div class="col">
+      {/* <div class="col">
         <div class="collapse multi-collapse" id="multiCollapseExample2">
           <div
             style={{
@@ -241,7 +248,7 @@ function SessionDetails() {
             <ChatSession />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className=" d-flex justify-content-center">
         {/* <Cardmui sx={{ maxWidth: 900 }}>
           <CardHeader /> */}
