@@ -32,7 +32,7 @@ import AllStudents from "../pages/students/views/AllStudents";
 
 import LessonsList from "../lessons/views/LessonsList";
 import AddLessons from "../lessons/views/AddLessons";
-
+import AddWeeks from "../weeks/views/AddWeeks";
 
 import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
@@ -97,6 +97,7 @@ export default function Router() {
                   <Route path=":sessionId" element={<SessionDetails />} />
                   <Route path="add" element={<AddSession />} />
                   <Route path="update/:id" element={<UpdateSession />} />
+                  <Route path=":sessionId/week/add" element={<AddWeeks />} />
                 </Route>
 
                 <Route path="users" element={<Users />}>

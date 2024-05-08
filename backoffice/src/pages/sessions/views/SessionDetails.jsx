@@ -40,6 +40,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { chat } from "../../../assets/images/chat.png"
 
 function SessionDetails() {
+
+  const navigate = useNavigate();
+  
   //chat
   const [state, setState] = React.useState({
     bottom: false,
@@ -153,7 +156,10 @@ function SessionDetails() {
           <button
             className="btn"
             style={{ backgroundColor: "#ffc107" }}
-            onClick={() => {}}
+            onClick={() => {
+              navigate(`/sessions/${sessionId}/week/add`);
+            }}
+           
           >
             + Add new week
           </button>
