@@ -8,7 +8,6 @@ import { LessonData } from './lesson';
 import { WeeksData } from './Weeks';
 import * as bcrypt from 'bcrypt';
 import { content } from './content';
-import e from 'express';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -44,10 +43,16 @@ async function main() {
     data: content,
   });
   const sessions = await prisma.session.createMany({
-    data: SessionData.map((elem) => ({
-      ...elem,
-      SessionUser: { create: [elem.SessionUser.create.map((s) => s)] },
-    })),
+    data: SessionData,
+  });
+  let array = [];
+  for (let i = 0; i < 5; i++) {
+    for (let j = 0; j < 5; j++) {
+      array.push({ sessionId: i + 1, userId: j + 1 });
+    }
+  }
+  const sessionsUser = await prisma.sessionUser.createMany({
+    data: array,
   });
 
   console.log('seeded');

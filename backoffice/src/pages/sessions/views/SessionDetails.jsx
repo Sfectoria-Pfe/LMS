@@ -1,11 +1,10 @@
-import React, { useEffect , useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchsession } from "../../../store/sessions";
 import { Button, CardActionArea } from "@mui/material";
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
 
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -36,37 +35,27 @@ import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
-import { orange, cyan } from '@mui/material/colors';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { orange, cyan } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { chat } from "../../../assets/images/chat.png"
 
 function SessionDetails() {
   //chat
   const [state, setState] = React.useState({
-   
     bottom: false,
-    
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
     setState({ ...state, [anchor]: open });
   };
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 700 }}
+      sx={{ width: 700 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      
+      onClick={toggleDrawer(anchor, true)}
     >
-        <ChatSession />
-  
+      <ChatSession />
 
       <Divider />
     </Box>
@@ -105,7 +94,7 @@ function SessionDetails() {
   ];
   const { sessionId } = useParams();
   const session = useSelector((state) => state.sessionsSlice.session);
-  console.log(session?.SessionUser.image, "session users")
+  console.log(session?.SessionUser.image, "session users");
   const users = useSelector((state) => state.userSlice.users.items);
   console.log(session, "this is session");
 
@@ -141,20 +130,6 @@ function SessionDetails() {
 
   return (
     <div>
-      <div>
-        {["left", "right", "top", "bottom"].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-            <Drawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-            >
-              {list(anchor)}
-            </Drawer>
-          </React.Fragment>
-        ))}
-      </div>
       <div className="d-flex justify-content-between flex-wrap">
         <div className="d-flex flex-wrap">
           <p className="px-5 py-4" style={{ fontSize: "2rem" }}>
@@ -226,6 +201,22 @@ function SessionDetails() {
               <p>{elem.user.lastName}</p>
             </div>
           </div>
+        ))}
+      </div>
+
+      <div className="d-flex justify-content-end">
+        {["right"].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>chat</Button>
+            <Drawer
+              sx={{ zIndex: 1202 }}
+              anchor={"right"}
+              open={state["right"]}
+              onClose={toggleDrawer("right", false)}
+            >
+              {list(anchor)}
+            </Drawer>
+          </React.Fragment>
         ))}
       </div>
       {/* <img
