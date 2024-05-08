@@ -83,7 +83,7 @@ model Session {
   Weeks       Weeks[]
   Msgs        Msgs[]
 
-  SessionUser SessionUser[]
+  cd  SessionUser[]
 }
 
 model SessionUser {
