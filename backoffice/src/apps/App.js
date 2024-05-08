@@ -13,7 +13,7 @@ export const SocketContext = createContext();
 function App() {
   const myId = useSelector((state) => state.auth.me?.id);
   // const [isOpen, setIsOpen] = useState(true);
-  const [open, setOpen] = useState(true);
+  
   useEffect(() => {
     socket.emit("connection", myId); //incide+data
   }, [socket]);
@@ -29,11 +29,9 @@ function App() {
       <SocketContext.Provider value={{ socket }}>
         {/* <NavBar isOpen={isOpen} setIsOpen={setIsOpen} socket={socket} />
          {isOpen && <SideBar setIsOpen={setIsOpen} />} */}
-        <MiniDrawer open={open} setOpen={setOpen} />
+        <MiniDrawer  />
         {/* <div style={{ paddingLeft: isOpen ? 300 : 0, paddingTop: 70 }}> */}
-        <div style={{ paddingLeft: open ? 240 : 65, paddingTop: 70 }}>
-          <Outlet />
-        </div>
+       
       </SocketContext.Provider>
     </div>
   );

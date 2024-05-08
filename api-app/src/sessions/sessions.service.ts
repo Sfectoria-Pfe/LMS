@@ -34,7 +34,7 @@ export class SessionsService {
         Weeks:{include:{ WeekContent:true }},
         program: true, 
         SessionUser: {
-          include: { user: { select: { firstName: true, lastName: true,id:true } } },
+          include: { user: { select: { firstName: true, lastName: true,id:true, image:true } } },
         }, 
       },
     });

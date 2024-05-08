@@ -81,8 +81,7 @@ model Session {
   program     Program @relation(fields: [programId], references: [id], onDelete: Cascade)
   Weeks       Weeks[]
   Msgs        Msgs[]
-
-  cd  SessionUser[]
+  SessionUser SessionUser[]
 }
 
 model SessionUser {
