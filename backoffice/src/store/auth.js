@@ -5,7 +5,7 @@ import { axiosGetWithHeaders } from "../helpers/axiosWithHeaders";
 
 export const login = createAsyncThunk("login", async (args, { dispatch }) => {
   const response = await axios.post(
-    "http://localhost:5000/auth/login",
+    "http://192.168.1.145:5000/auth/login",
     args
   );
   localStorage.setItem("token", response.data);
