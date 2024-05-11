@@ -59,7 +59,7 @@ export default function CourseList() {
               textDecoration: "underline",
             }}
           >
-            Welcome to courses page
+            Welcome to sessions page
           </h3>
           
           <div className=" p-5">

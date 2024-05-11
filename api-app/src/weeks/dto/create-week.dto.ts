@@ -7,6 +7,6 @@ export class CreateWeekDto {
     title: string;
     @ApiProperty()
     sessionId: number;
-   
+    contentweek?: number[];
 
 }

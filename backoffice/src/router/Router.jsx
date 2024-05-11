@@ -38,6 +38,7 @@ import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
 import AddSession from "../pages/sessions/views/AddSession";
 import UpdateSession from "../pages/sessions/views/UpdateSession";
+import AllSessions from "../pages/SessionsManager/AllSessions";
 
 export const UserContext = createContext();
 
@@ -99,6 +100,15 @@ export default function Router() {
                   <Route path="update/:id" element={<UpdateSession />} />
                   <Route path=":sessionId/week/add" element={<AddWeeks />} />
                 </Route>
+
+
+                <Route path="sessionsManager" element={<Session />}>
+                <Route index element={<AllSessions />} />
+                </Route>
+
+
+
+
 
                 <Route path="users" element={<Users />}>
                   <Route index element={<AllUsers />} />

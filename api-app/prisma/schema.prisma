@@ -79,7 +79,7 @@ model Session {
   imageURL    String  @db.LongText
   programId   Int
   program     Program @relation(fields: [programId], references: [id], onDelete: Cascade)
-  Weeks       Weeks[]
+  Week      Week[]
   Msgs        Msgs[]
   SessionUser SessionUser[]
 }
@@ -93,7 +93,7 @@ model SessionUser {
   @@unique([userId, sessionId])
 }
 
-model Weeks {
+model Week {
   id          Int           @id @default(autoincrement())
   title         String
   sessionId   Int
@@ -103,8 +103,8 @@ model Weeks {
 
 model WeekContent {
   id              Int            @id @default(autoincrement())
-  weeksId         Int
-  weeks           Weeks?         @relation(fields: [weeksId], references: [id], onDelete: Cascade)
+  weekId         Int
+  week         Week?         @relation(fields: [weekId], references: [id], onDelete: Cascade)
   LessonContentId Int
   LessonContent   LessonContent? @relation(fields: [LessonContentId], references: [id], onDelete: Cascade)
 }
