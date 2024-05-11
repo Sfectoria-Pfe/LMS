@@ -13,6 +13,7 @@ import { ChatsModule } from './chats/chats.module';
 
 import { WeeksModule } from './weeks/weeks.module';
 import { UserResponsesModule } from './user-responses/user-responses.module';
+import { WeekContentModule } from './week-content/week-content.module';
 import {LessonContentModule}  from './lesson-content/lesson-content.module';
 
 @Module({
@@ -28,7 +29,8 @@ import {LessonContentModule}  from './lesson-content/lesson-content.module';
     WeeksModule,
     ChatsModule,
     LessonContentModule,
-    UserResponsesModule
+    UserResponsesModule,
+    WeekContentModule
   ],
   controllers: [AppController],
   providers: [AppService],

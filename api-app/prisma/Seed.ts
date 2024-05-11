@@ -8,6 +8,9 @@ import { LessonData } from './lesson';
 import { WeeksData } from './Weeks';
 import * as bcrypt from 'bcrypt';
 import { content } from './content';
+import { contentweek } from './WeekContent';
+
+// import { contentweek } from './WeekContent';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -39,12 +42,16 @@ async function main() {
   const lessons = await prisma.lesson.createMany({
     data: LessonData,
   });
+  
   const lessonContent = await prisma.lessonContent.createMany({
     data: content,
   });
+
+ 
   const sessions = await prisma.session.createMany({
     data: SessionData,
   });
+ 
   let array = [];
   for (let i = 0; i < 5; i++) {
     for (let j = 0; j < 5; j++) {
@@ -55,6 +62,15 @@ async function main() {
   
   const quest = await prisma.sessionUser.createMany({
     data: array,
+  });
+
+
+  const weeks = await prisma.week.createMany({
+    data: WeeksData,
+  });
+
+  const weekContent = await prisma.weekContent.createMany({
+    data: contentweek ,
   });
   console.log('seeded');
 }

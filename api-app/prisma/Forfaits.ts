@@ -30,6 +30,7 @@ export const dataPrograms = [
     durationOnline:  ' Online 8 weeks',
     imageURL: 'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/314696035/original/cacb3e33b05d57ef6dd17bdbbf3d5ea2cb3a6221/develop-backend-rest-api-using-node-js-nest-js-express-js-mongodb-and-mysql.png',
     price: 600
+   
   },
 
   {

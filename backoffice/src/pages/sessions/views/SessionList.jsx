@@ -59,7 +59,7 @@ export default function CourseList() {
               textDecoration: "underline",
             }}
           >
-            Welcome to courses page
+            Welcome to sessions page
           </h3>
           
           <div className=" p-5">
@@ -115,6 +115,16 @@ export default function CourseList() {
                 variant="outlined"
               >
                 Learn more
+              </Button>
+              <Button
+                size="small"
+                onClick={() => {
+                  navigate(`update/${card.id}`);
+                }}
+                variant="outlined"
+                color="secondary"
+              >
+                Update
               </Button>
               <Button
                 size="small"

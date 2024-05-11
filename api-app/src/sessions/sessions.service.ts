@@ -31,11 +31,12 @@ export class SessionsService {
     return this.prisma.session.findUniqueOrThrow({
       where: { id },
       include: {
-        Weeks:{include:{ WeekContent:true }},
+        Week:{include:{ WeekContent:{include:{LessonContent:true}} }},
         program: true, 
         SessionUser: {
           include: { user: { select: { firstName: true, lastName: true,id:true, image:true } } },
         }, 
+        
       },
     });
   }

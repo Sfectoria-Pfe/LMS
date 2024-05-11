@@ -1,18 +1,20 @@
 
 
-import { deleteuser, fetchusers } from '../../../store/UserInfo';
+import { deleteuser, edituser, fetchusers } from '../../../store/UserInfo';
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {DataGrid} from '@mui/x-data-grid';
-import {Box, Avatar, Typography} from '@mui/material';
+import {Box, Avatar, Typography, Button} from '@mui/material';
 import Stack from '@mui/material/Stack';
-import Button from 'react-bootstrap/Button';
+
 import Modal from "react-bootstrap/Modal";
+import { FaTrashAlt } from 'react-icons/fa';
 
 
 
 export default function AllUsers() { 
+  const [userId, setuserId] = useState(null);
   const users = useSelector((state) => state.userSlice.users.items);
   const dispatch = useDispatch();
   useEffect(()=> {
@@ -41,13 +43,44 @@ export default function AllUsers() {
     renderCell: (params) => {
         return (
           <Stack direction="row" spacing={2}>
-            <button className="btn btn-sm btn-secondary" onClick={() => navigate( `edituser/${params.row.id}`)}>Edit</button>
-            <button className="btn btn-sm btn-primary" onClick={() => navigate(`userdetails/${params.row.id}`)}>See more</button>
-            <button className="btn btn-sm btn-danger ms-2"   onClick={() => {
-                    setModalShow(true);
-                    setDeletedId(params.row.id); 
-                    
-                  }} >Delete</button>
+             <Button
+                size="small"
+                onClick={() => navigate( `edituser/${params.row.id}`)}
+                variant="outlined"
+                color="secondary"
+              >
+                Edit
+              </Button>
+            <Button
+                size="small"
+                onClick={() => navigate(`userdetails/${params.row.id}`)}
+                variant="outlined"
+              >
+                See more
+              </Button>
+{/*               
+                      // <FaTrashAlt
+                      //   style={{ color: "red" }}
+                      //   onClick={() => {
+                      //     setModalShow(true)
+                      //     setuserId(params.id)
+                      //   }
+                          
+                      //   }
+                      // /> */}
+                   
+<Button
+                size="small"
+                onClick={() => {
+                  setModalShow(true);
+                  setDeletedId(params.row.id); 
+                }}
+                variant="outlined"
+                color="error"
+              >
+                Delete
+              </Button>
+
           </Stack>
         );
     },},
@@ -94,8 +127,15 @@ sx={{textAlign:'center', mb:3}}>
           <Button onClick={()=>setModalShow(false)}>Cancle</Button>
         
           <Button className="btn btn-danger" onClick={() => {
+              dispatch(
+                edituser({
+                  id: userId,
+                  body: { archived: true },
+                })
+              )
             deleteUser(deletedId)
-          setModalShow(false)}}>Delete</Button>
+          setModalShow(false)}}
+          >Delete</Button>
         </div>
       </Modal>
   </Box>

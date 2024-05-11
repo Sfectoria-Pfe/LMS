@@ -32,7 +32,7 @@ export class ProgramsService {
   }
 
   findOne(id: number) {
-    return this.prisma.program.findUniqueOrThrow({ where: { id },include:{ProgramCourse:{include:{course:true}}} });
+    return this.prisma.program.findUniqueOrThrow({ where: { id },include:{ProgramCourse:{include:{course: {include : {Lesson: true}}}}} });
   }
 
   update(id: number, updateProgramDto: UpdateProgramDto) {
