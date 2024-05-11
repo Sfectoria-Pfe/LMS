@@ -9,7 +9,6 @@ import Row from "react-bootstrap/Row";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import ADDUSER from "../../../assets/images/user_add.png";
-
 import { UserContext } from "../../../router/Router";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -41,7 +40,7 @@ export default function AddUser() {
     }
     dispatch(senduser(auxUser)).then((res) => {
       if (!res.error) {
-        showSuccessToast('created')
+        showSuccessToast(' user created')
        navigate("/users");
        
       } else showErrorToast('error');
@@ -60,6 +59,7 @@ export default function AddUser() {
       setimage(e.target.files[0]);
     }
   };
+
 
   return (
     <div>
@@ -130,9 +130,9 @@ export default function AddUser() {
                   >
                     <option>Open this select menu</option>
 
-                    <option value={1}>Student</option>
-                    <option value={2}>Teacher</option>
-                    <option value={3}>Manager</option>
+                    <option value={"Student"}>Student</option>
+                    <option value={"Teacher"}>Teacher</option>
+                    <option value={"Manager"}>Manager</option>
                   </Form.Select>
                 </Form.Group>
               </Row>

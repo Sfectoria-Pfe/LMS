@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { WeeksService } from './weeks.service';
 import { CreateWeekDto } from './dto/create-week.dto';
 import { UpdateWeekDto } from './dto/update-week.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('weeks')
+@ApiTags("weeks")
 export class WeeksController {
   constructor(private readonly weeksService: WeeksService) {}
 

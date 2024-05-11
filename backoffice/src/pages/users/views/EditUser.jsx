@@ -9,9 +9,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from 'react';
 import EDITUSER from '../../../assets/images/edituser.png'
 import Row from "react-bootstrap/Row";
+import axios from "axios";
 
 export default function EditUser() {
-
+  const [image, setimage] = useState(null);
   const [user, updateuser] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,14 +23,31 @@ export default function EditUser() {
     const { name, value } = e.target;
     updateuser({ ...user, [name]: name === "phone" ? +value : value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(edituser({body:user, id:+id})).then((res) => {
+    let auxUser = { ...user };
+    if (image) {
+      const formData = new FormData();
+      formData.append("file", image);
+      const response = await axios.post(
+        "http://localhost:5000/upload",
+        formData
+      );
+      auxUser = { ...auxUser, image: response.data.path };
+
+    dispatch(edituser({body:auxUser, id:+id})).then((res) => {
       if (!res.error) navigate("/users");
       else alert("you should fill the form");
     });
- 
   }
+  }
+
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setimage(e.target.files[0]);
+    }
+  };
   return (
     <div>
 
@@ -80,9 +98,19 @@ export default function EditUser() {
               </div>
 
               <Form>
-           
+             
                   <FormGroup className="mb-3" controlId="formBasicEmail">
-                  
+                  <Form.Label>Image</Form.Label>
+                   <p class="text-muted mb-1">
+                        <Form.Control
+                          accept="image/*"
+                          type="file"
+                          name="image"
+                          placeholder="User photo"
+                          onChange={handleFileChange}
+                        />
+                      </p>
+                      <hr />
                     <Form.Label>First Name</Form.Label>
                     <p class="text-muted mb-0">
                       <input

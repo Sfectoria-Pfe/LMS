@@ -77,7 +77,7 @@ export const deleteprogram = createAsyncThunk(
   }
 );
 
-export const ProgramSlice = createSlice({
+ const ProgramSlice = createSlice({
   name: "programs",
   initialState: {
     program: null,

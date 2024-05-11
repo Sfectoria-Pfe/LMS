@@ -275,6 +275,26 @@ export default function MiniDrawer() {
                 <ListItemText className="text-white" primary="Sessions" />
               </ListItemButton>
             </ListItem>
+
+
+
+
+            <ListItem
+              disablePadding
+              style={{}}
+              onClick={() => navigate("/sessionsManager")}
+            >
+              <ListItemButton>
+                <ListItemIcon>
+                  <SiSessionize style={{ color: "#ffc107" }} />
+                </ListItemIcon>
+                <ListItemText className="text-white" primary="Sessions" />
+              </ListItemButton>
+            </ListItem>
+
+
+
+
             <ListItem disablePadding onClick={() => navigate("/users")}>
               <ListItemButton>
                 <ListItemIcon>
