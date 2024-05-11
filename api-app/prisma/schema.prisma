@@ -14,19 +14,20 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  image       String        @db.LongText
-  firstName   String
-  lastName    String
-  email       String        @unique
-  password    String
-  phone       Int?
-  address     String?
-  role        String
+  id            Int             @id @default(autoincrement())
+  image         String          @db.LongText
+  firstName     String
+  lastName      String
+  email         String          @unique
+  password      String
+  phone         Int?
+  address       String?
+  role          String
   // archived      Boolean         @default(false)
   // type        roleContent
-  Msgs        Msgs[]
-  SessionUser SessionUser[]
+  Msgs          Msgs[]
+  SessionUser   SessionUser[]
+  userResponses userResponses[]
 }
 
 model Teacher {
@@ -72,14 +73,14 @@ model Program {
 }
 
 model Session {
-  id          Int     @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   title       String
-  description String? @db.LongText
+  description String?       @db.LongText
   videoURL    String?
   duration    String
-  imageURL    String  @db.LongText
+  imageURL    String        @db.LongText
   programId   Int
-  program     Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+  program     Program       @relation(fields: [programId], references: [id], onDelete: Cascade)
   Weeks       Weeks[]
   Msgs        Msgs[]
   SessionUser SessionUser[]
@@ -137,14 +138,26 @@ model Question {
   LessonContent   LessonContent       @relation(fields: [lessonContentId], references: [id])
   lessonContentId Int
   propositions    PropositionAnswer[]
+  userResponses   userResponses[]
 }
 
 model PropositionAnswer {
-  id         Int      @id @default(autoincrement())
-  label      String
-  isCorrect  Boolean
-  Question   Question @relation(fields: [questionId], references: [id])
-  questionId Int
+  id            Int             @id @default(autoincrement())
+  label         String
+  isCorrect     Boolean
+  Question      Question        @relation(fields: [questionId], references: [id])
+  questionId    Int
+  userResponses userResponses[]
+}
+
+model userResponses {
+  id                  Int                @id @default(autoincrement())
+  propositionanswerId Int
+  propositionAnswer   PropositionAnswer? @relation(fields: [propositionanswerId], references: [id], onDelete: Cascade)
+  Question            Question           @relation(fields: [questionId], references: [id])
+  questionId          Int
+  user                User               @relation(fields: [userId], references: [id])
+  userId              Int
 }
 
 model Msgs {

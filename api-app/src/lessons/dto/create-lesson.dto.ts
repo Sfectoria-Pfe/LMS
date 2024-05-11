@@ -5,6 +5,7 @@ export class Answer {
   isCorrect: boolean;
 }
 export class Question {
+  name?: string;
   label: string;
   scale: number;
   propositions?: Answer[];

@@ -1,4 +1,5 @@
 import { typeContent } from "@prisma/client";
+import { LessonContent } from "src/lesson-content/entities/lesson-content.entity";
 
 export const content = [
   {
@@ -21,6 +22,59 @@ export const content = [
     contentURL:
       'http://localhost:5000/upload/seed/fe25898a4110de105a65dc68d4bc5484cb.pdf',
     lessonId: 2,
+  },
+  {
+    contentname: 'HTML & CSS checkpoint',
+    type: typeContent.checkpoint,
+    contentURL:
+      'http://localhost:5000/upload/seed/fe25898a4110de105a65dc68d4bc5484cb.pdf',
+    lessonId: 2,
+    questions: [
+      {
+        lable: '  : الكلمة abréviation هي ال  HTML',
+        scale: 10,
+        propositions: [
+          {
+            lable: 'HyperText Messaging Language ',
+            isCorrect: 'false',
+          },
+          {
+            lable: 'HyperText Makeup Language  ',
+            isCorrect: 'false',
+          },
+          {
+            lable: 'HyperText Makeup Language  ',
+            isCorrect: 'true',
+          },
+          {
+            lable: 'HyperType Makeup Language  ',
+            isCorrect: 'false',
+          },
+        ],
+      },
+      {
+        lable: '   : الكلمة abréviation هي ال  CSS',
+        scale: 10,
+        propositions: [
+          {
+            lable: 'Canvas Style Sheets  ',
+            isCorrect: 'false',
+          },
+          {
+            lable: 'Cascading Style Sheets   ',
+            isCorrect: 'true',
+          },
+          {
+            lable: 'Complicated Style Sheets   ',
+            isCorrect: 'false',
+          },
+          {
+            lable: 'Comparition Style Sheets   ',
+            isCorrect: 'false',
+          }
+        ],
+      },
+    ],
   },
   {
     contentname: 'Bootstrapdf',

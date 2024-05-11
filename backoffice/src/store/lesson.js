@@ -10,7 +10,15 @@ export const fetchLessons = createAsyncThunk("fetchlessons", async () => {
     throw error;
   }
 });
-
+export const fetchlesson = createAsyncThunk("fetchlesson", async (id) => {
+  try {
+    const response = await axios.get("http://localhost:5000/lessons/" + id);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching lesson:", error);
+    throw error;
+  }
+});
 
 export const updatelesson = createAsyncThunk(
   "updatelesson",
@@ -73,6 +81,9 @@ export const  lessonSlice = createSlice({
        state.lesson = action.payload;
      });
      builder.addCase(deletelesson.fulfilled, (state, action) => {
+       state.lesson = action.payload;
+     });
+     builder.addCase(fetchlesson.fulfilled, (state, action) => {
        state.lesson = action.payload;
      });
     

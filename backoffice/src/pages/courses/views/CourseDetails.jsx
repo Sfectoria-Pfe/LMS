@@ -32,12 +32,9 @@ export default function CourseDetails() {
   const [modalShow, setModalShow] = useState(false);
   const { courseId } = useParams();
   const [lessonId, setlessonId] = useState(null);
-  console.log(lessonId, "lesson id");
+ 
   const course = useSelector((state) => state.coursesSlice.course);
-  const lesson = useSelector((state) => state.lessonSlice.lesson);
-  const LessonContent = useSelector(
-    (state) => state.lessoncontentSlice.lessoncontent
-  );
+  
   console.log(course, "this is course");
   const navigate = useNavigate();
   // console.log(course?.Lesson, "those are lessons");
@@ -134,7 +131,7 @@ export default function CourseDetails() {
                   <div className="d-flex gap-3 py-3 flex-wrap">
                     <Card className="w-100">
                       <Link
-                        to={content.contentURL}
+                        to={content.type==='checkpoint'?`/course/${courseId}/lesson/${lesson.id}/checkpoint/${content.id}`:content.contentURL}
                         underline="hover"
                         className="p-2"
                       >

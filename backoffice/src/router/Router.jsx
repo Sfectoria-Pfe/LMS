@@ -38,6 +38,7 @@ import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
 import AddSession from "../pages/sessions/views/AddSession";
 import UpdateSession from "../pages/sessions/views/UpdateSession";
+import Checkpoint from "../pages/checkpoint/Checkpoint";
 
 export const UserContext = createContext();
 
@@ -73,6 +74,10 @@ export default function Router() {
             {user ? (
               <Route path="/" element={<App />}>
                 <Route index element={<Dashboard />} />
+                <Route
+                  path="course/:courseId/lesson/:lessonId/checkpoint/:contentId"
+                  element={<Checkpoint />}
+                />
                 <Route path="courses" element={<Course />}>
                   <Route index element={<CourseList />} />
                   {/* <Route path="add" element={<AddCourse />} /> */}
