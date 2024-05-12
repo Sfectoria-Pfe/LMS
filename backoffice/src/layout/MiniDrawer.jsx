@@ -272,7 +272,7 @@ export default function MiniDrawer() {
                 <ListItemIcon>
                   <SiSessionize style={{ color: "#ffc107" }} />
                 </ListItemIcon>
-                <ListItemText className="text-white" primary="Sessions" />
+                <ListItemText className="text-white" primary="My Sessions" />
               </ListItemButton>
             </ListItem>
 

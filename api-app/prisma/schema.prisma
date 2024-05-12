@@ -22,7 +22,7 @@ model User {
   password      String
   phone         Int?
   address       String?
-  role          String
+  role          roleContent
   archived      Boolean         @default(false)
   // type        roleContent
   Msgs          Msgs[]

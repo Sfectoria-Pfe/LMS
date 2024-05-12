@@ -14,14 +14,13 @@ import { useDispatch, useSelector } from 'react-redux';
         const dispatch = useDispatch();
 
         const columns = useMemo(()=>[
-            {field: 'photoURL', headerName:'Avatar', width:30, renderCell : (params)=> <Avatar src={params.row.image}/>, sortable : false, filterable : false,},
-            {field: 'id', headerName:'Id', width:30},
-            {field: 'firstName', headerName:'FirstName', width:90},
-            {field: 'lastName', headerName:'LastName', width:90},
-            {field: 'email', headerName:'Email', width:200},
-            {field: 'phone', headerName:'Phone', width:100},
-            {field: 'address', headerName:'Address', width:100},
-            {field: 'role', headerName:'Role', width:90},
+            {field: 'imageURL', headerName:'image', width:30, renderCell : (params)=> <Avatar src={params.row.imageURL}/>, sortable : false, filterable : false,},
+            {field: 'title', headerName:'title', width:90},
+            {field: 'users', headerName:'users', width:90},
+            {field: 'teacher', headerName:'teacher', width:200},
+            {field: 'program', headerName:'program', width:100},
+            {field: 'courses', headerName:'courses', width:100},
+            {field: 'lessons', headerName:'Role', width:90},
             {field: '', headerName:'Action', width:250,  sortable: false,
             disableClickEventBubbling: true,
 
