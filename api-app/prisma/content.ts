@@ -1,4 +1,5 @@
 import { typeContent } from "@prisma/client";
+import { LessonContent } from "src/lesson-content/entities/lesson-content.entity";
 
 export const content = [
   {
@@ -21,6 +22,14 @@ export const content = [
     contentURL:
       'http://localhost:5000/upload/seed/fe25898a4110de105a65dc68d4bc5484cb.pdf',
     lessonId: 2,
+  },
+  {
+    contentname: 'HTML & CSS checkpoint',
+    type: typeContent.checkpoint,
+    contentURL:
+      'http://localhost:5000/upload/seed/fe25898a4110de105a65dc68d4bc5484cb.pdf',
+    lessonId: 2,
+  
   },
   {
     contentname: 'Bootstrapdf',

@@ -34,7 +34,7 @@ export const dataUser = [
     password: '3333',
     phone: 3336836,
     address: 'Siliana',
-    role: roleContent.Student,
+    role: roleContent.Student
   },
   {
     image:
@@ -45,7 +45,7 @@ export const dataUser = [
     password: '0010',
     phone: 58636836,
     address: 'Sousse',
-    role: roleContent.Student,
+    role: roleContent.Student
   },
 
   {
@@ -80,7 +80,7 @@ export const dataUser = [
     password: '1510',
     phone: 20836836,
     address: 'Gabes',
-    role: roleContent.Student,
+    role: roleContent.Student
   },
   //teachers
   {
@@ -103,7 +103,7 @@ export const dataUser = [
     password: '2209',
     phone: 98836836,
     address: 'Ben Arous',
-    role: roleContent.Student,
+    role: roleContent.Student
   },
 
   {

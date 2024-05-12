@@ -5,7 +5,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LessonContentService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
   create(createLessonContentDto: CreateLessonContentDto) {
     return this.prisma.lessonContent.create({ data: createLessonContentDto });
   }
@@ -16,7 +16,8 @@ export class LessonContentService {
 
   findOne(id: number) {
     return this.prisma.lessonContent.findUniqueOrThrow({
-      where: { id }
+      where: { id },
+      include: { lesson: true, questions: { include: { propositions: true } } },
     });
   }
 

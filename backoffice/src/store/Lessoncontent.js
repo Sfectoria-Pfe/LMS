@@ -11,6 +11,15 @@ export const fetchlessoncontents = createAsyncThunk("fetchlessoncontents", async
     throw error;
   }
 });
+export const fetchlessoncontent = createAsyncThunk("fetchlessoncontent", async (id) => {
+  try {
+    const response = await axios.get("http://localhost:5000/lesson-content/"+id);
+    return response.data;
+  } catch (error) {
+    console.error("Error", error);
+    throw error;
+  }
+});
 
 
 export const deletecontent = createAsyncThunk(
@@ -50,6 +59,9 @@ export const lessoncontentSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(fetchlessoncontents.fulfilled, (state, action) => {
             state.lessoncontents.items = action.payload;
+        });
+        builder.addCase(fetchlessoncontent.fulfilled, (state, action) => {
+            state.lessoncontent = action.payload;
         });
          builder.addCase(sendlessoncontent.fulfilled, (state, action) => {
            state.lessoncontent = action.payload;
