@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { axiosGetWithHeaders } from "../helpers/axiosWithHeaders";
 
 //all sessions
 export const fetchSessions = createAsyncThunk("fetchSessions", async () => {
@@ -17,6 +18,15 @@ export const fetchSessions = createAsyncThunk("fetchSessions", async () => {
 export const fetchsession = createAsyncThunk("fetchsession", async (id) => {
   try {
     const response = await axios.get("http://localhost:5000/sessions/" + id);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching session:", error);
+    throw error;
+  }
+});
+export const fetchMine = createAsyncThunk("fetchMine", async (id) => {
+  try {
+    const response = await axiosGetWithHeaders("sessions/mine");
     return response.data;
   } catch (error) {
     console.error("Error fetching session:", error);
@@ -87,6 +97,9 @@ export const sessionsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(fetchSessions.fulfilled, (state, action) => {
+      state.sessions.items = action.payload;
+    });
+    builder.addCase(fetchMine.fulfilled, (state, action) => {
       state.sessions.items = action.payload;
     });
 

@@ -21,6 +21,20 @@ export class SessionsService {
 
   findAll() {
     return this.prisma.session.findMany({
+      where: {
+        archived: false,
+      },
+      include: {
+        program: { include: { ProgramCourse: { include: { course: true } } } },
+      },
+    });
+  }
+  findMine(userId:number) {
+    return this.prisma.session.findMany({
+      where: {
+        archived: false,
+        SessionUser:{some:{userId}}
+      },
       include: {
         program: { include: { ProgramCourse: { include: { course: true } } } },
       },
@@ -31,18 +45,26 @@ export class SessionsService {
     return this.prisma.session.findUniqueOrThrow({
       where: { id },
       include: {
-        Week:{include:{ WeekContent:{include:{LessonContent:true}} }},
-        program: true, 
+        Week: {
+          include: { WeekContent: { include: { LessonContent: true } } },
+        },
+        program: true,
         SessionUser: {
-          include: { user: { select: { firstName: true, lastName: true,id:true, image:true } } },
-        }, 
-        
+          include: {
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+                id: true,
+                image: true,
+              },
+            },
+          },
+        },
       },
     });
   }
 
-
-  
   update(id: number, updateSessionDto: UpdateSessionDto) {
     return this.prisma.session.update({
       where: { id },

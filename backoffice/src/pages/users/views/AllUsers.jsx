@@ -58,17 +58,7 @@ export default function AllUsers() {
               >
                 See more
               </Button>
-{/*               
-                      // <FaTrashAlt
-                      //   style={{ color: "red" }}
-                      //   onClick={() => {
-                      //     setModalShow(true)
-                      //     setuserId(params.id)
-                      //   }
-                          
-                      //   }
-                      // /> */}
-                   
+
 <Button
                 size="small"
                 onClick={() => {
@@ -152,11 +142,12 @@ export default function AllUsers() {
               onClick={() => {
                 dispatch(
                   edituser({
-                    id: userId,
-                    body: { archived: true },
+                    id: deletedId,
+                    body: { archived: true},
                   })
-                );
-                deleteUser(deletedId);
+                ).then((res) => {
+                  dispatch(fetchusers());
+                });
                 setModalShow(false);
               }}
             >

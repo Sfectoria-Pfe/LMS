@@ -113,6 +113,7 @@ function SessionDetails() {
   }, [session]);
 
   //CARDMUI
+    const user = useSelector((store) => store.auth.me);
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -165,19 +166,20 @@ function SessionDetails() {
             BY SFECTORIA
           </p>
         </div>
-        <div className=" p-5">
-          <button
-            className="btn"
-            style={{ backgroundColor: "#ffc107" }}
-            onClick={() => {
-              navigate(`/sessions/${sessionId}/week/add`);
-            }}
-           
-          >
-            + Add new week
-          </button>
-          {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
-        </div>
+        {user.role === "Manager" && (
+          <div className=" p-5">
+            <button
+              className="btn"
+              style={{ backgroundColor: "#ffc107" }}
+              onClick={() => {
+                navigate(`/sessions/${sessionId}/week/add`);
+              }}
+            >
+              + Add new week
+            </button>
+            {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
+          </div>
+        )}
       </div>
 
       {session?.videoURL && (
@@ -322,48 +324,41 @@ function SessionDetails() {
         </Cardmui> */}
       </div>
       <div className="px-3 py-2" style={{ zIndex: 5 }}>
-      {session?.Week.map((week) => (
-        <div className="px-3">
-          <Accordion className=" d-flex justify-content-center">
-            <Accordion.Item eventKey="0" className="w-100">
-              <Accordion.Header className="w-100 ">
-                <div className="d-flex gap-3 justify-content-between w-100 align-items-center">
-                  <div className="d-flex gap-3">
-                   
-                    <p>{week.title}</p>
-                  </div>
-                  <div className="px-4 d-flex gap-3">
-                    <div>
-                      <IoIosAddCircle />
+        {session?.Week.map((week) => (
+          <div className="px-3">
+            <Accordion className=" d-flex justify-content-center">
+              <Accordion.Item eventKey="0" className="w-100">
+                <Accordion.Header className="w-100 ">
+                  <div className="d-flex gap-3 justify-content-between w-100 align-items-center">
+                    <div className="d-flex gap-3">
+                      <p>{week.title}</p>
                     </div>
-                    
                   </div>
-                </div>
-              </Accordion.Header>
-              <Accordion.Body>
-                {week?.WeekContent.map((contentweek) => (
-                  <div className="d-flex gap-3 py-3 flex-wrap">
-                    <Card className="w-100">
-                      <Link
-                        to={contentweek.LessonContent.contentURL}
-                        underline="hover"
-                        className="p-2"
-                      >
-                        {contentweek.LessonContent.contentname}
-                      </Link>
-                    </Card>
-                  </div>
-                ))}
-              </Accordion.Body>
-            </Accordion.Item>
-          </Accordion>
-          <p className="text-center"></p>
-        </div>
-      ))}
-      
-
-      
-        
+                </Accordion.Header>
+                <Accordion.Body>
+                  {week?.WeekContent.map((contentweek) => (
+                    <div className="d-flex gap-3 py-3 flex-wrap">
+                      <Card className="w-100">
+                        <Link
+                          to={
+                            contentweek?.LessonContent?.type === "checkpoint"
+                              ? `/checkpoint/${contentweek.id}`
+                              : contentweek.LessonContent.contentURL
+                          }
+                          underline="hover"
+                          className="p-2"
+                        >
+                          {contentweek.LessonContent.contentname}
+                        </Link>
+                      </Card>
+                    </div>
+                  ))}
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
+            <p className="text-center"></p>
+          </div>
+        ))}
 
         {/* <Accordion className=" d-flex justify-content-center">
           <Accordion.Item eventKey="0" className="w-100">

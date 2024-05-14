@@ -10,7 +10,7 @@ import { FaTrashAlt } from "react-icons/fa";
 
 export default function ProgramDetails() {
   const [modalShow, setModalShow] = useState(false);
-
+  const user = useSelector((store) => store.auth.me);
   const program = useSelector((state) => state.ProgramSlice.program);
  console.log(program,"this is programe")
   const { id } = useParams();

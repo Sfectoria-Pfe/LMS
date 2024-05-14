@@ -74,7 +74,7 @@ export default function UpdateCourse() {
   
     return (
       <div>
-        <section style={{ backgroundColor: "#eee" }}>
+        
           <div class="container py-5">
             <div class="row">
               <div class="col-lg-4">
@@ -125,7 +125,7 @@ export default function UpdateCourse() {
                   </div>
                 </div>
               </div>
-              <div style={{ width: "48rem", height: "70rem" }} class="col-lg-8">
+              <div style={{ width: "48rem" }} class="col-lg-8">
                 <div class="card mb-4">
                   <div class="card-body">
                     <div class="row">
@@ -139,7 +139,7 @@ export default function UpdateCourse() {
                             name="title"
                             placeholder="name"
                             onChange={handleChange}
-                            //   onChange={(e) => setUpdatedUser(e.target.value)}
+                          
                           />
                         </p>
                       </div>
@@ -236,7 +236,7 @@ export default function UpdateCourse() {
               </div>
             </div>
           </div>
-        </section>
+     
       </div>
     );
   

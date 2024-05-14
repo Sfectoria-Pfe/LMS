@@ -34,7 +34,7 @@ export default function CourseDetails() {
   const [lessonId, setlessonId] = useState(null);
  
   const course = useSelector((state) => state.coursesSlice.course);
-  
+    const user = useSelector((store) => store.auth.me);
   console.log(course, "this is course");
   const navigate = useNavigate();
   // console.log(course?.Lesson, "those are lessons");

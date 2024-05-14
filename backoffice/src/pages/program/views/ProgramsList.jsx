@@ -23,7 +23,7 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 // import PopUp from "./PopUp";
-
+ 
 import Modal from "react-bootstrap/Modal";
 import Dialog from "@mui/material/Dialog";
 import { styled } from "@mui/material";
@@ -49,7 +49,7 @@ export default function ProgramsList() {
   const [imageUrl, setImageUrl] = useState(null);
 
   const dispatch = useDispatch();
-
+ const user = useSelector((store) => store.auth.me);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setprogram({ ...program, [name]: name === "price" ? +value : value });
@@ -330,7 +330,7 @@ export default function ProgramsList() {
                     />
                   </Form.Group>
                   <FormControl sx={{ m: 1, width: 300 }}>
-                    <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                    <InputLabel id="demo-multiple-chip-label">Courses</InputLabel>
                     <Select
                       labelId="demo-multiple-chip-label"
                       id="demo-multiple-chip"

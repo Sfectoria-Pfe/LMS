@@ -25,14 +25,15 @@ export class UserResponsesController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createUserResponseDto: Responses, @Request() req: any) {
-    
-
     return this.userResponsesService.create(createUserResponseDto, req.user.id);
   }
-
-  @Get()
-  findAll() {
-    return this.userResponsesService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Get('mine/:checkpointId')
+  findAllByUserAndCheckpoint(
+    @Param('checkpointId') checkpointId: number,
+    @Request() req: any,
+  ) {
+    return this.userResponsesService.findAllByUserAndCheckpoin(req.user.id,checkpointId);
   }
 
   @Get(':id')

@@ -24,7 +24,6 @@ model User {
   address       String?
   role          roleContent
   archived      Boolean         @default(false)
-  // type        roleContent
   Msgs          Msgs[]
   SessionUser   SessionUser[]
   userResponses userResponses[]
@@ -73,15 +72,17 @@ model Program {
 }
 
 model Session {
-  id          Int           @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   title       String
-  description String?       @db.LongText
+  description String? @db.LongText
   videoURL    String?
   duration    String
-  imageURL    String        @db.LongText
+  imageURL    String  @db.LongText
   programId   Int
-  program     Program @relation(fields: [programId], references: [id], onDelete: Cascade)
-  Week      Week[]
+  archived    Boolean @default(false)
+
+  program     Program       @relation(fields: [programId], references: [id], onDelete: Cascade)
+  Week        Week[]
   Msgs        Msgs[]
   SessionUser SessionUser[]
 }
@@ -97,7 +98,7 @@ model SessionUser {
 
 model Week {
   id          Int           @id @default(autoincrement())
-  title         String
+  title       String
   sessionId   Int
   session     Session?      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   WeekContent WeekContent[]
@@ -105,8 +106,8 @@ model Week {
 
 model WeekContent {
   id              Int            @id @default(autoincrement())
-  weekId         Int
-  week         Week?         @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  weekId          Int
+  week            Week?          @relation(fields: [weekId], references: [id], onDelete: Cascade)
   LessonContentId Int
   LessonContent   LessonContent? @relation(fields: [LessonContentId], references: [id], onDelete: Cascade)
 }
@@ -159,6 +160,8 @@ model userResponses {
   questionId          Int
   user                User               @relation(fields: [userId], references: [id])
   userId              Int
+
+  @@unique([questionId, userId])
 }
 
 model Msgs {
@@ -177,10 +180,9 @@ enum typeContent {
   checkpoint
   exercice
 }
+
 enum roleContent {
-Student
-Teacher
-Manager
+  Student
+  Teacher
+  Manager
 }
-
-

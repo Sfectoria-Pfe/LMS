@@ -21,8 +21,13 @@ export class UserResponsesService {
     });
   }
 
-  findAll() {
-    return this.prisma.userResponses.findMany();
+  findAllByUserAndCheckpoin(userId: number, checkpointId: number) {
+    return this.prisma.userResponses.findMany({
+      where: {
+        userId,
+        Question: { lessonContentId: checkpointId },
+      },
+    });
   }
 
   findOne(id: number) {

@@ -20,6 +20,27 @@ export class LessonContentService {
       include: { lesson: true, questions: { include: { propositions: true } } },
     });
   }
+  findOneWithResponsesOfUser(id: number, userId: number) {
+    return this.prisma.lessonContent.findUniqueOrThrow({
+      where: { id },
+      include: {
+        lesson: true,
+        questions: {
+          include: {
+            propositions: {
+              include: {
+                userResponses: {
+                  where: {
+                    userId,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+  }
 
   update(id: number, updateLessonContentDto: UpdateLessonContentDto) {
     return this.prisma.lessonContent.update({

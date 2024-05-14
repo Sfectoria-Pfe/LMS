@@ -11,7 +11,7 @@ import { Button, CardActionArea } from "@mui/material";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 // import PopUp from "./PopUp";
 import Modal from "react-bootstrap/Modal";
-import { fetchSessions, deletesession } from "../../../store/sessions";
+import { fetchSessions, deletesession, fetchMine } from "../../../store/sessions";
 
 export default function CourseList() {
   const sessions = useSelector((state) => state.sessionsSlice.sessions.items);
@@ -23,20 +23,8 @@ export default function CourseList() {
   const dispatch = useDispatch();
 
 
-
-
-
-
-
-  
-
-
- 
-
-
-
   useEffect(() => {
-    dispatch(fetchSessions());
+    dispatch(fetchMine());
   }, [dispatch]);
 
   //   const deleteCourse=(id)=>{
@@ -63,13 +51,13 @@ export default function CourseList() {
           </h3>
           
           <div className=" p-5">
-            <button
+            {/* <button
               className="btn"
               style={{ backgroundColor: "#ffc107" }}
               onClick={() => navigate("add")}
             >
               + Add new session
-            </button>
+            </button> */}
             {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
           </div>
         </div>
@@ -116,7 +104,7 @@ export default function CourseList() {
               >
                 Learn more
               </Button>
-              <Button
+              {/* <Button
                 size="small"
                 onClick={() => {
                   navigate(`update/${card.id}`);
@@ -125,8 +113,8 @@ export default function CourseList() {
                 color="secondary"
               >
                 Update
-              </Button>
-              <Button
+              </Button> */}
+              {/* <Button
                 size="small"
                 onClick={() => {
                   setModalShow(true);
@@ -136,7 +124,7 @@ export default function CourseList() {
                 color="error"
               >
                 Delete
-              </Button>
+              </Button> */}
             </CardActions>
           </Card>
         ))}
