@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { CreateSessionDto } from './dto/create-session.dto';
 import { UpdateSessionDto } from './dto/update-session.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { CurrentUser } from 'src/auth/decorator/current-user';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 @ApiTags('Sessions')
 @Controller('sessions')
 export class SessionsController {
@@ -13,11 +15,16 @@ export class SessionsController {
     return this.sessionsService.create(createSessionDto);
   }
 
+  
   @Get()
   findAll() {
     return this.sessionsService.findAll();
   }
-
+  @UseGuards(JwtAuthGuard)
+  @Get("mine")
+  findMine(@CurrentUser() user:any) {
+    return this.sessionsService.findMine(user.id);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {

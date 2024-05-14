@@ -10,7 +10,7 @@ export default function LessonsList() {
   const { courseId } = useParams();
 
   const lessons = useSelector((state) => state.lessonSlice.lessons);
-
+  const user = useSelector((store) => store.auth.me);
   const [lessonList, setlessonList] = useState([
     {
       id: 1,
@@ -52,19 +52,21 @@ export default function LessonsList() {
         >
          Add lesson to your course
         </h3>
-        <div className=" p-5">
-          <button
-            className="btn"
-            style={{ backgroundColor: "#ffc107" }}
-            onClick={() => {
-              navigate(`/courses/${courseId}/lesson/add`);
-            }}
+        {user.role === "manager" && (
+          <div className=" p-5">
+            <button
+              className="btn"
+              style={{ backgroundColor: "#ffc107" }}
+              onClick={() => {
+                navigate(`/courses/${courseId}/lesson/add`);
+              }}
             
-          >
-            + Add new lesson
-          </button>
-          {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
-        </div>
+            >
+              + Add new lesson
+            </button>
+            {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
+          </div>
+        )}
       </div>
 
       <div className="d-flex justify-content-between p-3">

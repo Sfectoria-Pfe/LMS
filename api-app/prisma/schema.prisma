@@ -14,18 +14,19 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  image       String        @db.LongText
-  firstName   String
-  lastName    String
-  email       String        @unique
-  password    String
-  phone       Int?
-  address     String?
-  role         roleContent?
+  id            Int             @id @default(autoincrement())
+  image         String          @db.LongText
+  firstName     String
+  lastName      String
+  email         String          @unique
+  password      String
+  phone         Int?
+  address       String?
+  role          roleContent
   archived      Boolean         @default(false)
-  Msgs        Msgs[]
-  SessionUser SessionUser[]
+  Msgs          Msgs[]
+  SessionUser   SessionUser[]
+  userResponses userResponses[]
 }
 
 model Teacher {
@@ -78,8 +79,10 @@ model Session {
   duration    String
   imageURL    String  @db.LongText
   programId   Int
-  program     Program @relation(fields: [programId], references: [id], onDelete: Cascade)
-  Week      Week[]
+  archived    Boolean @default(false)
+
+  program     Program       @relation(fields: [programId], references: [id], onDelete: Cascade)
+  Week        Week[]
   Msgs        Msgs[]
   SessionUser SessionUser[]
 }
@@ -95,7 +98,7 @@ model SessionUser {
 
 model Week {
   id          Int           @id @default(autoincrement())
-  title         String
+  title       String
   sessionId   Int
   session     Session?      @relation(fields: [sessionId], references: [id], onDelete: Cascade)
   WeekContent WeekContent[]
@@ -103,8 +106,8 @@ model Week {
 
 model WeekContent {
   id              Int            @id @default(autoincrement())
-  weekId         Int
-  week         Week?         @relation(fields: [weekId], references: [id], onDelete: Cascade)
+  weekId          Int
+  week            Week?          @relation(fields: [weekId], references: [id], onDelete: Cascade)
   LessonContentId Int
   LessonContent   LessonContent? @relation(fields: [LessonContentId], references: [id], onDelete: Cascade)
 }
@@ -137,14 +140,28 @@ model Question {
   LessonContent   LessonContent       @relation(fields: [lessonContentId], references: [id])
   lessonContentId Int
   propositions    PropositionAnswer[]
+  userResponses   userResponses[]
 }
 
 model PropositionAnswer {
-  id         Int      @id @default(autoincrement())
-  label      String
-  isCorrect  Boolean
-  Question   Question @relation(fields: [questionId], references: [id])
-  questionId Int
+  id            Int             @id @default(autoincrement())
+  label         String
+  isCorrect     Boolean
+  Question      Question        @relation(fields: [questionId], references: [id])
+  questionId    Int
+  userResponses userResponses[]
+}
+
+model userResponses {
+  id                  Int                @id @default(autoincrement())
+  propositionanswerId Int
+  propositionAnswer   PropositionAnswer? @relation(fields: [propositionanswerId], references: [id], onDelete: Cascade)
+  Question            Question           @relation(fields: [questionId], references: [id])
+  questionId          Int
+  user                User               @relation(fields: [userId], references: [id])
+  userId              Int
+
+  @@unique([questionId, userId])
 }
 
 model Msgs {
@@ -163,10 +180,9 @@ enum typeContent {
   checkpoint
   exercice
 }
+
 enum roleContent {
-Student
-Teacher
-Manager
+  Student
+  Teacher
+  Manager
 }
-
-

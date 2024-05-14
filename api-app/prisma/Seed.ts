@@ -61,7 +61,9 @@ async function main() {
       array.push({ sessionId: i + 1, userId: j + 1 });
     }
   }
-  const sessionsUser = await prisma.sessionUser.createMany({
+  
+  
+  const quest = await prisma.sessionUser.createMany({
     data: array,
   });
 

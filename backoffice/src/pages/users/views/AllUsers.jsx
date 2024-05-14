@@ -58,17 +58,7 @@ export default function AllUsers() {
               >
                 See more
               </Button>
-{/*               
-                      // <FaTrashAlt
-                      //   style={{ color: "red" }}
-                      //   onClick={() => {
-                      //     setModalShow(true)
-                      //     setuserId(params.id)
-                      //   }
-                          
-                      //   }
-                      // /> */}
-                   
+
 <Button
                 size="small"
                 onClick={() => {
@@ -87,60 +77,87 @@ export default function AllUsers() {
     
   ],[] )
   return (
-   
-    <Box 
-    sx={{
-      height:350,
-      width:'100'
-    }}>
-<Typography
-variant='h3'
-component='h3'
-sx={{textAlign:'center', mb:3}}>
-  list of all lms users
-</Typography>
-<div className="px-5">
-  <button className="btn btn-success my-3" onClick={() => navigate("adduser")}>
-      Add user +
- </button>
-     </div>
-<DataGrid 
- columns={columns}
- rows={users} />
-
-<Modal
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Delete user
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Are you sure you want to delete this user ?</p>
-        </Modal.Body>
-        <div className="d-flex justify-content-center gap-2 py-3">
-          <Button onClick={()=>setModalShow(false)}>Cancle</Button>
-        
-          <Button className="btn btn-danger" onClick={() => {
-              dispatch(
-                edituser({
-                  id: userId,
-                  body: { archived: true },
-                })
-              )
-            deleteUser(deletedId)
-          setModalShow(false)}}
-          >Delete</Button>
+    <div>
+      <div className="d-flex justify-content-between">
+        <h3
+          className="p-5"
+          style={{
+            fontFamily: "Segoe UI",
+            color: "#11354D",
+            textDecoration: "underline",
+          }}
+        >
+          Welcome to users page
+        </h3>
+        <div className=" p-5">
+          <button
+            className="btn"
+            style={{ backgroundColor: "#ffc107" }}
+            onClick={() => {
+              navigate("adduser");
+            }}
+          >
+            + Add new user
+          </button>
         </div>
-      </Modal>
-  </Box>
-  
-  )
+      </div>
+
+      <Box
+        sx={{
+          height: "100%",
+          width: "100%",
+        }}
+      >
+        <DataGrid
+          columns={columns}
+          rows={users}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width:"100%"
+          }}
+        />
+
+        <Modal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Delete user
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to delete this user ?</p>
+          </Modal.Body>
+          <div className="d-flex justify-content-center gap-2 py-3">
+            <Button onClick={() => setModalShow(false)}>Cancle</Button>
+
+            <Button
+              className="btn btn-danger"
+              onClick={() => {
+                dispatch(
+                  edituser({
+                    id: deletedId,
+                    body: { archived: true},
+                  })
+                ).then((res) => {
+                  dispatch(fetchusers());
+                });
+                setModalShow(false);
+              }}
+            >
+              Delete
+            </Button>
+          </div>
+        </Modal>
+      </Box>
+    </div>
+  );
 }
 
 

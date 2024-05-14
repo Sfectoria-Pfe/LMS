@@ -157,12 +157,13 @@ export default function MiniDrawer() {
     </Menu>
   );
     const navigate = useNavigate();
-    const user = useSelector((store) => store.auth.me);
+  const user = useSelector((store) => store.auth.me);
+  
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar  setOpen={setOpen} open={open}>
+      <AppBar setOpen={setOpen} open={open}>
         <Toolbar
           className="d-flex justify-content-between"
           style={{ backgroundColor: "#0f1924" }}
@@ -247,6 +248,10 @@ export default function MiniDrawer() {
                 <ListItemText className="text-white" primary="Dashboard" />
               </ListItemButton>
             </ListItem>
+
+            {user.role === "Manager" && (
+              <div>
+
             <ListItem disablePadding onClick={() => navigate("/courses")}>
               <ListItemButton>
                 <ListItemIcon>
@@ -263,6 +268,12 @@ export default function MiniDrawer() {
                 <ListItemText className="text-white" primary="Programs" />
               </ListItemButton>
             </ListItem>
+              </div>
+
+)}
+
+
+
             <ListItem
               disablePadding
               style={{}}
@@ -272,46 +283,44 @@ export default function MiniDrawer() {
                 <ListItemIcon>
                   <SiSessionize style={{ color: "#ffc107" }} />
                 </ListItemIcon>
-                <ListItemText className="text-white" primary="Sessions" />
+                <ListItemText className="text-white" primary="My Sessions" />
               </ListItemButton>
             </ListItem>
+            {user.role === "Manager" && (
+              <ListItem
+                disablePadding
+                style={{}}
+                onClick={() => navigate("/sessionsManager")}
+              >
+                <ListItemButton>
+                  <ListItemIcon>
+                    <SiSessionize style={{ color: "#ffc107" }} />
+                  </ListItemIcon>
+                  <ListItemText className="text-white" primary="Sessions" />
+                </ListItemButton>
+              </ListItem>
+            )}
 
 
-
-
-            <ListItem
-              disablePadding
-              style={{}}
-              onClick={() => navigate("/sessionsManager")}
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  <SiSessionize style={{ color: "#ffc107" }} />
-                </ListItemIcon>
-                <ListItemText className="text-white" primary="Sessions" />
-              </ListItemButton>
-            </ListItem>
-
-
-
-
-            <ListItem disablePadding onClick={() => navigate("/users")}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <FaUsersGear style={{ color: "#ffc107" }} />
-                </ListItemIcon>
-                <ListItemText className="text-white" primary="All users" />
-              </ListItemButton>
-            </ListItem>
+            {user.role === "Manager" && (
+              <ListItem disablePadding onClick={() => navigate("/users")}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <FaUsersGear style={{ color: "#ffc107" }} />
+                  </ListItemIcon>
+                  <ListItemText className="text-white" primary="All users" />
+                </ListItemButton>
+              </ListItem>
+            )}
           </List>
 
           <Divider />
         </div>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3,zIndex:99 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, zIndex: 99 }}>
         <DrawerHeader />
         <Outlet />
-     </Box>
+      </Box>
       {renderMenu}
     </Box>
   );

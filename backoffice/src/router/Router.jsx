@@ -38,7 +38,9 @@ import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
 import AddSession from "../pages/sessions/views/AddSession";
 import UpdateSession from "../pages/sessions/views/UpdateSession";
+import Checkpoint from "../pages/checkpoint/Checkpoint";
 import AllSessions from "../pages/SessionsManager/AllSessions";
+import Result from "../pages/checkpoint/Result";
 
 export const UserContext = createContext();
 
@@ -74,6 +76,15 @@ export default function Router() {
             {user ? (
               <Route path="/" element={<App />}>
                 <Route index element={<Dashboard />} />
+                <Route
+                  path="course/:courseId/lesson/:lessonId/checkpoint/:contentId"
+                  element={<Checkpoint />}
+                />
+                <Route
+                  path="/checkpoint/:contentId/result"
+                  element={<Result/>}
+                />
+                <Route path="checkpoint/:contentId" element={<Checkpoint />} />
                 <Route path="courses" element={<Course />}>
                   <Route index element={<CourseList />} />
                   {/* <Route path="add" element={<AddCourse />} /> */}
@@ -95,20 +106,16 @@ export default function Router() {
 
                 <Route path="sessions" element={<Session />}>
                   <Route index element={<SessionList />} />
+                  <Route path="sessionManager" element={<AllSessions />} />
                   <Route path=":sessionId" element={<SessionDetails />} />
                   <Route path="add" element={<AddSession />} />
                   <Route path="update/:id" element={<UpdateSession />} />
                   <Route path=":sessionId/week/add" element={<AddWeeks />} />
                 </Route>
 
-
                 <Route path="sessionsManager" element={<Session />}>
-                <Route index element={<AllSessions />} />
+                  <Route index element={<AllSessions />} />
                 </Route>
-
-
-
-
 
                 <Route path="users" element={<Users />}>
                   <Route index element={<AllUsers />} />

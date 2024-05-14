@@ -11,13 +11,14 @@ import Form from "react-bootstrap/Form";
 
 import { Link, NavLink, useNavigate } from "react-router-dom";
 // import PopUp from "./PopUp";
-
 import Modal from "react-bootstrap/Modal";
 import AddCourse from "./AddCourse";
 import PopUp from "./PopUp";
 import axios from "axios";
 
 export default function CourseList() {
+
+ 
   const courses = useSelector((state) => state.coursesSlice.courses.items);
   const coursecreated = useSelector((state) => state.coursesSlice.course);
   console.log(coursecreated, "course created");
@@ -28,7 +29,7 @@ export default function CourseList() {
   const [imageUrl, setImageUrl] = useState(null);
   const [videoUrl, setVideoUrl] = useState(null);
   console.log(course);
-
+ const user = useSelector((store) => store.auth.me);
   const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -104,6 +105,7 @@ export default function CourseList() {
         >
           Welcome to courses page
         </h3>
+{user.role==="Manager" &&
         <div className=" p-5">
           <button
             className="btn"
@@ -115,10 +117,9 @@ export default function CourseList() {
           >
             + Add new course
           </button>
-          {/* <AddCourse setIsOpen={setIsOpen} isOpen={isOpen} /> */}
         </div>
+          }
       </div>
-
       <div className="d-flex flex-wrap justify-content-center py-3 gap-5 ">
         {courses.map((card) => (
           <Card sx={{ maxWidth: 345 }}>
@@ -152,6 +153,9 @@ export default function CourseList() {
               >
                 Learn More
               </Button>
+              {user.role === "Manager" && (
+                <div>
+
               <Button
                 size="small"
                 onClick={() => {
@@ -173,6 +177,8 @@ export default function CourseList() {
               >
                 Delete
               </Button>
+                </div>)
+              }
             </CardActions>
           </Card>
           

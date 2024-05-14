@@ -12,6 +12,7 @@ export const axiosGetWithHeaders = async (url, queries) => {
 
 export const axiosPostWithHeaders = async (url, body) => {
   const token = localStorage.getItem("token");
+  console.log(token);
   const response = await axios.post(
     "http://localhost:5000/" + url,
     body,

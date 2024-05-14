@@ -74,11 +74,11 @@ export default function AddUser() {
         Add user
       </h3>
 
-      <div className="d-flex justify-content-center gap-4 py-2 flex-wrap">
+      <div className="d-flex justify-content-center align-items-center  gap-4 py-2 flex-wrap">
         <div className="px-1 py-4 ">
           <div
-            className="card py-2 px-2 form "
-            style={{ width: "42rem", height: "28rem" }}
+            className="card p-5  form  "
+            style={{ width: "42rem", height: "100%" }}
           >
             <div>
               <div className="d-flex justify-content-center py-3 align-items-center flex-wrap">
@@ -109,7 +109,7 @@ export default function AddUser() {
             </div>
 
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              <Row className="mb-3">
+              <Row className="mb-3 ">
                 <Form.Group as={Col} md="4" controlId="validationCustom01">
                   <Form.Label>Image</Form.Label>
                   <Form.Control
@@ -125,6 +125,7 @@ export default function AddUser() {
                   <Form.Select
                     name="role"
                     onChange={handleChange}
+                    style={{ width: "23rem" }}
                     aria-label="Default select example"
                     required
                   >
@@ -174,6 +175,7 @@ export default function AddUser() {
                   <Form.Label>Address</Form.Label>
                   <Form.Control
                     type="text"
+                    style={{ width: "37rem" }}
                     name="address"
                     onChange={handleChange}
                     required
@@ -196,6 +198,7 @@ export default function AddUser() {
                   <Form.Control
                     type="text"
                     name="password"
+                    style={{ width: "16rem" }}
                     onChange={handleChange}
                     required
                   />
@@ -217,7 +220,7 @@ export default function AddUser() {
           </div>
         </div>
 
-        <div className="px-2 py-5">
+        <div >
           <img src={ADDUSER} alt="" style={{ width: "18rem" }} id="imglogin" />
         </div>
       </div>

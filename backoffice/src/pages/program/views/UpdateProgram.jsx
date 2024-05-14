@@ -4,15 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { updateProgram , fetchprogram } from '../../../store/Program';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import courses, { fetchCourses } from '../../../store/courses';
+import axios from 'axios';
 
 
 export default function UpdateProgram() {
   const [updatedprogram, setUpdatedprogram] = useState({});
   const program = useSelector((state) => state.ProgramSlice.program);
+    const courses = useSelector((state) => state.coursesSlice.courses.items);
     console.log(updatedprogram)
     const dispatch = useDispatch();
   const navigate = useNavigate();
-   const [imageUrl, setImageUrl] = useState(null);
+   const [imageURL, setImageUrl] = useState(null);
 
     let { id } = useParams();
   console.log(id, "Update program");
@@ -31,20 +35,37 @@ export default function UpdateProgram() {
     };
 
 
-     const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateProgram({ body: updatedprogram, id: +id })).then((res) => {
-      if (!res.error) navigate("/programs");
-      else alert("you should fill the form");
-    });
-  };
+    try {
+      let auxProgram = { ...updatedprogram };
+      if (imageURL) {
+        const formData = new FormData();
+        formData.append("file", imageURL);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxProgram = { ...auxProgram, imageURL: response.data.path };
+      }
+      dispatch(updateProgram({ body: auxProgram, id: +id })).then((res) => {
+        if (!res.error) navigate("/programs");
+        else alert("you should fill the form");
+      })
+    }
+    catch (err) {
+      console.log(err);
+    }
+  }
+       
   useEffect(() => {
    dispatch(fetchprogram(id));
+   dispatch(fetchCourses());
    window.scrollTo(0, 0);
  }, [dispatch]);
   return (
     <div>
-      <section style={{ backgroundColor: "#eee" }}>
+      <section>
         <div class="container py-5">
           <div class="row">
             <div class="col-lg-4">
@@ -67,7 +88,7 @@ export default function UpdateProgram() {
                       />
                     </div>
                   </p>
-                  
+
                   <div class="d-flex justify-content-center">
                     <Button
                       style={{ width: "7rem" }}
@@ -80,7 +101,7 @@ export default function UpdateProgram() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "48rem", height: "70rem" }} class="col-lg-8">
+            <div style={{ width: "48rem" }} class="col-lg-8">
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="row">
@@ -142,49 +163,46 @@ export default function UpdateProgram() {
                     >
                       Update Courses
                     </h3>
-                    <div class="col-sm-3">
-                      <p class="mb-0">photo 1</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">
-                        <Form.Control
-                          type="tel"
-                          name="src"
-                          onChange={handleChange}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Photo 2</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">
-                        <Form.Control
-                          type="tel"
-                          name="src1"
-                          onChange={handleChange}
-                        />
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Photo 3</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">
-                        {" "}
-                        <Form.Control
-                          type="text"
-                          name="src2"
-                          onChange={handleChange}
-                        />
-                      </p>
-                    </div>
+
+                    <FormControl sx={{ m: 1, width: 300 }}>
+                      <InputLabel id="demo-multiple-chip-label">
+                       courses
+                      </InputLabel>
+                      <Select
+                        labelId="demo-multiple-chip-label"
+                        id="demo-multiple-chip"
+                        multiple
+                        name="ProgramCourse"
+                        value={program?.courses}
+                        onChange={(e) => {
+                          setUpdatedprogram({
+                            ...updatedprogram,
+                            courses: [...e.target.value],
+                          });
+                        }}
+                        input={
+                          <OutlinedInput
+                            id="select-multiple-chip"
+                            label="Chip"
+                          />
+                        }
+                        renderValue={(selected) => (
+                          <Box
+                            sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }} >
+                            {selected.map((value) => (
+                              <Chip key={value.id} label={value.title} />
+                            ))}
+                          </Box>
+                        )}
+                   
+                      >
+                        {courses.map((course) => (
+                          <MenuItem key={course.id} value={course}>
+                            {course.title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                   </div>
                 </div>
               </div>
