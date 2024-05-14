@@ -24,7 +24,7 @@ export default function ProfileDetails() {
             <div class="card mb-4">
               <div class="card-body text-center">
                 <img
-                  src={user.src}
+                  src={user.image}
                   alt="avatar"
                   class="rounded-circle img-fluid"
                   style={{ width: "150px" }}

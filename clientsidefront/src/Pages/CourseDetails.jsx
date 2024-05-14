@@ -199,7 +199,7 @@ export default function CourseDetails() {
       
         <div
           className="card py-5 px-4"
-          style={{ width: "60rem", height: "39rem" }}
+          style={{ width: "51rem", height: "38.5rem" }}
         >
           <p className="d-flex justify-content-center fs-1">Registration form</p>
           {/* <button class="btn btn-light" onClick={() => this.props.showHome()}>
@@ -337,7 +337,7 @@ export default function CourseDetails() {
           autoPlay
           loop
           muted
-          style={{ width: "100%", height: "40rem" }}
+          style={{ width: "100%", height: "100%" }}
           className="px-5"
         >
           <source src={video} type="video/mp4" />
