@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchlessoncontent } from "../../store/Lessoncontent";
 import { fetchlesson } from "../../store/lesson";
 import { sendresponse } from "../../store/userResponses";
@@ -17,6 +17,7 @@ export default function Checkpoint() {
   const checkpoint = useSelector(
     (state) => state.lessoncontentSlice.lessoncontent
   );
+  const navigate = useNavigate()
 
   const lesson = useSelector((state) => state.lessonSlice.lesson);
   const user = useSelector((store) => store.auth.me);
@@ -24,7 +25,12 @@ export default function Checkpoint() {
     e.preventDefault();
 
     dispatch(sendresponse({ responses: responses })).then((res) => {
-      if (!res.error) alert("your response has been sent");
+      if (!res.error) {
+        alert("your response has been sent");
+        navigate ('/checkpoint/'+contentId+'/result')
+      }
+        
+    
       else alert("you should fill the form");
     });
   };

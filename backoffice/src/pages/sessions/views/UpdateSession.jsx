@@ -5,16 +5,18 @@ import { editsession , fetchsession } from '../../../store/sessions';
 import { fetchprograms } from "../../../store/Program";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import axios from 'axios';
 
 
 export default function UpdateSession() {
-  const [editsession, setEditedsession] = useState({});
+  const [updatedsession, setUpdatedsession] = useState({});
   const session = useSelector((state) => state.sessionsSlice.session);
   const programs = useSelector((state) => state.ProgramSlice.programs.items);
     console.log(editsession)
     const dispatch = useDispatch();
   const navigate = useNavigate();
-   const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [videoURL , setvideoUrl] = useState(null);
 
     let { id } = useParams();
   console.log(id, "Update session");
@@ -23,57 +25,98 @@ export default function UpdateSession() {
       setImageUrl(e.target.files[0]);
     }
   };
-
+ const handleVideoChange = (e) => {
+   if (e.target.files && e.target.files.length > 0) {
+     setvideoUrl(e.target.files[0]);
+   }
+ };
     const handleChange = (e) => {
       const { name, value } = e.target;
-      setEditedsession({
-        ...editsession,
+      setUpdatedsession({
+        ...updatedsession,
         [name]: name === "price" ? +value : value,
       });
     };
 
 
-     const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(editsession({ body: editsession, id: +id })).then((res) => {
-      if (!res.error) navigate("/sessions");
+     const handleSubmit = async (e) => {
+       e.preventDefault();
+       try {
+      let auxSession = { ...updatedsession };
+      if (imageUrl) {
+        const formData = new FormData();
+        formData.append("file", imageUrl);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxSession = { ...auxSession, imageURL: response.data.path };
+      }
+      if (videoURL) {
+        const formData = new FormData();
+        formData.append("file", videoURL);
+        const response = await axios.post(
+          "http://localhost:5000/upload",
+          formData
+        );
+        auxSession  = { ...auxSession, videoURL: response.data.path };
+      }
+       
+
+
+    dispatch(editsession({ body: auxSession, id: +id })).then((res) => {
+      if (!res.error) navigate("/sessionsManager");
       else alert("you should fill the form");
     });
+         }
+    catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
    dispatch(fetchsession(id));
    window.scrollTo(0, 0);
  }, [dispatch]);
   return (
-    <div>
-      <section style={{ backgroundColor: "#eee" }}>
+    <div className="d-flex justify-content-center">
+      <section>
         <div class="container py-5">
           <div class="row">
-            
             <div style={{ width: "48rem", height: "70rem" }} class="col-lg-8">
               <div class="card mb-4">
                 <div class="card-body">
-                <div class="card-body text-center" style={{ height: "34rem" }}>
-                  <img
-                    src={session?.imageURL}
-                    alt="programimg"
-                    class="img-fluid"
-                    style={{ height: "15rem" }}
-                  />
-                  <h5 class="my-3"></h5>
-                  <p class="text-muted mb-1">
-                    <div className="py-4">
-                      <Form.Control
-                        type="file"
-                        name="imageURL"
-                        placeholder="program photo"
-                        onChange={handleFileChange}
-                      />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Session Image</p>
                     </div>
-                  </p>
-                  
-               
-                </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        <Form.Control
+                          type="file"
+                          name="imageURL"
+                          placeholder="program photo"
+                          onChange={handleFileChange}
+                        />
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Session Video</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">
+                        <Form.Control
+                          type="file"
+                          name="imageURL"
+                          placeholder="program photo"
+                          onChange={handleVideoChange}
+                        />
+                      </p>
+                    </div>
+                  </div>
+                  <hr />
                   <div class="row">
                     <div class="col-sm-3">
                       <p class="mb-0">Session Title</p>
@@ -85,7 +128,6 @@ export default function UpdateSession() {
                           name="title"
                           placeholder="name"
                           onChange={handleChange}
-                          //   onChange={(e) => setUpdatedUser(e.target.value)}
                         />
                       </p>
                     </div>
@@ -107,7 +149,7 @@ export default function UpdateSession() {
                       </p>
                     </div>
                   </div>
-    
+
                   <hr />
                   <div class="row">
                     <h3
@@ -116,7 +158,6 @@ export default function UpdateSession() {
                     >
                       Update Program
                     </h3>
-                   
                   </div>
                   <hr />
                   <div class="row">
@@ -124,32 +165,29 @@ export default function UpdateSession() {
                       <p class="mb-0">program </p>
                     </div>
                     <div class="col-sm-9">
-    
                       <Form.Select
-                    name="programId"
-                    onChange={handleChange}
-                    aria-label="Default select example"
-                    required
-                  >
-                    <option>Open this select menu</option>
-                    {programs.map((item, i) => (
-                      <option value={item.id}>{item.title}</option>
-                    ))}
-                  </Form.Select>
-                 
+                        name="programId"
+                        onChange={handleChange}
+                        aria-label="Default select example"
+                        required
+                      >
+                        <option>Open this select menu</option>
+                        {programs.map((item, i) => (
+                          <option value={item.id}>{item.title}</option>
+                        ))}
+                      </Form.Select>
                     </div>
                     <div class="d-flex justify-content-center py-4">
-                    <Button
-                      style={{ width: "7rem" }}
-                      variant="warning"
-                      onClick={handleSubmit}
-                    >
-                      Save
-                    </Button>
-                  </div>
+                      <Button
+                        style={{ width: "7rem" }}
+                        variant="warning"
+                        onClick={handleSubmit}
+                      >
+                        Save
+                      </Button>
+                    </div>
                   </div>
                   <hr />
-                  
                 </div>
               </div>
             </div>

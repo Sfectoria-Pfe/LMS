@@ -127,5 +127,15 @@ export const dataUser = [
     address: 'Nabeul',
     role: roleContent.Manager,
   },
+  {
+    image: 'http://localhost:5000/upload/seed/users/khalil.JPG',
+    firstName: 'Yasmine',
+    lastName: 'Adouani',
+    email: 'yasmine.sfectoria@gmail.com',
+    password: '1234',
+    phone: 50836036,
+    address: 'Tunis',
+    role: roleContent.Student,
+  },
 
 ];
