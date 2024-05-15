@@ -4,10 +4,12 @@ import CardContent from "@mui/joy/CardContent";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
+
+
 // import Card from "react-bootstrap/Card";
 import axios from "axios";
 import { Link, NavLink, useParams } from "react-router-dom";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import logo from "../assets/logo.png";
 import video from "../assets/7534244-hd_1920_1080_25fps.mp4";
@@ -189,34 +191,30 @@ export default function CourseDetails() {
         </div>
       </div>
 
-      <div
-        className="px-5 py-4 d-flex justify-content-center"
-        style={{
-          backgroundImage:
-            "url('https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcm0zNzgtMDkteC5qcGc.jpg')",
-        }}
-      >
+      <div className="overlay">
+       <video autoPlay loop muted className="background-video">
+        <source src={video} type="video/mp4" />
+      </video>
       
-        <div
-          className="card py-5 px-4"
-          style={{ width: "51rem", height: "38.5rem" }}
+      <div
+          className="containerf"
+          style={{ width: "32.5rem", height: "30.5rem" }}
         >
-          <p className="d-flex justify-content-center fs-1">Registration form</p>
-          {/* <button class="btn btn-light" onClick={() => this.props.showHome()}>
-          Home
-        </button> */}
+         
+       
+{/*          
           <button class="btn btn-light" onClick={() => handleSubmit()}>
             Accueil
-          </button>
-          <Form className="py-5 px-3 "  noValidate validated={validated}  onSubmit={handleSubmit}>
-            
+          </button> */}
+          <Form className="mx-auto "  noValidate validated={validated}  onSubmit={handleSubmit}>
+          <h1 className="d-flex justify-content-center fs-1 py-4">Registration form</h1>
             <Form.Group
  className="mb-3 d-flex p-2 gap-5"
               controlId="validationCustom01"
             >
               <Form.Control
               required
-                className="px-3 border border-info"
+                className="form-controle "
                 type="text"
                 name="FirstName"
                 placeholder="FirstName"
@@ -225,7 +223,7 @@ export default function CourseDetails() {
                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
               <Form.Control
                 name="LastName"
-                className="border border-info"
+                className="form-controle"
                 placeholder="LastName"
                 onChange={handleChange}
               />
@@ -237,13 +235,13 @@ export default function CourseDetails() {
             >
               <Form.Control
                 name="email"
-                className="px-3 border border-info"
+                className="form-controle"
                 placeholder="Email"
                 onChange={handleChange}
               />
               <Form.Control
                 name="phone"
-                className="border border-info"
+                className="form-controle"
                 placeholder="Phone"
                 onChange={handleChange}
               />
@@ -255,13 +253,13 @@ export default function CourseDetails() {
             >
               <Form.Control
                 name="adress"
-                className="border border-info"
+                className="form-controle"
                 placeholder="Adresse"
                 onChange={handleChange}
               />
               <Form.Control
                 name="occupation"
-                className="border border-info"
+                className="form-controle"
                 placeholder="occupation"
                 onChange={handleChange}
               />
@@ -273,13 +271,13 @@ export default function CourseDetails() {
               <Form.Control
                 name="date"
                 type="dateOfBirth"
-                className="border border-info"
+                className="form-controle"
                 placeholder="Date of birth"
                 onChange={handleChange}
               />
               <Form.Control
                 name="studies"
-                className="border border-info"
+                className="form-controle"
                 placeholder="studies"
                 onChange={handleChange}
               />
@@ -290,13 +288,13 @@ export default function CourseDetails() {
             >
               <Form.Control
                 name="college"
-                className="border border-info"
+                className="form-controle"
                 placeholder="college"
                 onChange={handleChange}
               />
               <Form.Control
                 name="degree"
-                className="border border-info"
+                className="form-controle"
                 placeholder="Degree"
                 onChange={handleChange}
               />
@@ -305,14 +303,33 @@ export default function CourseDetails() {
          
 
             <div className="  py-2 px-2 d-flex justify-content-center ">
+        
               <button
                 type="submit"
                 name="button"
-                class="btn btn-info"
+                class="button-51"
                 onSubmit={() => handleSubmit()}
                 onClick={handleClick}
               >
                 validate my registration request
+
+
+                <svg width="79" height="46" viewBox="0 0 79 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g filter="url(#filter0_f_618_1123)">
+    <path d="M42.9 2H76.5L34.5 44H2L42.9 2Z" fill="url(#paint0_linear_618_1123)"/>
+  </g>
+  <defs>
+    <filter id="filter0_f_618_1123" x="0" y="0" width="78.5" height="46" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="1" result="effect1_foregroundBlur_618_1123"/>
+    </filter>
+    <linearGradient id="paint0_linear_618_1123" x1="76.5" y1="2.00002" x2="34.5" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="white" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+</svg>
                </button>
                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
   <Alert
@@ -328,22 +345,13 @@ export default function CourseDetails() {
             </div>
           </Form>
         </div>
+        
       </div>
       <div>
-      <div className="px-5 py-3 d-flex justify-content-center "   style={{ width: "100%" }}>
-
-      <video
-          id="bannerVideo"
-          autoPlay
-          loop
-          muted
-          style={{ width: "100%", height: "100%" }}
-          className="px-5"
-        >
-          <source src={video} type="video/mp4" />
-        </video>
-      </div>
+  
      
+
+
         <div className="d-flex justify-content-center py-5 align-items-center flex-wrap">
           <h1 style={{ fontFamily: "Brittany Signature" }}>gallery</h1>
           <div

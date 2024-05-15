@@ -5,7 +5,10 @@ import Courses from "../Components/Courses";
 import Programs from "../Components/Programs";
 import Header from "../Layouts/Header.jsx";
 import Footer from "../Layouts/Footer.jsx";
+import Form from "../Components/Form.jsx";
 import '@fontsource/inter';
+
+
 
 
 function App() {
