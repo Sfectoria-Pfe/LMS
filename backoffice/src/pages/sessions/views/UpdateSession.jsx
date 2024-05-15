@@ -82,9 +82,34 @@ export default function UpdateSession() {
       <section>
         <div class="container py-5">
           <div class="row">
-            <div style={{ width: "48rem", height: "70rem" }} class="col-lg-8">
-              <div class="card mb-4">
+            <div  class="col-lg-8">
+              <div class="card mb-4 " style={{width:"50rem"}}>
                 <div class="card-body">
+                  <div className="d-flex justify-content-center py-3 align-items-center flex-wrap">
+                    <h1
+                      style={{
+                        fontFamily: "Brittany Signature",
+                      }}
+                    >
+                      Sfectoria
+                    </h1>
+                    <h1
+                      style={{
+                        fontFamily: "Brittany Signature",
+                        color: "rgb(66, 177, 188)",
+                      }}
+                    >
+                      Sessions 🧑‍💻
+                    </h1>
+                    <div
+                      style={{
+                        height: "5px",
+                        width: "80px",
+                        backgroundColor: "rgb(66, 177, 188)",
+                        marginRight: "42px",
+                      }}
+                    ></div>
+                  </div>
                   <div class="row">
                     <div class="col-sm-3">
                       <p class="mb-0">Session Image</p>

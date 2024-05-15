@@ -29,7 +29,7 @@ import { getMe } from "../store/auth";
 import EditUser from "../pages/users/views/EditUser";
 import Student from "../pages/students/Student";
 import AllStudents from "../pages/students/views/AllStudents";
-
+import AppView from "../pages/overview/view/app-view"
 import LessonsList from "../lessons/views/LessonsList";
 import AddLessons from "../lessons/views/AddLessons";
 import AddWeeks from "../weeks/views/AddWeeks";
@@ -75,7 +75,7 @@ export default function Router() {
           <Route>
             {user ? (
               <Route path="/" element={<App />}>
-                <Route index element={<Dashboard />} />
+                <Route index element={<AppView />} />
                 <Route
                   path="course/:courseId/lesson/:lessonId/checkpoint/:contentId"
                   element={<Checkpoint />}
