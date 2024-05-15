@@ -5,6 +5,8 @@ import App from "./Pages/App.js";
 import Router from "./Router/Router.jsx";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
+import './Pages/css/buttonform.css';
+
 
 
 

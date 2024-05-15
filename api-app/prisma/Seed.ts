@@ -9,6 +9,7 @@ import { WeeksData } from './Weeks';
 import * as bcrypt from 'bcrypt';
 import { content } from './content';
 import { contentweek } from './WeekContent';
+ import {programcourse} from './ProgramCourse';
 
 // import { contentweek } from './WeekContent';
 
@@ -23,6 +24,8 @@ async function main() {
   const programs = await prisma.program.createMany({
     data: dataPrograms,
   });
+  // await prisma.programCourse.createMany({data:programcourse})
+
   const teachers = await prisma.teacher.createMany({
     data: dataTeachers,
   });

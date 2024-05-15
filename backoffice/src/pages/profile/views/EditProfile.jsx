@@ -10,12 +10,27 @@ import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaFacebookF } from "react-icons/fa";
 import { SiDiscord } from "react-icons/si";
-
+import Input from '@mui/joy/Input';
+import Divider from '@mui/joy/Divider';
+import AspectRatio from '@mui/joy/AspectRatio';
+import { useSelector } from 'react-redux';
+import FormLabel from '@mui/joy/FormLabel';
+import FormControl from '@mui/joy/FormControl';
+import CardActions from '@mui/joy/CardActions';
+import CardOverflow from '@mui/joy/CardOverflow';
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import Box from '@mui/joy/Box';
+import IconButton from '@mui/joy/IconButton';
+import Textarea from '@mui/joy/Textarea';
+import Stack from '@mui/joy/Stack';
+import Typography from '@mui/joy/Typography';
 
 export default function EditProfile() {
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
-  const [updatedUser, setUpdatedUser] = useState("");
+  const myInfo=useSelector(state=>state.auth.me)
+
+  // const [updatedUser, setUpdatedUser] = useState("");
 
   // function ProfileEditForm() {
   //   const handleChange = (e) => {
@@ -25,253 +40,274 @@ export default function EditProfile() {
   // };
 
   return (
-    <section style={{ backgroundColor: "#eee" }}>
-      <div class="container py-5">
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="card mb-4">
-              <div class="card-body text-center">
-                <img
-                  src=""
-                  alt="avatar"
-                  class="rounded-circle img-fluid"
-                  style={{ width: "150px" }}
+    <Box sx={{ flex: 1, width: '100%' }}>
+    <Stack
+      spacing={4}
+      sx={{
+        display: 'flex',
+        maxWidth: '800px',
+        mx: 'auto',
+        px: { xs: 2, md: 6 },
+        py: { xs: 2, md: 3 },
+      }}
+    >
+      <Card>
+        <Box sx={{ mb: 1 }}>
+          <Typography level="title-md">Edit Profile</Typography>
+          
+        </Box>
+        <Divider />
+        <Stack
+          direction="row"
+          spacing={3}
+          sx={{ display: { xs: 'none', md: 'flex' }, my: 1 }}
+        >
+          <Stack direction="column" spacing={1}>
+            <AspectRatio
+              ratio="1"
+              maxHeight={200}
+              sx={{ flex: 1, minWidth: 120, borderRadius: '100%' }}
+            >
+              <img
+                src={myInfo.image}
+                loading="lazy"
+                alt=""
+              />
+            </AspectRatio>
+            <IconButton
+              aria-label="upload new picture"
+              size="sm"
+              variant="outlined"
+              color="neutral"
+              sx={{
+                bgcolor: 'background.body',
+                position: 'absolute',
+                zIndex: 2,
+                borderRadius: '50%',
+                left: 100,
+                top: 170,
+                boxShadow: 'sm',
+              }}
+            >
+              <EditRoundedIcon />
+            </IconButton>
+          </Stack>
+          <Stack spacing={2} sx={{ flexGrow: 1 }}>
+            <Stack spacing={1}>
+              <FormLabel>firstName</FormLabel>
+              <FormControl
+                sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
+              >
+                <Input size="sm" placeholder="First name" defaultValue={myInfo.firstName}/>
+                </FormControl>
+                <FormLabel>lastName</FormLabel>
+                <FormControl
+                sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
+              >
+                
+                <Input size="sm" placeholder="Last name" defaultValue={myInfo.lastName} sx={{ flexGrow: 1 }} />
+                </FormControl>
+              
+            </Stack>
+            <Stack spacing={1}>
+            <FormLabel>Adress</FormLabel>
+              <FormControl
+                sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
+              >
+                <Input size="sm" placeholder="adresse" defaultValue={myInfo.address}/>
+                </FormControl>
+                <FormLabel>Phone</FormLabel>
+                <FormControl
+                sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
+              >
+                
+                <Input size="sm" placeholder="phone" defaultValue={myInfo.phone} sx={{ flexGrow: 1 }} />
+                </FormControl>
+
+            </Stack>
+            <Stack direction="row" spacing={2}>
+              <FormControl>
+                <FormLabel>Role</FormLabel>
+                <Input size="sm" disabled defaultValue={myInfo.role}  />
+              </FormControl>
+              <FormControl sx={{ flexGrow: 1 }}>
+                <FormLabel>Email</FormLabel>
+                <Input
+                  size="sm"
+                  type="email"
+                  startDecorator={<EmailRoundedIcon />}
+                  placeholder="email"
+                  defaultValue={myInfo.email}
+                  sx={{ flexGrow: 1 }}
                 />
-                <h5 class="my-3"></h5>
-                <p class="text-muted mb-1">
-                  <Form.Control
-                    type="text"
-                    placeholder="im a developer"
-                    
-                  />
-                </p>
-                <p class="text-muted mb-4">SFECTORIAN ✌️</p>
-                <div class="d-flex justify-content-center">
-                  <Button
-                    style={{ width: "7rem" }}
-                    variant="warning"
-                    onClick={() => {
-                      setUser({ ...user, firstName: updatedUser });
-                      navigate(-1);
-                    }}
-                  >
-                    Save
-                  </Button>
-                </div>
+              </FormControl>
+            </Stack>
+            <div>
+              <FormControl sx={{ display: { sm: 'contents' } }}>
+              <FormLabel>password</FormLabel>
+              <Input
+                  size="sm"
+                  type="password"
+                  placeholder="password"
+                  
+                  sx={{ flexGrow: 1 }}
+                />
+              </FormControl>
               </div>
-            </div>
-
-            <div class="card mb-4 mb-lg-0">
-              <div class="card-body p-0">
-                <ul class="list-group list-group-flush rounded-3">
-                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                    <div class="text-warning" style={{ fontSize: "30px" }}>
-                      <FaLinkedin />
-                    </div>
-
-                    <Form.Control
-                      style={{ width: "15rem" }}
-                      type="url"
-                      placeholder="linkedin"
-                      
-                    />
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                    <div style={{ fontSize: "30px", color: "#333333" }}>
-                      <FaGithub />
-                    </div>
-                    <Form.Control
-                      style={{ width: "15rem" }}
-                      type="url"
-                      placeholder="github"
-                      
-                    />
-                  </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                    <div style={{ fontSize: "30px", color: "#00BAC7" }}>
-                      <SiDiscord />
-                    </div>
-                    <Form.Control
-                      style={{ width: "15rem" }}
-                      type="url"
-                      placeholder="discord"
-                      
-                    />
-                  </li>
-                </ul>
+              <div>
+              <FormControl sx={{ display: { sm: 'contents' } }}>
+              <FormLabel>Confirm your password</FormLabel>
+              <Input
+                  size="sm"
+                  type="password"
+                  placeholder="confirm your password"
+                  
+                  sx={{ flexGrow: 1 }}
+                />
+              </FormControl>
               </div>
-            </div>
+            
+          </Stack>
+        </Stack>
+        <Stack
+          direction="column"
+          spacing={2}
+          sx={{ display: { xs: 'flex', md: 'none' }, my: 1 }}
+        >
+          <Stack direction="row" spacing={2}>
+            <Stack direction="column" spacing={1}>
+              <AspectRatio
+                ratio="1"
+                maxHeight={108}
+                sx={{ flex: 1, minWidth: 108, borderRadius: '100%' }}
+              >
+                <img
+                  src={myInfo.image}
+                  loading="lazy"
+                  alt=""
+                />
+              </AspectRatio>
+              <IconButton
+                aria-label="upload new picture"
+                size="sm"
+                variant="outlined"
+                color="neutral"
+                sx={{
+                  bgcolor: 'background.body',
+                  position: 'absolute',
+                  zIndex: 2,
+                  borderRadius: '50%',
+                  left: 85,
+                  top: 180,
+                  boxShadow: 'sm',
+                }}
+              >
+                <EditRoundedIcon />
+              </IconButton>
+            </Stack>
+            <Stack spacing={1} sx={{ flexGrow: 1 }}>
+              <FormLabel>Nom</FormLabel>
+              <FormControl
+                sx={{
+                  display: {
+                    sm: 'flex-column',
+                    md: 'flex-row',
+                  },
+                  gap: 2,
+                }}
+              >
+                <Input size="sm" placeholder="firstName" defaultValue={myInfo.firstName} />
+                </FormControl>
+                <FormLabel>firstname</FormLabel>
+                <FormControl
+                sx={{
+                  display: {
+                    sm: 'flex-column',
+                    md: 'flex-row',
+                  },
+                  gap: 2,
+                }}
+              >
+                <Input size="sm" placeholder="Prenom"  defaultValue={myInfo.Employee?.last_name} />
+              </FormControl>
+            </Stack>
+            
+            
+          </Stack>
+          <FormControl>
+            <FormLabel>Role</FormLabel>
+            <Input size="sm" disabled type='email' defaultValue={myInfo.Employee?.role} />
+          </FormControl>
+          <FormControl sx={{ flexGrow: 1 }}>
+            <FormLabel>Email</FormLabel>
+            <Input
+              size="sm"
+              type="email"
+              startDecorator={<EmailRoundedIcon />}
+              placeholder="email"
+              defaultValue={myInfo.Employee?.email}
+              sx={{ flexGrow: 1 }}
+            />
+          </FormControl>
+          <div>
+            <FormControl sx={{ display: { sm: 'contents' } }}>
+              <FormLabel>Adresse</FormLabel>
+              <Input
+                size="sm"
+                defaultValue={myInfo.Employee?.adresse}
+                placeholder='adresse'
+              >
+              </Input>
+            </FormControl>
           </div>
-          <div style={{ width: "48rem" }} class="col-lg-8">
-            <div class="card mb-4">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">First Name</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        type="text"
-                        placeholder="name"
-                        onChange={(e) => setUpdatedUser(e.target.value)}
-                      />
-                    </p>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">Last Name</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        type="text"
-                        placeholder="last name"
-                        
-                      />
-                    </p>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">Email</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        type="email"
-                        placeholder="email"
-                        
-                      />
-                    </p>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">Phone</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        type="tel"
-                        placeholder="phone"
-                        
-                      />
-                    </p>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">Date of birth</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">
-                      <Form.Control
-                        type="date"
-                        placeholder="phone"
-                        
-                      />
-                    </p>
-                  </div>
-                </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm-3">
-                    <p class="mb-0">Address</p>
-                  </div>
-                  <div class="col-sm-9">
-                    <p class="text-muted mb-0">
-                      {" "}
-                      <Form.Control
-                        type="text"
-                        placeholder="adress"
-                        
-                      />
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="py-3">
-              <div class="card mb-4 ">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Occupation</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">
-                        <select
-                          id=""
-                          name="occupation"
-                          type="text"
-                          placeholder="adress"
-                          
-                        >
-                          <option value="volvo">student</option>
-                          <option value="saab">worker</option>
-                          <option value="fiat">other</option>
-                        </select>
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Studies</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">
-                        <Form.Control
-                          type="text"
-                          placeholder="studies"
-                          
-                        />
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">College</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">
-                        <Form.Control
-                          type="text"
-                          placeholder="college"
-                          
-                        />
-                      </p>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <p class="mb-0">Degree</p>
-                    </div>
-                    <div class="col-sm-9">
-                      <p class="text-muted mb-0">
-                        <Form.Control
-                          type="text"
-                          placeholder="degree"
-                          
-                        />
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div>
+          <FormControl sx={{ display: { sm: 'contents' } }}>
+              <FormLabel>Numero</FormLabel>
+              <Input
+                size="sm"
+                defaultValue={myInfo.Employee?.numero}
+                placeholder='numero'
+              >
+              </Input>
+            </FormControl>
           </div>
-        </div>
-      </div>
-    </section>
+
+          <div>
+            <FormControl sx={{ display: { sm: 'contents' } }}>
+              <FormLabel>Mot de passe</FormLabel>
+              <Input
+                size="sm"
+                type='password'
+                placeholder='mot de passe'
+              >
+              </Input>
+            </FormControl>
+          </div>
+          <div>
+          <FormControl sx={{ display: { sm: 'contents' } }}>
+              <FormLabel>Confirmer mot de passe</FormLabel>
+              <Input
+                size="sm"
+                type='password'
+                placeholder='confirmer mot de passe'
+              >
+              </Input>
+            </FormControl>
+          </div>
+        </Stack>
+        <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
+          <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
+            <Button size="sm" variant="outlined" color="neutral">
+              Cancel
+            </Button>
+            <Button size="sm" variant="solid">
+              Save
+            </Button>
+          </CardActions>
+        </CardOverflow>
+      </Card>
+    </Stack>
+  </Box>
   );
   }
   
