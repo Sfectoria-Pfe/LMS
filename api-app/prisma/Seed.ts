@@ -24,7 +24,7 @@ async function main() {
   const programs = await prisma.program.createMany({
     data: dataPrograms,
   });
-  // await prisma.programCourse.createMany({data:programcourse})
+  await prisma.programCourse.createMany({data:programcourse})
 
   const teachers = await prisma.teacher.createMany({
     data: dataTeachers,
