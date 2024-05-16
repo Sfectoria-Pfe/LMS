@@ -15,6 +15,7 @@ import Modal from "react-bootstrap/Modal";
 import AddCourse from "./AddCourse";
 import PopUp from "./PopUp";
 import axios from "axios";
+import { showSuccessToast } from "../../../utils/toast";
 
 export default function CourseList() {
 
@@ -69,11 +70,17 @@ export default function CourseList() {
       }
 
       dispatch(sendcourse(auxCourse)).then((res) => {
-        if (!res.error)
+        if (!res.error) {
+          showSuccessToast(' course created')
           window.location.href =
             `http://localhost:3000/courses/details/${res.payload.id}`;
-        else
+        }
+        else {
+          
+        showSuccessToast("error creating course")
           alert("you should fill the form");
+        }
+
       });
     } catch (err) {
       console.log(err);
@@ -92,6 +99,9 @@ export default function CourseList() {
     setDeletedId(id);
   };
   const navigate = useNavigate();
+
+
+  
   return (
     <div>
       <div className="d-flex justify-content-between">
@@ -105,21 +115,24 @@ export default function CourseList() {
         >
           Welcome to courses page
         </h3>
-{user.role==="Manager" &&
-        <div className=" p-5">
-          <button
-            className="btn"
-            style={{ backgroundColor: "#ffc107" }}
-            onClick={() => {
-              setIsOpen(true);
-              <PopUp setIsOpen={setIsOpen} isOpen={isOpen} />;
-            }}
-          >
-            + Add new course
-          </button>
-        </div>
-          }
+        {user.role === "Manager" && (
+          <div className=" p-5">
+            <button
+              className="btn"
+              style={{ backgroundColor: "#ffc107" }}
+              onClick={() => {
+                setIsOpen(true);
+                <PopUp setIsOpen={setIsOpen} isOpen={isOpen} />;
+              }}
+            >
+              + Add new course
+            </button>
+          </div>
+        )}
       </div>
+
+    
+
       <div className="d-flex flex-wrap justify-content-center py-3 gap-5 ">
         {courses.map((card) => (
           <Card sx={{ maxWidth: 345 }}>
@@ -130,7 +143,7 @@ export default function CourseList() {
               height="140"
               image={card.imageURL}
             />
-            <CardContent style={{height:"10rem"}}>
+            <CardContent style={{ height: "10rem" }}>
               <Typography
                 gutterBottom
                 variant="h6"
@@ -155,42 +168,35 @@ export default function CourseList() {
               </Button>
               {user.role === "Manager" && (
                 <div>
-
-              <Button
-                size="small"
-                onClick={() => {
-                  navigate(`update/${card.id}`);
-                }}
-                variant="outlined"
-                color="secondary"
-              >
-                Update
-              </Button>
-              <Button
-                size="small"
-                onClick={() => {
-                  setModalShow(true);
-                  deletedIdfunc(card.id);
-                }}
-                variant="outlined"
-                color="error"
-              >
-                Delete
-              </Button>
-                </div>)
-              }
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      navigate(`update/${card.id}`);
+                    }}
+                    variant="outlined"
+                    color="secondary"
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    size="small"
+                    onClick={() => {
+                      setModalShow(true);
+                      deletedIdfunc(card.id);
+                    }}
+                    variant="outlined"
+                    color="error"
+                  >
+                    Delete
+                  </Button>
+                </div>
+              )}
             </CardActions>
           </Card>
-          
         ))}
       </div>
 
-
-      
       {/* delete pop up */}
-
-
-
 
       <Modal
         show={modalShow}
@@ -221,7 +227,6 @@ export default function CourseList() {
           </Button>
         </div>
       </Modal>
-
 
       {/* add course */}
 
@@ -322,14 +327,14 @@ export default function CourseList() {
                     type="submit"
                     style={{ backgroundColor: "#ffc107", color: "black" }}
                     onSubmit={
-                    //   () => {
-                    //   dispatch(sendcourse(course)).then((res) => {
-                    //     console.log(res, "response");
-                    //     if (!res.error) {
-                    //       navigate(`/courses/${res.payload.id}/lesson`);
-                    //       setIsOpen(false);
-                    //     }
-                    //   });
+                      //   () => {
+                      //   dispatch(sendcourse(course)).then((res) => {
+                      //     console.log(res, "response");
+                      //     if (!res.error) {
+                      //       navigate(`/courses/${res.payload.id}/lesson`);
+                      //       setIsOpen(false);
+                      //     }
+                      //   });
                       // }
                       handleSubmit
                     }

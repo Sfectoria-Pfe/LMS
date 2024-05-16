@@ -51,6 +51,7 @@ export default function CourseList() {
           </h3>
           
           <div className=" p-5">
+            
             {/* <button
               className="btn"
               style={{ backgroundColor: "#ffc107" }}

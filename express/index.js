@@ -1,12 +1,19 @@
 const express = require('express');
 require ('dotenv').config()
 const app = express();
-const port =  3100 ;
+const port = 3100;
 const cors = require("cors");
-const formRouter= require ('./routes/Form.router.js')
+const bodyPorser = require("body-parser");
+const formRouter = require("./routes/Form.router.js");
+app.use(cors());
+app.use("/api/v1", formRouter);
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3001" }));
-app.use("/api/v1", formRouter)
+
+
+
+
+
+
 app.listen(port, () => {
   console.log(`listing to http://localhost:${port}`);
 

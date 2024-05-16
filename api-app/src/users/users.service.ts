@@ -21,7 +21,11 @@ export class UsersService {
 
   findAll() {
     // This action returns all users
-    return this.prisma.user.findMany({  });
+    return this.prisma.user.findMany({
+      where: {
+        archived: false,
+      },
+    });
   }
 
   findOne(id: number) {

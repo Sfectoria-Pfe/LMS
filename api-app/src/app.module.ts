@@ -30,7 +30,7 @@ import {LessonContentModule}  from './lesson-content/lesson-content.module';
     ChatsModule,
     LessonContentModule,
     UserResponsesModule,
-    WeekContentModule
+    WeekContentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -166,7 +166,7 @@ function SessionDetails() {
             BY SFECTORIA
           </p>
         </div>
-        {user.role === "Manager" && (
+        {(user.role === "Manager" || user.role === "teacher") && (
           <div className=" p-5">
             <button
               className="btn"
@@ -204,23 +204,69 @@ function SessionDetails() {
         style={{ fontFamily: "Fathers", color: "#42b1bc" }}
         className="text-center"
       >
-        Members:
+        Students:
       </h1>
       <div
         style={{ display: "flex" }}
-        className=" justify-content-center gap-5 py-3 align-items-center"
+        className=" justify-content-center gap-5 py-3 align-items-center flex-wrap"
       >
         {session?.SessionUser.map((elem) => (
           <div>
-            <Avatar
-              alt="Avatar"
-              src={elem.user.image}
-              sx={{ width: 70, height: 70 }}
-            />
-            <div className="d-flex gap-2 py-2 text-center">
-              <p>{elem.user.firstName}</p>
-              <p>{elem.user.lastName}</p>
-            </div>
+            {elem.user.role === "Student" && elem.user.archived === false && (
+              <div>
+                <Avatar
+                  alt="Avatar"
+                  src={elem.user.image}
+                  sx={{ width: 70, height: 70 }}
+                  style={{ objectFit: "fill" }}
+                />
+                <div className="d-flex gap-2 py-2 text-center">
+                  <p>{elem.user.firstName}</p>
+                  <p>{elem.user.lastName}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <h1
+        style={{ fontFamily: "Fathers", color: "#42b1bc" }}
+        className="text-center"
+      >
+        Teachers:
+      </h1>
+      <div className=" d-flex justify-content-center align-items-center flex-wrap ">
+        {session?.SessionUser.map((elem) => (
+          <div>
+            {(elem.user.role === "Teacher" || elem.user.role === "Manager") && (
+              <div className="d-flex justify-content-center gap-3">
+                <div className=" p-3   ">
+                  {/* <Image src={this.props.src} roundedCircle   /> */}
+                  <div className="d-flex justify-content-center">
+                    <img
+                      src={elem.user.image}
+                      alt=""
+                      style={{
+                        width: "7rem",
+                        height: "7rem",
+                        borderRadius: "70%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+
+                  <p className="d-flex justify-content-center">
+                    {elem.user.firstName}
+                  </p>
+                  <span
+                    className=" text-muted d-flex justify-content-center "
+                    style={{ color: "#11354D" }}
+                  >
+                    {elem.user.role}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -330,7 +376,7 @@ function SessionDetails() {
               <Accordion.Item eventKey="0" className="w-100">
                 <Accordion.Header className="w-100 ">
                   <div className="d-flex gap-3 justify-content-between w-100 align-items-center">
-                    <div className="d-flex gap-3">
+                    <div>
                       <p>{week.title}</p>
                     </div>
                   </div>
@@ -338,18 +384,32 @@ function SessionDetails() {
                 <Accordion.Body>
                   {week?.WeekContent.map((contentweek) => (
                     <div className="d-flex gap-3 py-3 flex-wrap">
-                      <Card className="w-100">
-                        <Link
-                          to={
-                            contentweek?.LessonContent?.type === "checkpoint"
-                              ? `/checkpoint/${contentweek.id}`
-                              : contentweek.LessonContent.contentURL
-                          }
-                          underline="hover"
-                          className="p-2"
-                        >
-                          {contentweek.LessonContent.contentname}
-                        </Link>
+                      <Card className="w-100  ">
+                        <div className="d-flex justify-content-between px-3">
+                          <div>
+                            <Link
+                              to={
+                                contentweek?.LessonContent?.type ===
+                                "checkpoint"
+                                  ? `/checkpoint/${contentweek.id}`
+                                  : contentweek.LessonContent.contentURL
+                              }
+                              underline="hover"
+                              className="p-2"
+                            >
+                              {contentweek.LessonContent.contentname}
+                            </Link>
+                          </div>
+                          {(user.role === "Manager" ||
+                            user.role === "Teacher") && (
+                            <div>
+                              <lord-icon
+                                src="https://cdn.lordicon.com/fmjvulyw.json"
+                                trigger="hover"
+                              ></lord-icon>
+                            </div>
+                          )}
+                        </div>
                       </Card>
                     </div>
                   ))}
