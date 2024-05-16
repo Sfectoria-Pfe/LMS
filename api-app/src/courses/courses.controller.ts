@@ -4,6 +4,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiTags } from '@nestjs/swagger';
 
+
 @ApiTags('COURSES')
 @Controller('courses')
 export class CoursesController {

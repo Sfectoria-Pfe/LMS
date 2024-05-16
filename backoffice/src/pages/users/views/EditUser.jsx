@@ -59,12 +59,9 @@ export default function EditUser() {
         Edit user
       </h3>
 
-      <div className="d-flex justify-content-center gap-4 py-2 flex-wrap">
+      <div className="d-flex justify-content-center  gap-4 py-2 flex-wrap">
         <div className="px-1 py-4 ">
-          <div
-            className="card py-2 px-2 form "
-            style={{ width: "47rem", height: "28rem" }}
-          >
+          <div className="card py-2 px-2 form " style={{ width: "47rem" }}>
             <div>
               <div className="d-flex justify-content-center py-3 align-items-center flex-wrap">
                 <h1
@@ -94,6 +91,7 @@ export default function EditUser() {
             </div>
 
             <Form onSubmit={handleSubmit}>
+              
               <FormGroup className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Image</Form.Label>
                 <p class="text-muted mb-1">
@@ -101,6 +99,7 @@ export default function EditUser() {
                     accept="image/*"
                     type="file"
                     name="image"
+                    className="border border-info form-control"
                     placeholder="User photo"
                     onChange={handleFileChange}
                   />
@@ -110,6 +109,7 @@ export default function EditUser() {
                 <p class="text-muted mb-0">
                   <input
                     type="text"
+                    className="border border-info form-control form-control"
                     name="firstName"
                     placeholder=" first name"
                     onChange={handleChange}
@@ -122,6 +122,7 @@ export default function EditUser() {
                 <p class="text-muted mb-0">
                   <input
                     type="text"
+                    className="border border-info form-control"
                     name="lastName"
                     placeholder="last name"
                     onChange={handleChange}
@@ -135,6 +136,7 @@ export default function EditUser() {
                   <input
                     type="email"
                     name="email"
+                    className="border border-info form-control"
                     placeholder="email"
                     onChange={handleChange}
                   />
@@ -147,6 +149,7 @@ export default function EditUser() {
                 <p class="text-muted mb-0">
                   <input
                     type="text"
+                    className="border border-info form-control"
                     name="password"
                     placeholder="password"
                     onChange={handleChange}
@@ -161,6 +164,7 @@ export default function EditUser() {
                   <input
                     type="tel"
                     name="phone"
+                    className="border border-info form-control"
                     placeholder="phone"
                     onChange={handleChange}
                   />
@@ -173,6 +177,7 @@ export default function EditUser() {
                 <p class="text-muted mb-0">
                   <input
                     type="text"
+                    className="border border-info form-control"
                     name="address"
                     placeholder="adress"
                     onChange={handleChange}
@@ -184,6 +189,7 @@ export default function EditUser() {
                 <Form.Label>Role</Form.Label>
                 <Form.Select
                   name="role"
+                  className="border border-info form-control"
                   onChange={handleChange}
                   aria-label="Default select example"
                   required
@@ -195,7 +201,7 @@ export default function EditUser() {
                   <option value={"Manager"}>Manager</option>
                 </Form.Select>
 
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center py-3">
                   <Button
                     style={{ width: "7rem" }}
                     variant="warning"

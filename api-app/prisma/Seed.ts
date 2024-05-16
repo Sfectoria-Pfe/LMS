@@ -9,7 +9,9 @@ import { WeeksData } from './Weeks';
 import * as bcrypt from 'bcrypt';
 import { content } from './content';
 import { contentweek } from './WeekContent';
- import {programcourse} from './ProgramCourse';
+import { programcourse } from './ProgramCourse';
+import { sessionUserdata } from './SessionUser';
+ 
 
 // import { contentweek } from './WeekContent';
 
@@ -18,6 +20,18 @@ const prisma = new PrismaClient();
 
 async function main() {
   // create two dummy articles
+    const usersdatahush = await Promise.all(
+      dataUser.map(async (dto) => {
+        const { password, ...rest } = dto;
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(password, salt);
+        // This action adds a new user
+        return { password: hashedPassword, ...rest };
+      }),
+    );
+    const users = await prisma.user.createMany({
+      data: usersdatahush,
+    });
   const courses = await prisma.course.createMany({
     data: dataCourses,
   });
@@ -30,18 +44,7 @@ async function main() {
     data: dataTeachers,
   });
 
-  const usersdatahush = await Promise.all(
-    dataUser.map(async (dto) => {
-      const { password, ...rest } = dto;
-      const salt = await bcrypt.genSalt();
-      const hashedPassword = await bcrypt.hash(password, salt);
-      // This action adds a new user
-      return { password: hashedPassword, ...rest };
-    }),
-  );
-  const users = await prisma.user.createMany({
-    data: usersdatahush,
-  });
+
   const lessons = await prisma.lesson.createMany({
     data: LessonData,
   });
@@ -54,15 +57,19 @@ async function main() {
   const sessions = await prisma.session.createMany({
     data: SessionData,
   });
+  const sessionUser = await prisma.sessionUser.createMany({
+    data: sessionUserdata,
+  });
  
   let array = [];
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
-      array.push({ sessionId: i + 1, userId: j + 1 });
-    }
-  }
+  // for (let i = 0; i < 5; i++) {
+  //   for (let j = 0; j < 5; j++) {
+  //     array.push({ sessionId: i + 1, userId: j + 1 });
+  //   }
+  // } 
   
-  
+
+
   const quest = await prisma.sessionUser.createMany({
     data: array,
   });

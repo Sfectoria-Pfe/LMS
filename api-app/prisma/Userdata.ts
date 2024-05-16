@@ -253,7 +253,7 @@ export const dataUser = [
   },
   //teachers
   {
-    image: 'http://localhost:5000/upload/seed/users/DSC01490.jpg',
+    image: 'http://localhost:5000/upload/seed/users/farouk.JPG',
     firstName: 'mestiri',
     lastName: 'farouk',
     email: 'mestirifarouk@gmail.com',
