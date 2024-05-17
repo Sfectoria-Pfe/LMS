@@ -41,8 +41,9 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 import chat from "../../../assets/images/AnimationChat.json";
 import { IoIosAddCircle } from "react-icons/io";
 
+import Modal from "react-bootstrap/Modal";
 function SessionDetails() {
-
+ 
   const navigate = useNavigate();
   
   //chat
@@ -355,19 +356,7 @@ function SessionDetails() {
                   </CardActionArea>
                 </Card>
               ))} */}
-        {/* <Typography paragraph>Program</Typography>
-              <Typography paragraph>{session?.program.title}</Typography>
-              <CardMedia
-                component="img"
-                height="194"
-                image={session?.program.imageURL}
-                alt="Paella dish"
-              />
-              <Typography paragraph>{session?.program.description}</Typography>
-              <Typography>{session?.program.price}</Typography> */}
-        {/* </CardContent>
-          </Collapse>
-        </Cardmui> */}
+     
       </div>
       <div className="px-3 py-2" style={{ zIndex: 5 }}>
         {session?.Week.map((week) => (
@@ -470,6 +459,19 @@ function SessionDetails() {
             </Accordion.Body>
           </Accordion.Item>
         </Accordion> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
     </div>
   );
