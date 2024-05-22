@@ -16,7 +16,16 @@ import AddCourse from "./AddCourse";
 import PopUp from "./PopUp";
 import axios from "axios";
 import { showSuccessToast } from "../../../utils/toast";
-
+import Dialog from "@mui/material/Dialog";
+import { styled } from "@mui/material";
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialogContent-root": {
+    padding: theme.spacing(2),
+  },
+  "& .MuiDialogActions-root": {
+    padding: theme.spacing(1),
+  },
+}));
 export default function CourseList() {
 
  
@@ -122,7 +131,7 @@ export default function CourseList() {
               style={{ backgroundColor: "#ffc107" }}
               onClick={() => {
                 setIsOpen(true);
-                <PopUp setIsOpen={setIsOpen} isOpen={isOpen} />;
+                
               }}
             >
               + Add new course
@@ -130,8 +139,6 @@ export default function CourseList() {
           </div>
         )}
       </div>
-
-    
 
       <div className="d-flex flex-wrap justify-content-center py-3 gap-5 ">
         {courses.map((card) => (
@@ -231,14 +238,12 @@ export default function CourseList() {
       {/* add course */}
 
       <div style={{ zIndex: "9" }}>
-        <Modal
-          show={isOpen}
-          onHide={() => setIsOpen(false)}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
+        <BootstrapDialog
+          onClose={() => setIsOpen(false)}
+          aria-labelledby="contained-dialog-title-vcenter"
+          open={isOpen}
         >
-          <Modal.Header className="d-flex justify-content-center" closeButton>
+          <Modal.Header className="d-flex justify-content-center py-3" >
             <Modal.Title
               style={{ fontFamily: "Brittany Signature" }}
               id="contained-modal-title-vcenter"
@@ -345,7 +350,7 @@ export default function CourseList() {
               </Form>
             </div>
           </Modal.Body>
-        </Modal>
+        </BootstrapDialog>
       </div>
     </div>
   );
