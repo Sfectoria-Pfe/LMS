@@ -20,9 +20,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { orange, cyan } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import '../../../css/user.css';
-
-
-
 export default function UserDetails() {
     const user = useSelector((state) => state.userSlice.user);
 const { id } = useParams();
