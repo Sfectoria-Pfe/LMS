@@ -436,7 +436,7 @@ export default function CourseDetails() {
           <img src={state.data?.src} alt="slide_image" />
         </SwiperSlide>
 
-        <div className="slider-controler">
+        <div className="slider-controler d-fex justify-content-center">
           <div className="swiper-button-prev slider-arrow">
             <ion-icon name="arrow-back-outline"></ion-icon>
           </div>

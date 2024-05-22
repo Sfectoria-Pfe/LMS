@@ -33,6 +33,7 @@ import AppView from "../pages/overview/view/app-view"
 import LessonsList from "../lessons/views/LessonsList";
 import AddLessons from "../lessons/views/AddLessons";
 import AddWeeks from "../weeks/views/AddWeeks";
+import CameraComponent from "../pages/camera/CameraComponent";
 
 import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
@@ -82,7 +83,7 @@ export default function Router() {
                 />
                 <Route
                   path="/checkpoint/:contentId/result"
-                  element={<Result/>}
+                  element={<Result />}
                 />
                 <Route path="checkpoint/:contentId" element={<Checkpoint />} />
                 <Route path="courses" element={<Course />}>
@@ -106,8 +107,15 @@ export default function Router() {
 
                 <Route path="sessions" element={<Session />}>
                   <Route index element={<SessionList />} />
+                  <Route
+                    path="face-reco/:sessionId"
+                    element={<CameraComponent />}
+                  />
                   <Route path="sessionManager" element={<AllSessions />} />
-                  <Route path=":sessionId" element={<SessionDetails />} />
+                  <Route
+                    path="face-reco/:sessionId/session"
+                    element={<SessionDetails />}
+                  />
                   <Route path="add" element={<AddSession />} />
                   <Route path="update/:id" element={<UpdateSession />} />
                   <Route path=":sessionId/week/add" element={<AddWeeks />} />
