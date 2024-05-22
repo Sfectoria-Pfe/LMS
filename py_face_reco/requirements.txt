@@ -1,0 +1,4 @@
+face-recognition
+Flask
+Flask-Cors
+pyodbc

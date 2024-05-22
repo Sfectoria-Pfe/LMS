@@ -25,9 +25,7 @@ function Header(props) {
               <Nav.Link to="/" as={NavLink}>
                 Home
               </Nav.Link>
-              <Nav.Link to="/aboutus" as={NavLink}>
-                About us
-              </Nav.Link>
+             
               {/* <Nav.Link to="/courses" as={NavLink}>
                 Courses
               </Nav.Link> */}

@@ -3,6 +3,14 @@ import AspectRatio from "@mui/joy/AspectRatio";
 import CardContent from "@mui/joy/CardContent";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+//gallery
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 
 
 
@@ -14,6 +22,7 @@ import Form from "react-bootstrap/Form";
 import logo from "../assets/logo.png";
 import video from "../assets/7534244-hd_1920_1080_25fps.mp4";
 import "../Pages/css/buttonform.css";
+import "../Pages/css/gallery.css";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
@@ -351,7 +360,7 @@ export default function CourseDetails() {
   
      
 
-
+{/* 
         <div className="d-flex justify-content-center py-5 align-items-center flex-wrap">
           <h1 style={{ fontFamily: "Brittany Signature" }}>gallery</h1>
           <div
@@ -378,7 +387,67 @@ export default function CourseDetails() {
               </Row>
             </Container>
           </div>
+        </div> */}
+
+<div className="containergal">
+  
+      <h1 className="heading" style={{ fontFamily: "Brittany Signature" }}> Gallery</h1>
+     
+      <Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        loop={true}
+        slidesPerView={'auto'}
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 0,
+          depth: 100,
+          modifier: 2.5,
+        }}
+        pagination={{ el: '.swiper-pagination', clickable: true }}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+          clickable: true,
+        }}
+        modules={[EffectCoverflow, Pagination, Navigation]}
+        className="swiper_container"
+      >
+        <SwiperSlide >
+          <img  src={state.data?.src2} alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={state.data?.src1} alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={state.data?.src} alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={state.data?.src2} alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={state.data?.src} alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={state.data?.src1} alt="slide_image" />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img src={state.data?.src} alt="slide_image" />
+        </SwiperSlide>
+
+        <div className="slider-controler d-fex justify-content-center">
+          <div className="swiper-button-prev slider-arrow">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </div>
+          <div className="swiper-button-next slider-arrow">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </div>
+          <div className="swiper-pagination"></div>
         </div>
+      </Swiper>
+    </div>
+ 
       </div>
     </div>
   );

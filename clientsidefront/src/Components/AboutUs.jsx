@@ -14,7 +14,7 @@ export default function AboutUs() {
       <div className="d-flex justify-content-center p-5 flex-wrap align-items-center flex-wrap">
         <h1 style={{ fontFamily: "Brittany Signature" }}>About us</h1>
      
-        
+    
         <div
           style={{
             height: "5px",
