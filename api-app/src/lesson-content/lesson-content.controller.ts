@@ -22,8 +22,12 @@ export class LessonContentController {
   constructor(private readonly lessonContentService: LessonContentService) {}
   @Roles('manager')
   @Post()
-  create(@Body() createLessonContentDto: CreateLessonContentDto) {
-    return this.lessonContentService.create(createLessonContentDto);
+  createMany(@Body() createLessonContentDto: CreateLessonContentDto[]) {
+    return this.lessonContentService.createMany(createLessonContentDto);
+  }
+  @Post('checkpoint')
+  createCheckpoint(@Body() createLessonContentDto: CreateLessonContentDto) {
+    return this.lessonContentService.createCheckPoint(createLessonContentDto);
   }
 
   @Get()
@@ -43,13 +47,13 @@ export class LessonContentController {
     return this.lessonContentService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateLessonContentDto: UpdateLessonContentDto,
-  ) {
-    return this.lessonContentService.update(+id, updateLessonContentDto);
-  }
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateLessonContentDto: UpdateLessonContentDto,
+  // ) {
+  //   return this.lessonContentService.update(+id, updateLessonContentDto);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

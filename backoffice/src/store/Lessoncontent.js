@@ -66,7 +66,7 @@ export const sendlessoncontent = createAsyncThunk(
   "sendlessoncontent",
   async (body) => {
     const response = await axios.post(
-      "http://localhost:5000/type-content",
+      "http://localhost:5000/lesson-content",
       body
     );
     console.log(response.data, " this is type content");

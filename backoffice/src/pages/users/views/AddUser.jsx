@@ -43,7 +43,7 @@ export default function AddUser() {
         showSuccessToast(' user created')
        navigate("/users");
        
-      } else showErrorToast('error');
+      } else showErrorToast('Email already invalide');
     });
 
     setValidated(true);
@@ -113,6 +113,7 @@ export default function AddUser() {
                 <Form.Group as={Col} md="4" controlId="validationCustom01">
                   <Form.Label>Image</Form.Label>
                   <Form.Control
+                    accept="image/*"
                     required
                     type="file"
                     name="image"
@@ -165,7 +166,8 @@ export default function AddUser() {
                 <Form.Group as={Col} md="3" controlId="validationCustom05">
                   <Form.Label>Phone</Form.Label>
                   <Form.Control
-                    type="tel"
+                   
+                    type="number"
                     name="phone"
                     onChange={handleChange}
                     required
@@ -220,7 +222,7 @@ export default function AddUser() {
           </div>
         </div>
 
-        <div >
+        <div>
           <img src={ADDUSER} alt="" style={{ width: "18rem" }} id="imglogin" />
         </div>
       </div>
