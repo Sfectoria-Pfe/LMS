@@ -76,7 +76,7 @@ export default function UpdateProgram() {
           <div class="row">
             <div class="col-lg-4">
               <div class="card mb-4">
-                <div class="card-body text-center" style={{ height: "34rem" }}>
+                <div class="card-body text-center" style={{ height: "30rem" }}>
                   <img
                     src={program?.imageURL}
                     alt="programimg"
@@ -108,7 +108,7 @@ export default function UpdateProgram() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "48rem" }} class="col-lg-8">
+            <div style={{ width: "48rem" , height:"100%" }} class="col-lg-8">
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="row">
