@@ -34,65 +34,65 @@ export default function AddLessons() {
   const [videoUrl, setVideo] = useState(null);
   const [exercice, setExerciceUrl] = useState(null);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  const [lesson, setlesson] = useState({ contents: [] });
+  const [lesson, setlesson] = useState({ });
   const [PDF, setPDF] = useState(null);
   const [projectUrl, setProjectUrl] = useState(null);
   const [view, setView] = useState(null);
   const course = useSelector((state) => state.coursesSlice.course);
   const [questions, setQuestions] = useState([]);
-  const [question, setQuestion] = useState({
-    label: "",
-    scale: 1,
-    propositions: [
-      { label: "", isCorrect: false },
-      { label: "", isCorrect: false },
-      { label: "", isCorrect: false },
-      { label: "", isCorrect: false },
-    ],
-  });
-  const handleChangePoposition = (e, index) => {
-    const { value } = e.target;
-    let aux = Object.assign({}, question);
-    aux.propositions[index].label = value;
-    setQuestion(aux);
-  };
-  const handleChangeCheckBox = (e, index) => {
-    const { checked } = e.target;
-    let aux = Object.assign({}, question);
+  // const [question, setQuestion] = useState({
+  //   label: "",
+  //   scale: 1,
+  //   propositions: [
+  //     { label: "", isCorrect: false },
+  //     { label: "", isCorrect: false },
+  //     { label: "", isCorrect: false },
+  //     { label: "", isCorrect: false },
+  //   ],
+  // });
+  // const handleChangePoposition = (e, index) => {
+  //   const { value } = e.target;
+  //   let aux = Object.assign({}, question);
+  //   aux.propositions[index].label = value;
+  //   setQuestion(aux);
+  // };
+  // const handleChangeCheckBox = (e, index) => {
+  //   const { checked } = e.target;
+  //   let aux = Object.assign({}, question);
 
-    aux.propositions[index].isCorrect = checked;
-    console.log(aux.propositions[index].isCorrect);
-    setQuestion(aux);
-  };
-  const handleAddQuestion = () => {
-    let aux = [...questions];
-    aux.push(question);
-    console.log(aux);
-    setQuestions(aux);
-    setQuestion({
-      label: "",
-      scale: 0,
-      propositions: [
-        { label: "", isCorrect: false },
-        { label: "", isCorrect: false },
-        { label: "", isCorrect: false },
-        { label: "", isCorrect: false },
-      ],
-    });
-  };
+  //   aux.propositions[index].isCorrect = checked;
+  //   console.log(aux.propositions[index].isCorrect);
+  //   setQuestion(aux);
+  // };
+  // const handleAddQuestion = () => {
+  //   let aux = [...questions];
+  //   aux.push(question);
+  //   console.log(aux);
+  //   setQuestions(aux);
+  //   setQuestion({
+  //     label: "",
+  //     scale: 0,
+  //     propositions: [
+  //       { label: "", isCorrect: false },
+  //       { label: "", isCorrect: false },
+  //       { label: "", isCorrect: false },
+  //       { label: "", isCorrect: false },
+  //     ],
+  //   });
+  // };
 
-  //upload file buttom
-  const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-  });
+  // //upload file buttom
+  // const VisuallyHiddenInput = styled("input")({
+  //   clip: "rect(0 0 0 0)",
+  //   clipPath: "inset(50%)",
+  //   height: 1,
+  //   overflow: "hidden",
+  //   position: "absolute",
+  //   bottom: 0,
+  //   left: 0,
+  //   whiteSpace: "nowrap",
+  //   width: 1,
+  // });
 
   const navigate = useNavigate();
 
@@ -106,27 +106,6 @@ export default function AddLessons() {
       setImageUrl(e.target.files[0]);
     }
   };
-  const handleVideoChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setVideo(e.target.files[0]);
-    }
-  };
-  const handlePDFChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setPDF(e.target.files[0]);
-    }
-  };
-  const handleExercicesChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setExerciceUrl(e.target.files[0]);
-    }
-  };
-  const handleProjectChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setProjectUrl(e.target.files[0]);
-    }
-  };
-
   //submit
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -141,76 +120,7 @@ export default function AddLessons() {
         );
         auxlesson = { ...auxlesson, imageURL: response.data.path };
       }
-      if (videoUrl) {
-        const formData = new FormData();
-        formData.append("file", videoUrl);
-        const response = await axios.post(
-          "http://localhost:5000/upload",
-          formData
-        );
-        auxlesson = {
-          ...auxlesson,
-          contents: [
-            ...auxlesson.contents,
-            {
-              contentURL: response.data.path,
-              type: "video",
-              contentname: videoname,
-            },
-          ],
-        };
-      }
-      if (PDF) {
-        const formData = new FormData();
-        formData.append("file", PDF);
-        const response = await axios.post(
-          "http://localhost:5000/upload",
-          formData
-        );
-        auxlesson = {
-          ...auxlesson,
-          contents: [
-            ...auxlesson.contents,
-            {
-              contentURL: response.data.path,
-              type: "pdf",
-              contentname: pdfname,
-            },
-          ],
-        };
-      }
-      if (projectUrl) {
-        const formData = new FormData();
-        formData.append("file", projectUrl);
-        const response = await axios.post(
-          "http://localhost:5000/upload",
-          formData
-        );
-        auxlesson = {
-          ...auxlesson,
-          contents: [
-            ...auxlesson.contents,
-            {
-              contentURL: response.data.path,
-              type: "project",
-              contentname: projectname,
-            },
-          ],
-        };
-      }
-      if (questions.length) {
-        auxlesson = {
-          ...auxlesson,
-          contents: [
-            ...auxlesson.contents,
-            {
-              questions,
-              type: "checkpoint",
-              contentname: checkpointname,
-            },
-          ],
-        };
-      }
+     
       console.log(auxlesson);
 
       dispatch(sendlesson(auxlesson)).then((res) => {
@@ -315,7 +225,7 @@ export default function AddLessons() {
                   </div>
                 </div>
               </div>
-              <div class="container py-2 d-flex justify-content-center">
+              {/* <div class="container py-2 d-flex justify-content-center">
                 <div style={{ width: "65rem" }} class="col-lg-8">
                   <h3 className="text-center">Lesson content</h3>
 
@@ -479,7 +389,7 @@ export default function AddLessons() {
                 Save
               </Button>
              </div> */}
-                      </FormGroup>
+                      {/* </FormGroup>
                     </div>
                   ) : (
                     ""
@@ -836,8 +746,8 @@ export default function AddLessons() {
                   ) : (
                     ""
                   )}
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */} 
               <div class="d-flex justify-content-center gap-4 py-3">
                 <Button
                   style={{ width: "7rem", backgroundColor: "#ffc107" }}

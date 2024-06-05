@@ -9,42 +9,11 @@ export class LessonsService {
   constructor(private readonly prisma: PrismaService) {}
 
   create(createLessonDto: CreateLessonDto) {
-    const { contents, ...rest } = createLessonDto;
-    let data = { ...rest };
+    
     // if (contents) data['LessonContent'] = { create: contents };
     return this.prisma.lesson.create({
-      data: {
-        ...rest,
-        LessonContent: {
-          create : contents.map((elem) => {
-            if (elem.type === 'checkpoint') {
-              return {
-                contentname: elem.contentname,
-                type: 'checkpoint',
-                questions: {
-                  create: elem.questions.map((el) => ({
-                    scale: el.scale,
-                    label: el.label,
-                    propositions: {
-                      create: el.propositions.map((p) => ({
-                        isCorrect: p.isCorrect,
-                        label: p.label,
-                      })),
-                    },
-                  })),
-                },
-              };
-            } else {
-              const { questions, ...restElem } = elem;
-              return restElem;
-            }
-          }),
-
-        },
-      },
-    });
+      data: createLessonDto });
   }
-
   findAll() {
     return this.prisma.lesson.findMany({ include: { LessonContent: true } });
   }

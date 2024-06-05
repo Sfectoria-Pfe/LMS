@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchcourse } from "../../../store/courses";
-import { fetchlessoncontents } from "../../../store/Lessoncontent";
+import { fetchlessoncontents, sendlessoncontent } from "../../../store/Lessoncontent";
 import { IoIosAddCircle } from "react-icons/io";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
@@ -38,7 +38,7 @@ import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 export default function CourseDetails() {
   const [modalShow, setModalShow] = useState(false);
-  const [modal , setModal]= useState(false);
+  const [modal, setModal] = useState(false);
   const { courseId } = useParams();
   const [lessonId, setlessonId] = useState(null);
   const [view, setView] = useState(null);
@@ -46,29 +46,22 @@ export default function CourseDetails() {
    const [videoname, setvideoname] = useState(null);
    const [pdfname, setpdfname] = useState(null);
    const [exercicename, setexercicename] = useState(null);
-   const [projectname, setprojectname] = useState(null);
-  const [checkpointname, setcheckpointname] = useState(null);
-   const [imageUrl, setImageUrl] = useState(null);
+  const [projectname, setprojectname] = useState(null);
+  const [lessonIdContnet,setlessonIdContent]=useState(null);
+console.log(lessonIdContnet, "lessonid content")
    const [videoUrl, setVideo] = useState(null);
    const [exercice, setExerciceUrl] = useState(null);
    const label = { inputProps: { "aria-label": "Checkbox demo" } };
-   const [lesson, setlesson] = useState({ contents: [] });
+  const [lessonContent, setlessonContent] = useState([]);
+  const [lesson,setlesson] = useState({});
    const [PDF, setPDF] = useState(null);
    const [projectUrl, setProjectUrl] = useState(null);
   const course = useSelector((state) => state.coursesSlice.course);
     const user = useSelector((store) => store.auth.me);
-  console.log(course, "this is course");
-  // console.log(course?.Lesson, "those are lessons");
-  
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchcourse(courseId));
-    dispatch(fetchLessons());
-    dispatch(fetchlessoncontents());
-    window.scrollTo(0, 0);
-  }, [dispatch]);
+
 const style = {
   position: 'absolute' ,
   top: '50%',
@@ -78,72 +71,11 @@ const style = {
   bgcolor: 'background.paper',
   p: 4,
 };
-    const [questions, setQuestions] = useState([]);
-    const [question, setQuestion] = useState({
-      label: "",
-      scale: 1,
-      propositions: [
-        { label: "", isCorrect: false },
-        { label: "", isCorrect: false },
-        { label: "", isCorrect: false },
-        { label: "", isCorrect: false },
-      ],
-    });
-  
+   
+ const handleClose = () => {
+   setModal(false);
+ };
 
-    const handleChangePoposition = (e, index) => {
-      const { value } = e.target;
-      let aux = Object.assign({}, question);
-      aux.propositions[index].label = value;
-      setQuestion(aux);
-    };
-    const handleChangeCheckBox = (e, index) => {
-      const { checked } = e.target;
-      let aux = Object.assign({}, question);
-
-      aux.propositions[index].isCorrect = checked;
-      console.log(aux.propositions[index].isCorrect);
-      setQuestion(aux);
-    };
-    const handleAddQuestion = () => {
-      let aux = [...questions];
-      aux.push(question);
-      console.log(aux);
-      setQuestions(aux);
-      setQuestion({
-        label: "",
-        scale: 0,
-        propositions: [
-          { label: "", isCorrect: false },
-          { label: "", isCorrect: false },
-          { label: "", isCorrect: false },
-          { label: "", isCorrect: false },
-        ],
-      });
-    };
-
-    //upload file buttom
-    const VisuallyHiddenInput = styled("input")({
-      clip: "rect(0 0 0 0)",
-      clipPath: "inset(50%)",
-      height: 1,
-      overflow: "hidden",
-      position: "absolute",
-      bottom: 0,
-      left: 0,
-      whiteSpace: "nowrap",
-      width: 1,
-    });
-
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setlesson({ ...lesson, [name]: name === "price" ? +value : value });
-    };
-    const handleImageChange = (e) => {
-      if (e.target.files && e.target.files.length > 0) {
-        setImageUrl(e.target.files[0]);
-      }
-    };
     const handleVideoChange = (e) => {
       if (e.target.files && e.target.files.length > 0) {
         setVideo(e.target.files[0]);
@@ -163,11 +95,90 @@ const style = {
       if (e.target.files && e.target.files.length > 0) {
         setProjectUrl(e.target.files[0]);
       }
-    };
+  };
+   const handleSubmit = async (e) => {
+     e.preventDefault();
+     try {
+       let auxlessonContent = { ...lessonContent, lessonId:+ lessonIdContnet }
+       if (videoUrl) {
+         const formData = new FormData();
+         formData.append("file", videoUrl);
+         const response = await axios.post(
+           "http://localhost:5000/upload",
+           formData
+         );
+         auxlessonContent = {
+           ...auxlessonContent,
+           contentURL: response.data.path,
+           type: "video",
+           contentname: videoname,
+         };
+       }
+         if (PDF) {
+           const formData = new FormData();
+           formData.append("file", PDF);
+           const response = await axios.post(
+             "http://localhost:5000/upload",
+             formData
+           );
+           auxlessonContent = {
+             ...auxlessonContent,
+             contentURL: response.data.path,
+             type: "pdf",
+             contentname: pdfname,
+           };
+       }
+       if (exercice) {
+         const formData = new FormData();
+         formData.append("file", exercice);
+         const response = await axios.post(
+           "http://localhost:5000/upload",
+           formData
+         );
+         auxlessonContent = {
+           ...auxlessonContent,
+           contentURL: response.data.path,
+           type: "exercice",
+           contentname: exercicename,
+         };
+       }
+       if (projectUrl) {
+         const formData = new FormData();
+         formData.append("file", projectUrl);
+         const response = await axios.post(
+           "http://localhost:5000/upload",
+           formData
+         );
+         auxlessonContent = {
+           ...auxlessonContent,
+           contentURL: response.data.path,
+           type: "project",
+           contentname: projectname,
+         };
+       }
+       console.log(auxlessonContent , "lessonContnet");
+
+       dispatch(sendlessoncontent(auxlessonContent)).then((res) => {
+         if (!res.error)
+           window.location.href = `http://localhost:3000/courses/details/${courseId}`;
+       });
+     } catch (err) {
+       console.log(err);
+     }
+   };
+
+   useEffect(() => {
+     dispatch(fetchcourse(courseId));
+   }, [dispatch]);
 
 
 
-
+  useEffect(() => {
+    dispatch(fetchcourse(courseId));
+    dispatch(fetchLessons());
+    dispatch(fetchlessoncontents());
+    window.scrollTo(0, 0);
+  }, [dispatch]);
 
   return (
     <div>
@@ -237,7 +248,7 @@ const style = {
                       <IoIosAddCircle
                         onClick={() => {
                           setModal(true);
-                          setlessonId(lesson.id);
+                          setlessonIdContent(lesson.id);
                         }}
                       />
                     </div>
@@ -320,13 +331,13 @@ const style = {
 
       <Modal
         open={modal}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-    
       >
         <Box sx={style}>
           <div>
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <div class="container py-2 d-flex justify-content-center">
                 <div class="col-lg-8">
                   <h3 className="text-center">Lesson content</h3>
@@ -440,7 +451,7 @@ const style = {
                     <div class="card-body">
                       <FormGroup controlId="formBasicEmail">
                         <FormGroup
-                          className="mb-3 px-4 w-75 d-flex justify-content-between"
+                          className="mb-3 d-flex justify-content-between"
                           controlId="formBasicEmail"
                         >
                           <Form.Label>video</Form.Label>
@@ -450,7 +461,6 @@ const style = {
                               role={undefined}
                               variant="contained"
                               tabIndex={-1}
-                              style={{ width: "7rem" }}
                               startIcon={<CloudUploadIcon />}
                             >
                               Upload video
@@ -578,221 +588,11 @@ const style = {
                   ) : (
                     ""
                   )}
-                  {view === 4 ? (
-                    <div className="px-4">
-                      <div className="text-center py-4">
-                        <h5>checkpoint name</h5>
-
-                        <input
-                          type="text"
-                          onChange={(e) => {
-                            if (e.target.value) {
-                              setcheckpointname(e.target.value);
-                            }
-                          }}
-                        />
-                      </div>
-                      <Accordion className="px-4">
-                        <AccordionSummary
-                          aria-controls="panel1-content"
-                          id="panel1-header"
-                        >
-                          <div className="d-flex justify-content-center align-items-center gap-3">
-                            <h3 style={{ fontFamily: "-apple-system" }}>
-                              Add your question
-                            </h3>
-                            <lord-icon
-                              src="https://cdn.lordicon.com/ftndcppj.json"
-                              trigger="hover"
-                              colors="primary:#30c9e8,secondary:#ebe6ef"
-                            ></lord-icon>
-                          </div>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <div>
-                            {questions.map((question, i) => (
-                              <div>
-                                <div className="d-flex gap-3 justity-conent-between">
-                                  <h5>{question.label}</h5>
-
-                                  <p>{question.scale}</p>
-                                </div>
-                                {question.propositions.map((proposal, i) => (
-                                  <div className="d-flex align-items-center">
-                                    {proposal.isCorrect}
-                                    <p>{proposal.label}</p>
-
-                                    <Checkbox
-                                      {...label}
-                                      color="success"
-                                      onChange={(e) =>
-                                        handleChangeCheckBox(e, i)
-                                      }
-                                      checked={proposal.isCorrect}
-                                    />
-                                  </div>
-                                ))}
-                              </div>
-                            ))}
-                          </div>
-                          <Typography className="d-flex gap-4 align-items-center ">
-                            <div>Question</div>
-                            <div className="d-flex align-items-center gap-3">
-                              <Form.Label>Scale:</Form.Label>
-                              <p class="text-muted mb-0">
-                                <input
-                                  className="w-50 form-control  border border-info"
-                                  type="text"
-                                  name="exerciceName"
-                                  placeholder="question scale"
-                                  value={question.scale}
-                                  onChange={(e) => {
-                                    setQuestion({
-                                      ...question,
-                                      scale: +e.target.value,
-                                    });
-                                  }}
-                                />
-                              </p>
-                            </div>
-                          </Typography>
-                          <Typography>
-                            <FormGroup controlId="formBasicEmail">
-                              <div className="d-flex justify-content-center gap-4 py-4 ">
-                                <Form.Label>Question:</Form.Label>
-                                <p class="text-muted mb-0">
-                                  <textarea
-                                    style={{ width: "30rem" }}
-                                    class="form-control"
-                                    className="px-3  border border-info "
-                                    id="exampleFormControlTextarea1"
-                                    rows="3"
-                                    name="question"
-                                    placeholder="question"
-                                    value={question.label}
-                                    onChange={(e) => {
-                                      setQuestion({
-                                        ...question,
-                                        label: e.target.value,
-                                      });
-                                    }}
-                                  ></textarea>
-                                </p>
-                              </div>
-                              <div className="d-flex flex-wrap gap-4 py-3 justify-content-center">
-                                <div className="d-flex align-items-center">
-                                  <Form.Label className="px-4 w-75">
-                                    Answer 1 :
-                                  </Form.Label>
-
-                                  <input
-                                    style={{ height: "3rem" }}
-                                    type="text"
-                                    name="exerciceName"
-                                    placeholder="answer 1"
-                                    className="form-control  border border-info"
-                                    onChange={(e) =>
-                                      handleChangePoposition(e, 0)
-                                    }
-                                    value={question.propositions[0].label}
-                                  />
-                                  <Checkbox
-                                    {...label}
-                                    color="success"
-                                    onChange={(e) => handleChangeCheckBox(e, 0)}
-                                    checked={question.propositions[0].isCorrect}
-                                  />
-                                </div>
-                                <div className="d-flex align-items-center">
-                                  <Form.Label className="px-4 w-75">
-                                    Answer 2 :
-                                  </Form.Label>
-
-                                  <div></div>
-                                  <input
-                                    style={{ height: "3rem" }}
-                                    type="text"
-                                    name="exerciceName"
-                                    placeholder="Answer 2"
-                                    className="form-control  border border-info"
-                                    onChange={(e) =>
-                                      handleChangePoposition(e, 1)
-                                    }
-                                    value={question.propositions[1].label}
-                                  />
-                                  <Checkbox
-                                    {...label}
-                                    color="success"
-                                    onChange={(e) => handleChangeCheckBox(e, 1)}
-                                    checked={question.propositions[1].isCorrect}
-                                  />
-                                </div>
-                              </div>
-
-                              <div className="d-flex flex-wrap gap-4 py-3 justify-content-center">
-                                <div className="d-flex align-items-center">
-                                  <Form.Label className="px-4 w-75">
-                                    Answer 3 :
-                                  </Form.Label>
-
-                                  <input
-                                    style={{ height: "3rem" }}
-                                    type="text"
-                                    name="exerciceName"
-                                    placeholder="Answer 3"
-                                    className="form-control  border border-info"
-                                    onChange={(e) =>
-                                      handleChangePoposition(e, 2)
-                                    }
-                                    value={question.propositions[2].label}
-                                  />
-                                  <Checkbox
-                                    {...label}
-                                    color="success"
-                                    onChange={(e) => handleChangeCheckBox(e, 2)}
-                                    checked={question.propositions[2].isCorrect}
-                                  />
-                                </div>
-                                <div className="d-flex align-items-center">
-                                  <Form.Label className="px-4 w-75">
-                                    Answer 4 :
-                                  </Form.Label>
-
-                                  <input
-                                    type="text"
-                                    name="exerciceName"
-                                    placeholder="Answer 4"
-                                    className="form-control  border border-info"
-                                    onChange={(e) =>
-                                      handleChangePoposition(e, 3)
-                                    }
-                                    value={question.propositions[3].label}
-                                  />
-                                  <Checkbox
-                                    {...label}
-                                    color="success"
-                                    onChange={(e) => handleChangeCheckBox(e, 3)}
-                                    checked={question.propositions[3].isCorrect}
-                                  />
-                                </div>
-                              </div>
-                              <div className="d-flex justify-content-center gap-3">
-                                <button
-                                  className="btn btn-warning"
-                                  type="button"
-                                  onClick={handleAddQuestion}
-                                >
-                                  Add
-                                </button>
-                              </div>
-                            </FormGroup>
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                    </div>
-                  ) : (
-                    ""
-                  )}
+                  {view === 4
+                    ? navigate(
+                        `/courses/details/${courseId}/add/${lessonIdContnet}/checkpoint`
+                      )
+                    : ""}
                   {view === 5 ? (
                     <FormGroup
                       className="mb-3 d-flex justify-content-between"
@@ -839,6 +639,16 @@ const style = {
                     ""
                   )}
                 </div>
+              </div>
+              <div className="d-flex justify-content-center">
+
+              <button
+                className="btn btn-warning"
+                type="submit"
+                onSubmit={handleSubmit}
+              >
+                save
+              </button>
               </div>
             </Form>
           </div>

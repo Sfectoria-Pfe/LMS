@@ -6,8 +6,32 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class LessonContentService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createLessonContentDto: CreateLessonContentDto) {
-    return this.prisma.lessonContent.create({ data: createLessonContentDto });
+  createMany(createLessonContentDto: CreateLessonContentDto[]) {
+    return this.prisma.lessonContent.createMany({
+      data: createLessonContentDto,
+    });
+  }
+  createCheckPoint(dto: CreateLessonContentDto) {
+    console.log(dto, 'this is the dto');
+    return this.prisma.lessonContent.create({
+      data: {
+        contentname: dto.contentname,
+        type: 'checkpoint',
+        lessonId:dto.lessonId,
+        questions: {
+          create: dto.questions.map((el) => ({
+            scale: el.scale,
+            label: el.label,
+            propositions: {
+              create: el.propositions.map((p) => ({
+                isCorrect: p.isCorrect,
+                label: p.label,
+              })),
+            },
+          })),
+        },
+      },
+    });
   }
 
   findAll() {
@@ -42,12 +66,12 @@ export class LessonContentService {
     });
   }
 
-  update(id: number, updateLessonContentDto: UpdateLessonContentDto) {
-    return this.prisma.lessonContent.update({
-      where: { id },
-      data: updateLessonContentDto,
-    });
-  }
+  // update(id: number, updateLessonContentDto: UpdateLessonContentDto) {
+  //   return this.prisma.lessonContent.update({
+  //     where: { id },
+  //     data: updateLessonContentDto,
+  //   });
+  // }
 
   remove(id: number) {
     return this.prisma.lessonContent.delete({ where: { id } });

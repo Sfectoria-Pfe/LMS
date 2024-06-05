@@ -267,8 +267,9 @@ export default function ProgramsList() {
             aria-labelledby="customized-dialog-title"
             open={isOpen}
           >
-            <Modal.Header className="d-flex justify-content-center" closeButton>
+            <Modal.Header className="d-flex justify-content-center" >
               <Modal.Title
+                className="py-3"
                 style={{ fontFamily: "Brittany Signature" }}
                 id="contained-modal-title-vcenter"
               >

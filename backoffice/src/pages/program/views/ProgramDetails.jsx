@@ -65,19 +65,7 @@ export default function ProgramDetails() {
                 <p>{pm.course.title} </p>
               </Link>
             </div>
-            <div className="px-4 d-flex gap-3">
-              <div>
-                <IoIosAddCircle />
-              </div>
-              <div>
-                <FaTrashAlt
-                  style={{ color: "red" }}
-                  onClick={() => {
-                    setModalShow(true);
-                  }}
-                />
-              </div>
-            </div>
+           
           </div>
 
           <p className="text-center"></p>
