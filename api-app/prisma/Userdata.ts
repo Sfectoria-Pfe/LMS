@@ -4,7 +4,7 @@ export const dataUser = [
   //students
   {
     image:
-      'https://img.freepik.com/photos-gratuite/illustration-3d-belle-fille-aux-cheveux-bruns-au-maquillage-professionnel_1142-38905.jpg?t=st=1714838830~exp=1714842430~hmac=747ec5bd38129f9518358b1a88209700bb1e7099d1c0a522fd6641025fdb3088&w=740',
+      'http://localhost:5000/upload/seed/users/goof.jpg',
     firstName: 'ferchichi',
     lastName: 'ghofrane',
     email: 'ghofferchichi@gmail.com',
@@ -73,7 +73,7 @@ export const dataUser = [
   },
   {
     image:
-      'https://scontent.ftun8-1.fna.fbcdn.net/v/t39.30808-6/219497874_2920618321527888_4242538066758795595_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=LjKQKJjpqAAAX_3gM82&_nc_ht=scontent.ftun8-1.fna&oh=00_AfCP4NtOV2V3BgaxG3eNNzvimfi0BTaDB3r04UPGyKj0Kw&oe=660776C3',
+      'http://localhost:5000/upload/03934104f545efeaf4446b64203851ea6.jpg',
     firstName: 'Chayah',
     lastName: 'Rawiya',
     email: 'ChayahRawiya@gmail.com',
@@ -285,7 +285,7 @@ export const dataUser = [
     role: roleContent.Manager,
   },
   {
-    image: 'http://localhost:5000/upload/seed/users/khalil.JPG',
+    image: 'http://localhost:5000/upload/seed/users/yasmin.JPG',
     firstName: 'Yasmine',
     lastName: 'Adouani',
     email: 'yasmine.sfectoria@gmail.com',
