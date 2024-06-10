@@ -82,7 +82,7 @@ export default function ProfileDetails() {
                     <Typography size="sm" sx={{ flexGrow: 1 }}>{myInfo.lastName}</Typography>
                   </FormControl>
                 </Stack>
-                <Stack direction="row" spacing={10}>
+                <Stack direction="row" spacing={15}>
                   <FormControl>
                     <FormLabel>Role</FormLabel>
                     <Typography size="sm">{myInfo.role}  </Typography>  
@@ -92,7 +92,7 @@ export default function ProfileDetails() {
                     <Typography size="sm" sx={{ flexGrow: 1 }}>{myInfo.email}</Typography>
                   </FormControl>
                 </Stack>
-                <Stack direction="row" spacing={8}>
+                <Stack direction="row" spacing={15}>
                   <FormControl>
                     <FormLabel>Adress</FormLabel>
                     <Typography size="sm">{myInfo.address}</Typography>  

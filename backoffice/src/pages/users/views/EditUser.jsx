@@ -48,47 +48,50 @@ export default function EditUser() {
   };
   return (
     <div>
-      <h3
-        className="p-1"
-        style={{
-          fontFamily: "Segoe UI",
-          color: "#11354D",
-          textDecoration: "underline",
-        }}
-      >
-        Edit user
-      </h3>
+    <h3
+      className="p-1 "
+      style={{
+        fontFamily: "Segoe UI",
+        color: "#11354D",
+        textDecoration: "underline",
+      }}
+    >
+      Edit user
+    </h3>
 
-      <div className="d-flex justify-content-center  gap-4 py-2 flex-wrap">
-        <div className="px-1 py-4 ">
-          <div className="card py-2 px-2 form " style={{ width: "47rem" }}>
-            <div>
-              <div className="d-flex justify-content-center py-3 align-items-center flex-wrap">
-                <h1
-                  style={{
-                    fontFamily: "Brittany Signature",
-                  }}
-                >
-                  Sfectoria
-                </h1>
-                <h1
-                  style={{
-                    fontFamily: "Brittany Signature",
-                    color: "rgb(66, 177, 188)",
-                  }}
-                >
-                  users ✌️
-                </h1>
-                <div
-                  style={{
-                    height: "5px",
-                    width: "80px",
-                    backgroundColor: "rgb(66, 177, 188)",
-                    marginRight: "42px",
-                  }}
-                ></div>
-              </div>
+    <div className="d-flex justify-content-center align-items-center  gap-4 py-2 flex-wrap">
+      <div className="px-1 py-4 ">
+        <div
+          className="card p-5  form  "
+          style={{ width: "42rem", height: "100%" }}
+        >
+          <div>
+            <div className="d-flex justify-content-center py-3 align-items-center flex-wrap">
+              <h1
+                style={{
+                  fontFamily: "Brittany Signature",
+                }}
+              >
+                Sfectoria
+              </h1>
+              <h1
+                style={{
+                  fontFamily: "Brittany Signature",
+                  color: "rgb(66, 177, 188)",
+                }}
+              >
+                users ✌️
+              </h1>
+              <div
+                style={{
+                  height: "5px",
+                  width: "80px",
+                  backgroundColor: "rgb(66, 177, 188)",
+                  marginRight: "42px",
+                }}
+              ></div>
             </div>
+          </div>
 
             <Form onSubmit={handleSubmit}>
               

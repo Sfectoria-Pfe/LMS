@@ -1,30 +1,33 @@
 import axios from "axios";
-import React, { useEffect,createContext, useState } from "react";
+import React, { useState } from "react";
 import Camera, { IMAGE_TYPES, FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-export const UserContext = createContext();
+import { useSelector } from "react-redux";
 
 const CameraComponent = () => {
   const [validUser, setValidUser] = useState(false);
   const [responseMsg, setResponseMsg] = useState("");
   const user = useSelector((store) => store.auth.me);
- 
   const { sessionId } = useParams();
-
   const navigate = useNavigate();
+
+  // Function to convert data URI to base64
+  const dataURItoBase64 = (dataURI) => {
+    return dataURI.split(",")[1];
+  };
 
   async function handleTakePhoto(dataUri) {
     try {
-      const response = await axios.post("http://localhost:8080/process_face", {
+      const base64Img = dataURItoBase64(dataUri); // Convert data URI to base64
+      const response = await axios.post("http://localhost:9999/process_face", {
         email: user.email,
-        img_base64: dataUri,
+        img_base64: base64Img, // Send base64 image in the request
       });
       setResponseMsg(response.data.message);
       setValidUser(response.data.valid);
       setTimeout(() => {
-        navigate(`session`);
+        navigate(`/session`);
       }, 4000);
     } catch (error) {
       console.error("Error processing photo:", error);
@@ -36,7 +39,6 @@ const CameraComponent = () => {
   return (
     <>
       <Camera
-      
         isFullscreen={false}
         onTakePhoto={handleTakePhoto}
         imageType={IMAGE_TYPES.JPG}
