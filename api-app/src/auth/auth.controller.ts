@@ -35,6 +35,12 @@ export class AuthController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('update-me')
+  updateMe(@Body() dto: UpdateAuthDto, @CurrentUser() user) {
+    return this.authService.updateMe(dto, user.id);
+  }
+
   // @Get()
   // findAll() {
   //   return this.authService.findAll();
