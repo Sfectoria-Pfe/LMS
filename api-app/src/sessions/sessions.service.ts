@@ -57,6 +57,8 @@ export class SessionsService {
                 lastName: true,
                 id: true,
                 image: true,
+                role: true,
+                archived:true
               },
             },
           },

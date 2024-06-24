@@ -29,10 +29,11 @@ import { getMe } from "../store/auth";
 import EditUser from "../pages/users/views/EditUser";
 import Student from "../pages/students/Student";
 import AllStudents from "../pages/students/views/AllStudents";
-import AppView from "../pages/overview/view/app-view"
+import AppView from "../pages/overview/view/app-view";
 import LessonsList from "../lessons/views/LessonsList";
 import AddLessons from "../lessons/views/AddLessons";
 import AddWeeks from "../weeks/views/AddWeeks";
+import CameraComponent from "../pages/camera/CameraComponent";
 
 import UpdateCourse from "../pages/courses/views/UpdateCourse";
 import UpdateProgram from "../pages/program/views/UpdateProgram";
@@ -41,6 +42,7 @@ import UpdateSession from "../pages/sessions/views/UpdateSession";
 import Checkpoint from "../pages/checkpoint/Checkpoint";
 import AllSessions from "../pages/SessionsManager/AllSessions";
 import Result from "../pages/checkpoint/Result";
+import AddChekPoint from "../pages/checkpoint/AddChekPoint";
 
 export const UserContext = createContext();
 
@@ -82,16 +84,19 @@ export default function Router() {
                 />
                 <Route
                   path="/checkpoint/:contentId/result"
-                  element={<Result/>}
+                  element={<Result />}
                 />
                 <Route path="checkpoint/:contentId" element={<Checkpoint />} />
                 <Route path="courses" element={<Course />}>
                   <Route index element={<CourseList />} />
-                  {/* <Route path="add" element={<AddCourse />} /> */}
                   <Route path="details/:courseId" element={<CourseDetails />} />
                   <Route path=":courseId/lesson" element={<LessonsList />} />
                   <Route path="update/:courseId" element={<UpdateCourse />} />
                   <Route path=":courseId/lesson/add" element={<AddLessons />} />
+                  <Route
+                    path="details/:courseId/add/:lessonIdContnet/checkpoint"
+                    element={<AddChekPoint />}
+                  />
                 </Route>
                 <Route path="profile" element={<Profile />}>
                   <Route index element={<ProfileDetails />} />
@@ -106,8 +111,15 @@ export default function Router() {
 
                 <Route path="sessions" element={<Session />}>
                   <Route index element={<SessionList />} />
+                  <Route
+                    path="face-reco/:sessionId"
+                    element={<CameraComponent />}
+                  />
                   <Route path="sessionManager" element={<AllSessions />} />
-                  <Route path=":sessionId" element={<SessionDetails />} />
+                  <Route
+                    path="face-reco/:sessionId/session"
+                    element={<SessionDetails />}
+                  />
                   <Route path="add" element={<AddSession />} />
                   <Route path="update/:id" element={<UpdateSession />} />
                   <Route path=":sessionId/week/add" element={<AddWeeks />} />

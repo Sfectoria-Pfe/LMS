@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { fetchsession } from "../../../store/sessions";
-import { Button, CardActionArea } from "@mui/material";
+import { Button, CardActionArea, Chip, Dialog, MenuItem, Modal, OutlinedInput, Select } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -30,6 +30,8 @@ import Collapse from "@mui/material/Collapse";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Form from "react-bootstrap/Form";
+import FormGroup from "react-bootstrap/esm/FormGroup";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
@@ -41,10 +43,29 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 import chat from "../../../assets/images/AnimationChat.json";
 import { IoIosAddCircle } from "react-icons/io";
 
-function SessionDetails() {
+import { fetchlessoncontents } from "../../../store/Lessoncontent";
+import { sendweek } from "../../../store/weeks";
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "75%",
+  bgcolor: "background.paper",
+  p: 4,
+};
+function SessionDetails() {
   const navigate = useNavigate();
-  
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const { sessionId } = useParams();
+  const [week, setweek] = useState({});
+  const [weekcontents, setweekcontents] = useState([]);
+  const lessoncontent = useSelector(
+    (state) => state.lessoncontentSlice.lessoncontents.items
+  );
+  const session = useSelector((state) => state.sessionsSlice.session);
+
   //chat
   const [state, setState] = React.useState({
     bottom: false,
@@ -56,11 +77,10 @@ function SessionDetails() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: 700, }}
+      sx={{ width: 700 }}
       // role="presentation"
     >
-     
-      <ChatSession setState={ setState}state={state}/>
+      <ChatSession setState={setState} state={state} />
     </Box>
   );
 
@@ -95,12 +115,13 @@ function SessionDetails() {
       editable: false,
     },
   ];
-  const { sessionId } = useParams();
-  const session = useSelector((state) => state.sessionsSlice.session);
   console.log(session?.SessionUser.image, "session users");
   const users = useSelector((state) => state.userSlice.users.items);
   console.log(session, "this is session");
-
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  setweek({ ...week, [name]: name === "price" ? +value : value });
+};
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchsession(sessionId));
@@ -110,10 +131,11 @@ function SessionDetails() {
     if (session) {
       setRows(session.SessionUser.map((elem) => elem.user));
     }
+    dispatch(fetchlessoncontents());
   }, [session]);
 
   //CARDMUI
-    const user = useSelector((store) => store.auth.me);
+  const user = useSelector((store) => store.auth.me);
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -127,7 +149,21 @@ function SessionDetails() {
   }));
 
   const [expanded, setExpanded] = React.useState(false);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    let auxweek = { ...week, sessionId: +sessionId, contentweek: weekcontents };
 
+    console.log(auxweek);
+
+    dispatch(sendweek(auxweek)).then((res) => {
+      if (!res.error)
+        window.location.href = `http://localhost:3000/sessions/face-reco/${sessionId}/session`;
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -166,13 +202,13 @@ function SessionDetails() {
             BY SFECTORIA
           </p>
         </div>
-        {user.role === "Manager" && (
+        {(user.role === "Manager" || user.role === "Teacher") && (
           <div className=" p-5">
             <button
               className="btn"
               style={{ backgroundColor: "#ffc107" }}
               onClick={() => {
-                navigate(`/sessions/${sessionId}/week/add`);
+                setIsOpenModal(true);
               }}
             >
               + Add new week
@@ -204,23 +240,73 @@ function SessionDetails() {
         style={{ fontFamily: "Fathers", color: "#42b1bc" }}
         className="text-center"
       >
-        Members:
+        Students:
       </h1>
       <div
         style={{ display: "flex" }}
-        className=" justify-content-center gap-5 py-3 align-items-center"
+        className=" justify-content-center gap-5 py-3 align-items-center flex-wrap"
       >
         {session?.SessionUser.map((elem) => (
           <div>
-            <Avatar
-              alt="Avatar"
-              src={elem.user.image}
-              sx={{ width: 70, height: 70 }}
-            />
-            <div className="d-flex gap-2 py-2 text-center">
-              <p>{elem.user.firstName}</p>
-              <p>{elem.user.lastName}</p>
-            </div>
+            {elem.user.role === "Student" && elem.user.archived === false && (
+              <div>
+                <Avatar
+                  alt="Avatar"
+                  src={elem.user.image}
+                  sx={{ width: 70, height: 70 }}
+                  style={{ objectFit: "fill" }}
+                />
+                <div className="d-flex gap-2 py-2 text-center">
+                  <p>{elem.user.firstName}</p>
+                  <p>{elem.user.lastName}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <h1
+        style={{ fontFamily: "Fathers", color: "#42b1bc" }}
+        className="text-center"
+      >
+        Teachers:
+      </h1>
+      <div className=" d-flex justify-content-center align-items-center flex-wrap ">
+        {session?.SessionUser.map((elem) => (
+          <div>
+            {elem.user.role === "Teacher" && (
+              <div className="d-flex justify-content-center gap-3 align-items-center">
+                <div className=" p-3   ">
+                  {/* <Image src={this.props.src} roundedCircle   /> */}
+                  <div className="d-flex justify-content-center align-items-center">
+                    <img
+                      src={elem.user.image}
+                      alt=""
+                      style={{
+                        width: "7rem",
+                        height: "7rem",
+                        borderRadius: "70%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex gap-2">
+                    <p className="d-flex justify-content-center">
+                      {elem.user.firstName}
+                    </p>
+                    <p className="d-flex justify-content-center">
+                      {elem.user.lastName}
+                    </p>
+                  </div>
+                  <span
+                    className=" text-muted d-flex justify-content-center "
+                    style={{ color: "#11354D" }}
+                  >
+                    {elem.user.role}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -309,19 +395,6 @@ function SessionDetails() {
                   </CardActionArea>
                 </Card>
               ))} */}
-        {/* <Typography paragraph>Program</Typography>
-              <Typography paragraph>{session?.program.title}</Typography>
-              <CardMedia
-                component="img"
-                height="194"
-                image={session?.program.imageURL}
-                alt="Paella dish"
-              />
-              <Typography paragraph>{session?.program.description}</Typography>
-              <Typography>{session?.program.price}</Typography> */}
-        {/* </CardContent>
-          </Collapse>
-        </Cardmui> */}
       </div>
       <div className="px-3 py-2" style={{ zIndex: 5 }}>
         {session?.Week.map((week) => (
@@ -330,7 +403,7 @@ function SessionDetails() {
               <Accordion.Item eventKey="0" className="w-100">
                 <Accordion.Header className="w-100 ">
                   <div className="d-flex gap-3 justify-content-between w-100 align-items-center">
-                    <div className="d-flex gap-3">
+                    <div>
                       <p>{week.title}</p>
                     </div>
                   </div>
@@ -338,18 +411,32 @@ function SessionDetails() {
                 <Accordion.Body>
                   {week?.WeekContent.map((contentweek) => (
                     <div className="d-flex gap-3 py-3 flex-wrap">
-                      <Card className="w-100">
-                        <Link
-                          to={
-                            contentweek?.LessonContent?.type === "checkpoint"
-                              ? `/checkpoint/${contentweek.id}`
-                              : contentweek.LessonContent.contentURL
-                          }
-                          underline="hover"
-                          className="p-2"
-                        >
-                          {contentweek.LessonContent.contentname}
-                        </Link>
+                      <Card className="w-100  ">
+                        <div className="d-flex justify-content-between px-3">
+                          <div>
+                            <Link
+                              to={
+                                contentweek?.LessonContent?.type ===
+                                "checkpoint"
+                                  ? `/checkpoint/${contentweek.id}`
+                                  : contentweek.LessonContent.contentURL
+                              }
+                              underline="hover"
+                              className="p-2"
+                            >
+                              {contentweek.LessonContent.contentname}
+                            </Link>
+                          </div>
+                          {(user.role === "Manager" ||
+                            user.role === "Teacher") && (
+                            <div>
+                              <lord-icon
+                                src="https://cdn.lordicon.com/fmjvulyw.json"
+                                trigger="hover"
+                              ></lord-icon>
+                            </div>
+                          )}
+                        </div>
                       </Card>
                     </div>
                   ))}
@@ -410,6 +497,123 @@ function SessionDetails() {
             </Accordion.Body>
           </Accordion.Item>
         </Accordion> */}
+      </div>
+
+      <div>
+        <Modal
+          open={isOpenModal}
+          onClose={() => setIsOpenModal(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          style={{ width: "100%" }}
+        >
+          <Box sx={style}>
+            <h3
+              className="p-1 text-center"
+              style={{
+                fontSize: "2rem",
+                color: "#42b1bc",
+                fontFamily: "Brittany Signature",
+              }}
+            >
+              Add a week to session
+            </h3>
+
+            <div class="container py-3 d-flex justify-content-center">
+              <div style={{ width: "65rem" }} class="col-lg-8">
+                <div class="card mb-4">
+                  <Form onSubmit={handleSubmit}>
+                    <div class="card-body">
+                      <p class="text- text-center">{session?.title} 🧑‍💻 </p>
+
+                      <FormGroup
+                        className="mb-3 d-flex justify-content-between"
+                        controlId="formBasicEmail"
+                      >
+                        <Form.Label>Title</Form.Label>
+                        <p class="text-muted mb-0">
+                          <input
+                            type="text"
+                            name="title"
+                            placeholder="title of week"
+                            className="form-control"
+                            required
+                            onChange={handleChange}
+                          />
+                        </p>
+
+                        <hr />
+                      </FormGroup>
+                    </div>
+                    <div class="container py-2 d-flex justify-content-center">
+                      <div style={{ width: "65rem" }} class="col-lg-8">
+                        <h3 className="text-center py-2">Week content</h3>
+
+                        <Select
+                          labelId="demo-multiple-chip-label"
+                          className="px-3 border border-info form-control "
+                          id="demo-multiple-chip"
+                          multiple
+                          value={weekcontents}
+                          onChange={(e) => {
+                            console.log(e.target.value);
+                            setweekcontents(e.target.value);
+                          }}
+                          input={
+                            <OutlinedInput
+                              id="select-multiple-chip"
+                              label="Chip"
+                            />
+                          }
+                          renderValue={(selected) => (
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.5,
+                              }}
+                            >
+                              {selected.map((value) => (
+                                <Chip
+                                  key={value.id}
+                                  label={
+                                    lessoncontent.find(
+                                      (elem) => value === elem.id
+                                    ).contentname
+                                  }
+                                />
+                              ))}
+                            </Box>
+                          )}
+                          // MenuProps={MenuProps}
+                        >
+                          {lessoncontent.map((LessonContent) => (
+                            <MenuItem
+                              key={LessonContent.id}
+                              value={LessonContent.id}
+                            >
+                              {LessonContent.contentname}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-center gap-4 py-3">
+                      <button
+                        className="btn"
+                        style={{ backgroundColor: "#ffc107" }}
+                        type="submit"
+                        onSubmit={handleSubmit}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </Form>
+                </div>
+              </div>
+            </div>
+          </Box>
+        </Modal>
       </div>
     </div>
   );

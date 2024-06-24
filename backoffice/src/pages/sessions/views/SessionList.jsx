@@ -35,8 +35,6 @@ export default function CourseList() {
   const navigate = useNavigate();
   return (
     <div>
-    
-
       <div>
         <div className="d-flex justify-content-between">
           <h3
@@ -49,7 +47,7 @@ export default function CourseList() {
           >
             Welcome to sessions page
           </h3>
-          
+
           <div className=" p-5">
             {/* <button
               className="btn"
@@ -98,7 +96,7 @@ export default function CourseList() {
               <Button
                 size="small"
                 onClick={() => {
-                  navigate(`${card.id}`);
+                  navigate(`face-reco/${card.id}`);
                 }}
                 variant="outlined"
               >

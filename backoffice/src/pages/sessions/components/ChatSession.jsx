@@ -4,6 +4,8 @@ import { IconButton } from "@mui/material";
 import send from "../../../assets/images/send.png";
 import { useSelector } from "react-redux";
 import { SocketContext } from "../../../apps/App";
+import { IoSend } from "react-icons/io5";
+
 import { useParams } from "react-router-dom";
 import lottie from "lottie-web";
 import { defineElement } from "@lordicon/element";
@@ -83,8 +85,8 @@ export default function ChatSession({setState,state}) {
       >
         {messages?.map((elem, i) => (
           <div
-            style={{ width: "100%", height: "100%" }}
-            class={`d-flex py-3 gap-3  mb-4  ${
+            style={{ width: "100%" }}
+            class={`d-flex py-3 gap-3 px-3  mb-4  ${
               elem.senderId === userId ? "justify-content-end" : ""
             }`}
             key={i}
@@ -117,7 +119,7 @@ export default function ChatSession({setState,state}) {
               )}
             </div>
             <img
-              src={user.image}
+              src={elem?.sender.image} /// bel current user image
               alt="avatar"
               class="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
               width="60"
@@ -152,12 +154,7 @@ export default function ChatSession({setState,state}) {
           type="submit"
           onSubmit={sendMessage}
         >
-          <img src="" alt="" />
-          <lord-icon
-            src="https://cdn.lordicon.com/tmqaflqo.json"
-            trigger="hover"
-            style={{ width: "5rem", height: "5rem" }}
-          ></lord-icon>
+          <IoSend style={{ width: "3rem", height: "3rem", color: "#f2b500" }} />
           {/* <img alt="" src={send} style={{ width: 50, heigh: 50 }} /> */}
         </button>
       </form>

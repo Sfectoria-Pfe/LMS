@@ -32,6 +32,45 @@ export class AuthService {
     const myInfo = this.jwtService.decode(token);
     return myInfo;
   }
+  async updateMe(dto: any, id: number) {
+    if (dto['password']) {
+      throw new HttpException(
+        'Vous ne pouvez pas modifier le mot de passe',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    if (dto.email) {
+      const existingUser = await this.prisma.user.findFirst({
+        where: {
+          email: dto.email,
+          id: {
+            not: id, // Exclude the current user
+          },
+        },
+      });
+
+      if (existingUser) {
+        throw new HttpException(
+          "L'adresse e-mail est déjà utilisée",
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+    }
+
+    const { email, ...resto } = dto;
+    const updatedUser = await this.prisma.user.update({
+      where: { id: id },
+      
+      data: {
+        email: email,
+        ...resto
+      },
+    });
+    const { password, ...rest } = updatedUser;
+    const token = this.jwtService.sign(rest);
+    return token;
+  }
 
   // findAll() {
   //   return `This action returns all auth`;

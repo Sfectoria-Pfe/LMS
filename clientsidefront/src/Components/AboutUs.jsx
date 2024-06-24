@@ -1,23 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import aboutus from "../assets/about.jpg";
 import Box from '@mui/joy/Box';
+import axios from 'axios';
+import { Form } from 'react-bootstrap';
+
 
 
 
 export default function AboutUs() {
+  
   return (
     <div>
-
-
-
-
-
-
-
-
-
       <div className="d-flex justify-content-center p-5 flex-wrap align-items-center flex-wrap">
         <h1 style={{ fontFamily: "Brittany Signature" }}>About us</h1>
+     
+    
         <div
           style={{
             height: "5px",

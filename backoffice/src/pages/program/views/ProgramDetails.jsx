@@ -22,11 +22,16 @@ export default function ProgramDetails() {
 
   return (
     <div>
-      <div className="d-flex justify-content-between flex-wrap">
+      <div className="d-flex justify-content-between align-items-center flex-wrap">
         <div className="d-flex flex-wrap">
-          {/* <p className="px-5 py-4" style={{ fontSize: "2rem" }}>
-          {program?.title}
-          </p> */}
+          <p
+            className="px-5 py-4 d-flex flex-wrap "
+            style={{ fontSize: "2rem", fontFamily: "Dancing Script " }}
+          >
+            {program?.title}
+          </p>
+          {/* <div>
+
           <p className=" py-4" style={{ fontSize: "2rem", color: "#42b1bc" }}>
             |
           </p>
@@ -40,6 +45,7 @@ export default function ProgramDetails() {
           >
             BY SFECTORIA
           </p>
+          </div> */}
         </div>
       </div>
 
@@ -50,42 +56,18 @@ export default function ProgramDetails() {
       <div className="d-flex justify-content-center "></div>
       <p className="px-5 py-4">Description:{program?.description}</p>
 
-      {program?.ProgramCourse?.map((pm,i) => (
+      {program?.ProgramCourse?.map((pm, i) => (
         <div className="px-3" key={i}>
-          
-                <div className="d-flex gap-3 justify-content-between w-100 align-items-center">
-                  <div className="d-flex gap-3">
-                    <img
-                      src={pm.course.imageURL}
-                      alt=""
-                      style={{ width: "4rem" }}
-                    />
-                    <Link to={`/courses/details/${pm.course.id}`}
-                  
-
-
-                        >
-                            <p>{pm.course.title} </p>
-                          
-                          </Link>  
-                  </div>
-                  <div className="px-4 d-flex gap-3">
-                    <div>
-                      <IoIosAddCircle />
-                    </div>
-                    <div>
-                      <FaTrashAlt
-                        style={{ color: "red" }}
-                        onClick={() => {
-                          setModalShow(true);
-                        
-                                                  }}
-                      />
-                    </div>
-                  </div>
-                </div>
+          <div className="d-flex gap-3 justify-content-between w-100 align-items-center">
+            <div className="d-flex gap-3">
+              <img src={pm.course.imageURL} alt="" style={{ width: "4rem" }} />
+              <Link to={`/courses/details/${pm.course.id}`}>
+                <p>{pm.course.title} </p>
+              </Link>
+            </div>
            
-             
+          </div>
+
           <p className="text-center"></p>
         </div>
       ))}

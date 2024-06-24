@@ -168,39 +168,8 @@ export default function MiniDrawer() {
           className="d-flex justify-content-between"
           style={{ backgroundColor: "#0f1924" }}
         >
+          <div></div>
           <div>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={() => setOpen(true)}
-              edge="start"
-              sx={{
-                marginRight: 5,
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-          </div>
-          <div>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               size="large"
               edge="end"
@@ -239,40 +208,37 @@ export default function MiniDrawer() {
             </IconButton>
           </DrawerHeader>
           <Divider />
-          <List>
-            <ListItem disablePadding onClick={() => navigate("/")}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <MdSpaceDashboard style={{ color: "#ffc107" }} />
-                </ListItemIcon>
-                <ListItemText className="text-white" primary="Dashboard" />
-              </ListItemButton>
-            </ListItem>
 
+          <List>
             {user.role === "Manager" && (
               <div>
+                <ListItem disablePadding onClick={() => navigate("/")}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <MdSpaceDashboard style={{ color: "#ffc107" }} />
+                    </ListItemIcon>
+                    <ListItemText className="text-white" primary="Dashboard" />
+                  </ListItemButton>
+                </ListItem>
 
-            <ListItem disablePadding onClick={() => navigate("/courses")}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <MdPlayLesson style={{ color: "#ffc107" }} />
-                </ListItemIcon>
-                <ListItemText className="text-white" primary="Courses" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding onClick={() => navigate("/programs")}>
-              <ListItemButton>
-                <ListItemIcon>
-                  <PiPathBold style={{ color: "#ffc107" }} />
-                </ListItemIcon>
-                <ListItemText className="text-white" primary="Programs" />
-              </ListItemButton>
-            </ListItem>
+                <ListItem disablePadding onClick={() => navigate("/courses")}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <MdPlayLesson style={{ color: "#ffc107" }} />
+                    </ListItemIcon>
+                    <ListItemText className="text-white" primary="Courses" />
+                  </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding onClick={() => navigate("/programs")}>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <PiPathBold style={{ color: "#ffc107" }} />
+                    </ListItemIcon>
+                    <ListItemText className="text-white" primary="Programs" />
+                  </ListItemButton>
+                </ListItem>
               </div>
-
-)}
-
-
+            )}
 
             <ListItem
               disablePadding
@@ -300,7 +266,6 @@ export default function MiniDrawer() {
                 </ListItemButton>
               </ListItem>
             )}
-
 
             {user.role === "Manager" && (
               <ListItem disablePadding onClick={() => navigate("/users")}>

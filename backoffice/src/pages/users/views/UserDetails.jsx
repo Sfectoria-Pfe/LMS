@@ -19,7 +19,7 @@ import { CardActionArea, FormLabel } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { orange, cyan } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-
+import '../../../css/user.css';
 export default function UserDetails() {
     const user = useSelector((state) => state.userSlice.user);
 const { id } = useParams();
@@ -34,8 +34,8 @@ const theme = createTheme({
 useEffect(() => {
   dispatch(fetchuser(id));
 }, [dispatch]);
-  return (
-    <Box className=" d-flex justify-content-center align-items-center">
+  return ( <div>
+      <Box className=" d-flex justify-content-center align-items-center">
       <Card style={{ width: "50rem" }}>
         <Box sx={{ mb: 1 }}>
           <div className="d-flex justify-content-center py-3 align-items-center flex-wrap">
@@ -112,77 +112,10 @@ useEffect(() => {
         </div>
       </Card>
     </Box>
+    </div>
+  
 
-    //     <div className="d-flex justify-content-center py-4">
-    //   <Card sx={{ maxWidth: 490 }}>
-    //       <CardActionArea>
-
-    //         <CardMedia
-    //           component="img"
-    //           height="140"
-    //           image={user?.image}
-    //           alt="green iguana"
-    //         />
-
-    //        <div className="d-flex justify-content-center py-1" >
-    //            <ThemeProvider theme={theme}>
-    //       <Button variant="contained">{user?.role}</Button>
-    //       </ThemeProvider>
-    //         </div>
-    //         <div className="d-flex justify-content-center py-1">
-    //         <ThemeProvider theme={theme}>
-
-    //   <Button variant="contained" color="secondary">{user?.email}</Button>
-    //   </ThemeProvider>
-    //         </div>
-
-    //         <CardContent>
-    //           <Typography gutterBottom variant="h3" component="div">
-    //           {user?.firstName} {user?.lastName}
-    //           </Typography>
-
-    //           <Typography gutterBottom variant="h5" component="div">
-    //           Phone
-    //           </Typography>
-    //           <Typography variant="body4" color="text.secondary">
-    //           {user?.phone}
-    //           </Typography>
-    //           <Typography gutterBottom variant="h5" component="div">
-    //           Address
-    //           </Typography>
-    //           <Typography variant="body4" color="text.secondary">
-    //           {user?.address}
-    //           </Typography>
-
-    //         </CardContent>
-    //       </CardActionArea>
-    //     </Card>
-    // {/* {[
-
-    //         'Dark',
-    //       ].map((variant, idx) => (
-    //         <Toast
-    //           className="d-inline-block m-1"
-    //           bg={variant.toLowerCase()}
-    //           key={idx}
-    //         >
-    //           <Toast.Header>
-    //             <img
-    //               src="holder.js/20x20?text=%20"
-    //               className="rounded me-2"
-    //               alt=""
-    //             />
-    //             <strong className="me-auto">{user?.firstName} {user?.lastName}</strong>
-    //             <small>{user?.role}</small>
-    //           </Toast.Header>
-    //           <Toast.Body className={variant === 'Dark' && 'text-white'}>
-    //           {user?.email}
-
-    //           </Toast.Body>
-    //         </Toast>
-    //       ))}
-    //  */}
-
-    //     </div>
+   
+    
   );
 }

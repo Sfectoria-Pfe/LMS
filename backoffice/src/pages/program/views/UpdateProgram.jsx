@@ -1,22 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { updateProgram , fetchprogram } from '../../../store/Program';
+import { updateProgram , fetchprogram ,   fetchprograms } from '../../../store/Program';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
-import courses, { fetchCourses } from '../../../store/courses';
+import { fetchCourses } from '../../../store/courses';
 import axios from 'axios';
 
 
+
 export default function UpdateProgram() {
-  const [updatedprogram, setUpdatedprogram] = useState({});
+
   const program = useSelector((state) => state.ProgramSlice.program);
+ 
     const courses = useSelector((state) => state.coursesSlice.courses.items);
-    console.log(updatedprogram)
+   
+   
     const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [updatedprogram, setUpdatedprogram] = useState({ courses : []});
+  console.log(updatedprogram)
    const [imageURL, setImageUrl] = useState(null);
+   
 
     let { id } = useParams();
   console.log(id, "Update program");
@@ -70,7 +76,7 @@ export default function UpdateProgram() {
           <div class="row">
             <div class="col-lg-4">
               <div class="card mb-4">
-                <div class="card-body text-center" style={{ height: "34rem" }}>
+                <div class="card-body text-center" style={{ height: "30rem" }}>
                   <img
                     src={program?.imageURL}
                     alt="programimg"
@@ -91,6 +97,7 @@ export default function UpdateProgram() {
 
                   <div class="d-flex justify-content-center">
                     <Button
+                      type="submit"
                       style={{ width: "7rem" }}
                       variant="warning"
                       onClick={handleSubmit}
@@ -101,7 +108,7 @@ export default function UpdateProgram() {
                 </div>
               </div>
             </div>
-            <div style={{ width: "48rem" }} class="col-lg-8">
+            <div style={{ width: "48rem" , height:"100%" }} class="col-lg-8">
               <div class="card mb-4">
                 <div class="card-body">
                   <div class="row">
@@ -171,9 +178,9 @@ export default function UpdateProgram() {
                       <Select
                         labelId="demo-multiple-chip-label"
                         id="demo-multiple-chip"
-                        multiple
+                        // multiple
                         name="ProgramCourse"
-                        value={program?.courses}
+                        value={program?.ProgramCourse.course}
                         onChange={(e) => {
                           setUpdatedprogram({
                             ...updatedprogram,
@@ -196,7 +203,7 @@ export default function UpdateProgram() {
                         )}
                    
                       >
-                        {courses.map((course) => (
+                        {courses?.map((course) => (
                           <MenuItem key={course.id} value={course}>
                             {course.title}
                           </MenuItem>

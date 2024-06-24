@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-
+import React, { useEffect, useState } from "react";
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -15,10 +15,75 @@ import AppWidgetSummary from '../app-widget-summary';
 import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchusers } from '../../../store/UserInfo';
+import { fetchlessoncontent } from '../../../store/Lessoncontent';
+import { fetchLessons } from '../../../store/lesson';
+import { fetchSessions } from '../../../store/sessions';
+
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const users = useSelector((state) => state.userSlice.users.items)
+  const lessons = useSelector((state) => state.lessonSlice.lessons.items)
+  const sessions = useSelector((state) => state.sessionsSlice.sessions.items)
+  const teacher = [] 
+  const currentUsers=[]
+  {users.map((user) =>{
+              (user.role === "Teacher" &&
+              
+                teacher.push(user)
+              
+                
+            )
+  })
+  }
+
+   function findOcc(arr, key) {
+     let arr2 = [];
+
+     arr.forEach((x) => {
+       // Checking if there is any object in arr2
+       // which contains the key value
+       if (
+         arr2.some((val) => {
+           return val[key] == x[key];
+         })
+       ) {
+         // If yes! then increase the occurrence by 1
+         arr2.forEach((k) => {
+           if (k[key] === x[key]) {
+             k["occurrence"]++;
+           }
+         });
+       } else {
+         // If not! Then create a new object initialize
+         // it with the present iteration key's value and
+         // set the occurrence to 1
+         let a = {};
+         a[key] = x[key];
+         a["occurrence"] = 1;
+         arr2.push(a);
+       }
+     });
+
+     return arr2;
+  } 
+  currentUsers.push(findOcc(users, "address"))
+    console.log(currentUsers , "adress"); 
+  console.log(teacher, "Teacher")
+  console.log(lessons, "users")
+  const dispatch = useDispatch()
+ 
+
+  
+  useEffect(() => {
+    dispatch(fetchusers())
+    dispatch(fetchLessons())
+    dispatch(fetchSessions())
+  },[dispatch])
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -28,8 +93,8 @@ export default function AppView() {
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Monthly Sales"
-            total={30}
+            title="Available sessions"
+            total={sessions?.length + 1}
             color="success"
             icon={
               <lord-icon
@@ -44,7 +109,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="New Users"
-            total={658}
+            total={users?.length + 1}
             color="info"
             icon={
               <lord-icon
@@ -58,8 +123,8 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Availabel lessons"
-            total={1590}
+            title="Available lessons"
+            total={lessons?.length + 1}
             color="warning"
             icon={
               <lord-icon
@@ -74,7 +139,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             title="Teachers"
-            total={43}
+            total={teacher.length}
             color="error"
             icon={
               <lord-icon
@@ -128,19 +193,21 @@ export default function AppView() {
           />
         </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
+        {/* <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
-            title="Current Visits"
+            title="Current Users"
             chart={{
               series: [
-                { label: "Tunis", value: 4344 },
-                { label: "Sfax", value: 5435 },
-                { label: "Europe", value: 1443 },
-                { label: "Sousse", value: 4443 },
+                currentUsers.map((current) => (
+                  {
+                  label: currentUsers.address,
+                  value: 5,
+                  }
+                )),
               ],
             }}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={6} lg={8}>
           <AppConversionRates
@@ -196,7 +263,7 @@ export default function AppView() {
             }))}
           />
         </Grid> */}
-{/* 
+        {/* 
         <Grid xs={12} md={6} lg={4}>
           <AppOrderTimeline
             title="Order Timeline"
@@ -258,8 +325,6 @@ export default function AppView() {
             ]}
           />
         </Grid> */}
-
-     
       </Grid>
     </Container>
   );
