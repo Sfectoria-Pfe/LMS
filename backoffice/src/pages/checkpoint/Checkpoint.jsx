@@ -57,7 +57,7 @@ export default function Checkpoint() {
                   <List
                     sx={{
                       py: 0,
-                      width: "8rem",
+                      width: "9rem",
                       maxWidth: 360,
                       borderRadius: 2,
                       border: "1px solid",

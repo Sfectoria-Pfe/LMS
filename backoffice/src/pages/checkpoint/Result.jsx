@@ -54,7 +54,7 @@ export default function Result() {
 
                       <Checkbox
                         // color="success"
-                        checked={proposal?.userResponses.some(
+                        checked={proposal?.userResponses?.some(
                           (response) => response.propositionanswerId
                         )}
                       />

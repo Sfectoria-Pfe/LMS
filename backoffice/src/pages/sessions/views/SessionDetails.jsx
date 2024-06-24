@@ -8,6 +8,7 @@ import { DataGrid } from "@mui/x-data-grid";
 
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
+import { MdHideSource } from "react-icons/md";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -43,8 +44,10 @@ import { BiSolidMessageDetail } from "react-icons/bi";
 import chat from "../../../assets/images/AnimationChat.json";
 import { IoIosAddCircle } from "react-icons/io";
 
-import { fetchlessoncontents } from "../../../store/Lessoncontent";
+import { fetchlessoncontent, fetchlessoncontents, updateContent } from "../../../store/Lessoncontent";
 import { sendweek } from "../../../store/weeks";
+import { fetchweekcontent, updateWeekCntent } from "../../../store/weekcontent";
+import { showErrorToast, showSuccessToast } from "../../../utils/toast";
 
 const style = {
   position: "absolute",
@@ -408,32 +411,71 @@ const handleSubmit = async (e) => {
                     </div>
                   </div>
                 </Accordion.Header>
+
                 <Accordion.Body>
                   {week?.WeekContent.map((contentweek) => (
                     <div className="d-flex gap-3 py-3 flex-wrap">
                       <Card className="w-100  ">
                         <div className="d-flex justify-content-between px-3">
-                          <div>
-                            <Link
-                              to={
-                                contentweek?.LessonContent?.type ===
-                                "checkpoint"
-                                  ? `/checkpoint/${contentweek.id}`
-                                  : contentweek.LessonContent.contentURL
-                              }
-                              underline="hover"
-                              className="p-2"
-                            >
-                              {contentweek.LessonContent.contentname}
-                            </Link>
-                          </div>
+                          {(user.role === "Manager" ||
+                            user.role === "Teacher" ||
+                            (user.role === "Student" &&
+                              contentweek.viewed === true)) && (
+                            <div>
+                              <Link
+                                to={
+                                  contentweek?.LessonContent?.type ===
+                                  "checkpoint"
+                                    ? `/checkpoint/${contentweek.LessonContentId}`
+                                    : contentweek.LessonContent.contentURL
+                                }
+                                underline="hover"
+                                className="p-2"
+                              >
+                                {contentweek.LessonContent.contentname}
+                              </Link>
+                            </div>
+                          )}
                           {(user.role === "Manager" ||
                             user.role === "Teacher") && (
-                            <div>
+                            <div className="d-flex align-items-center gap-2">
                               <lord-icon
+                                onClick={() => {
+                                  dispatch(
+                                    updateWeekCntent({
+                                      id: contentweek.id,
+                                      body: { viewed: true },
+                                    })
+                                  ).then((res) => {
+                                    dispatch(fetchweekcontent(contentweek.id));
+                                    if (!res.error) {
+                                      showSuccessToast(
+                                        "the lesson has been showed."
+                                      );
+                                    }
+                                  });
+                                }}
                                 src="https://cdn.lordicon.com/fmjvulyw.json"
                                 trigger="hover"
                               ></lord-icon>
+                              <MdHideSource
+                                onClick={() => {
+                                  dispatch(
+                                    updateWeekCntent({
+                                      id: contentweek.id,
+                                      body: { viewed: false },
+                                    })
+                                  ).then((res) => {
+                                    dispatch(fetchweekcontent(contentweek.id));
+                                    if (!res.error) {
+                                      showSuccessToast(
+                                        "the lesson has been hidden."
+                                      );
+                                    }
+                                  });
+                                }}
+                                style={{ color: "red" }}
+                              />
                             </div>
                           )}
                         </div>

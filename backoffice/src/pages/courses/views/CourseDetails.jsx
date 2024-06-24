@@ -298,7 +298,7 @@ const style = {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Delete course
+            Delete lesson
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

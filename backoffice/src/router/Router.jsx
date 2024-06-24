@@ -94,7 +94,7 @@ export default function Router() {
                   <Route path="update/:courseId" element={<UpdateCourse />} />
                   <Route path=":courseId/lesson/add" element={<AddLessons />} />
                   <Route
-                    path="details/:courseId/add/:lessonIdContnet/checkpoint"
+                    path="details/:courseId/add/:lessonId/checkpoint"
                     element={<AddChekPoint />}
                   />
                 </Route>

@@ -71,8 +71,39 @@ export const sendlessoncontent = createAsyncThunk(
     );
     console.log(response.data, " this is type content");
     return response.data;
+  })
+export const sendlessoncontentCheckpoint = createAsyncThunk(
+         " sendlessoncontentCheckpoint",
+         async (body) => {
+           const response = await axios.post(
+             "http://localhost:5000/lesson-content/checkpoint",
+             body
+           );
+           console.log(response.data, " this is type content");
+           return response.data;
+         }
+       );
+  
+
+  export const updateContent = createAsyncThunk(
+  "updateContent",
+  async (args, { dispatch }) => {
+    const { id, body } = args;
+    try {
+      const response = await axios.patch(
+        "http://localhost:5000/lesson-content" + id,
+        body
+      );
+
+      dispatch(fetchlessoncontent(id));
+      return response.data;
+    } catch (error) {
+      console.error("Error deleting course:", error);
+      throw error;
+    }
   }
 );
+
 
 export const lessoncontentSlice = createSlice({
   name: "lessoncontent",

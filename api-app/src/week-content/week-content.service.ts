@@ -23,7 +23,10 @@ export class WeekContentService {
   }
 
   update(id: number, updateWeekContentDto: UpdateWeekContentDto) {
-    return `This action updates a #${id} weekContent`;
+    return this.prisma.weekContent.update({
+      where: { id },
+      data: updateWeekContentDto,
+    });
   }
 
   remove(id: number) {

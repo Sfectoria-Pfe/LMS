@@ -1,88 +1,69 @@
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 import React, { useEffect, useState } from "react";
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Unstable_Grid2';
-import Typography from '@mui/material/Typography';
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Unstable_Grid2";
+import Typography from "@mui/material/Typography";
 
-import Iconify from '../../../components/iconify';
+import Iconify from "../../../components/iconify";
 
-import AppTasks from '../app-tasks';
-import AppNewsUpdate from '../app-news-update';
-import AppOrderTimeline from '../app-order-timeline';
-import AppCurrentVisits from '../app-current-visits';
-import AppWebsiteVisits from '../app-website-visits';
-import AppWidgetSummary from '../app-widget-summary';
-import AppTrafficBySite from '../app-traffic-by-site';
-import AppCurrentSubject from '../app-current-subject';
-import AppConversionRates from '../app-conversion-rates';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchusers } from '../../../store/UserInfo';
-import { fetchlessoncontent } from '../../../store/Lessoncontent';
-import { fetchLessons } from '../../../store/lesson';
-import { fetchSessions } from '../../../store/sessions';
-
+import AppTasks from "../app-tasks";
+import AppNewsUpdate from "../app-news-update";
+import AppOrderTimeline from "../app-order-timeline";
+import AppCurrentVisits from "../app-current-visits";
+import AppWebsiteVisits from "../app-website-visits";
+import AppWidgetSummary from "../app-widget-summary";
+import AppTrafficBySite from "../app-traffic-by-site";
+import AppCurrentSubject from "../app-current-subject";
+import AppConversionRates from "../app-conversion-rates";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchusers } from "../../../store/UserInfo";
+import { fetchlessoncontent } from "../../../store/Lessoncontent";
+import { fetchLessons } from "../../../store/lesson";
+import { fetchSessions } from "../../../store/sessions";
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
-  const users = useSelector((state) => state.userSlice.users.items)
-  const lessons = useSelector((state) => state.lessonSlice.lessons.items)
-  const sessions = useSelector((state) => state.sessionsSlice.sessions.items)
-  const teacher = [] 
-  const currentUsers=[]
-  {users.map((user) =>{
-              (user.role === "Teacher" &&
-              
-                teacher.push(user)
-              
-                
-            )
-  })
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.userSlice.users.items);
+  const lessons = useSelector((state) => state.lessonSlice.lessons.items);
+  const sessions = useSelector((state) => state.sessionsSlice.sessions.items);
+  const teacher = [];
+  const [currentUsers, setCurrentUsers] = useState([]);
+  {
+    users.map((user) => {
+      user.role === "Teacher" && teacher.push(user);
+    });
   }
 
-   function findOcc(arr, key) {
-     let arr2 = [];
+  function findOcc() {
+    let results = [];
+    for (let i = 0; i < users.length; i++) {
+      let flag = false;
+      for (let j = 0; j < results.length; j++) {
+        if (results[j].label === users[i].address) {
+          results[j].value++;
+          flag = true;
+        }
+      }
+      if (!flag) results.push({ label: users[i].address, value: 1 });
+    }
+    console.log(results);
+    return results;
+  }
+  // currentUsers=(findOcc(users, "address"))
 
-     arr.forEach((x) => {
-       // Checking if there is any object in arr2
-       // which contains the key value
-       if (
-         arr2.some((val) => {
-           return val[key] == x[key];
-         })
-       ) {
-         // If yes! then increase the occurrence by 1
-         arr2.forEach((k) => {
-           if (k[key] === x[key]) {
-             k["occurrence"]++;
-           }
-         });
-       } else {
-         // If not! Then create a new object initialize
-         // it with the present iteration key's value and
-         // set the occurrence to 1
-         let a = {};
-         a[key] = x[key];
-         a["occurrence"] = 1;
-         arr2.push(a);
-       }
-     });
-
-     return arr2;
-  } 
-  currentUsers.push(findOcc(users, "address"))
-    console.log(currentUsers , "adress"); 
-  console.log(teacher, "Teacher")
-  console.log(lessons, "users")
-  const dispatch = useDispatch()
- 
-
-  
   useEffect(() => {
-    dispatch(fetchusers())
-    dispatch(fetchLessons())
-    dispatch(fetchSessions())
-  },[dispatch])
+    dispatch(fetchusers());
+    dispatch(fetchLessons());
+    dispatch(fetchSessions());
+  }, [dispatch]);
+  useEffect(() => {
+    setCurrentUsers(findOcc());
+  }, [users]);
+  console.log(currentUsers, "adress");
+  console.log(teacher, "Teacher");
+  console.log(lessons, "users");
 
   return (
     <Container maxWidth="xl">
@@ -214,18 +195,7 @@ export default function AppView() {
             title="Conversion Rates"
             subheader="(+43%) than last year"
             chart={{
-              series: [
-                { label: "Tunis", value: 400 },
-                { label: "Sfax", value: 430 },
-                { label: "Sousse", value: 448 },
-                { label: "Ben arous", value: 470 },
-                { label: "France", value: 540 },
-                { label: "Germany", value: 580 },
-                { label: "Gabes", value: 690 },
-                { label: "Kef", value: 1100 },
-                { label: "Manouba", value: 1200 },
-                { label: "Ariana", value: 1380 },
-              ],
+              series: currentUsers,
             }}
           />
         </Grid>

@@ -7,6 +7,8 @@ export class CreateWeekDto {
     title: string;
     @ApiProperty()
     sessionId: number;
+    @ApiProperty({ type: [Number] })
+        
     contentweek?: number[];
 
 }

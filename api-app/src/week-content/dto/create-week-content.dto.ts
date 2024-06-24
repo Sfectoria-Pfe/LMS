@@ -7,4 +7,6 @@ export class CreateWeekContentDto {
     weekId : number ;
     @ApiProperty()
     LessonContentId: number;
+    @ApiProperty()
+    viewed: boolean;
 }

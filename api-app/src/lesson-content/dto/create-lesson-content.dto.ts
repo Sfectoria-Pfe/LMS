@@ -17,9 +17,10 @@ export class Question {
   label: string;
   @ApiProperty()
   scale: number;
-  @ApiProperty()
+  @ApiProperty({ type:[Answer]})
   propositions?: Answer[];
 }
+
 export class CreateLessonContentDto {
   @ApiProperty()
   contentname: string;
@@ -29,7 +30,7 @@ export class CreateLessonContentDto {
   contentURL: string;
   @ApiProperty()
   lessonId: number;
-   @ApiProperty()
+   @ApiProperty({type:[Question]})
   questions?: Question[];
 }
 

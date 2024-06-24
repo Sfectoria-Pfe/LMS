@@ -107,10 +107,12 @@ model Week {
 model WeekContent {
   id              Int            @id @default(autoincrement())
   weekId          Int
+  viewed Boolean? @default(false)
   week            Week?          @relation(fields: [weekId], references: [id], onDelete: Cascade)
   LessonContentId Int
   LessonContent   LessonContent? @relation(fields: [LessonContentId], references: [id], onDelete: Cascade)
 }
+
 
 model Lesson {
   id            Int             @id @default(autoincrement())
@@ -127,6 +129,7 @@ model LessonContent {
   contentname String
   type        typeContent
   contentURL  String?
+  
   lessonId    Int
   lesson      Lesson?       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
   WeekContent WeekContent[]
